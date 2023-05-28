@@ -1,41 +1,47 @@
-![PORTADA](https://www.canva.com/design/DAFkHGQl8kE/vKyeT7HfjzfTXTCdwOXsSA/watch?utm_content=DAFkHGQl8kE&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
+# 🦑 Curso de Github 🐙
+
+
+En este Curso Aprenderas a dominar el control de versiones y la colaboración en proyectos de desarrollo. Este curso te brindará los conocimientos y habilidades necesarios para utilizar GitHub de manera efectiva. Con GitHub, podrás gestionar y organizar tus proyectos, colaborar con otros desarrolladores y mantener un historial completo de cambios en tu código.
+
+No pierdas la oportunidad de adquirir estas habilidades altamente demandadas en el mercado laboral. ¡Inscríbete en el curso de GitHub y destaca como desarrollador en tu carrera profesional!
+
 
 ## Temario
 ----
 
-- Introducción a Git y GitHub
+1. Introducción a Git y GitHub
     - ¿Qué es Git?
     - ¿Qué es GitHub?
     - ¿Por qué Git y GitHub son importantes?
     
-- Instalación y configuración de Git
+2. Instalación y configuración de Git
     - Descarga e instalación de Git
     - Configuración de Git en la línea de comandos
     - Configuración de Git con una interfaz gráfica
     
-- Comandos básicos de Git
+3. Comandos básicos de Git
     - init, clone, add, commit, status, log
     
-- Comandos para manejar ramas
+4. Comandos para manejar ramas
     - branch, checkout, merge
     
-- Comandos para colaborar con otros desarrolladores
+5. Comandos para colaborar con otros desarrolladores
     - fetch, pull, push
     
-- Trabajo en equipo con GitHub
+6. Trabajo en equipo con GitHub
     - Creación de un repositorio en GitHub
     - Clonación de un repositorio de GitHub
     - Trabajo colaborativo en un repositorio
-        - fork, pull request, merge
+    - fork, pull request, merge
         
-- Control de versiones y gestión de conflictos
+7. Control de versiones y gestión de conflictos
 
-- Otras funcionalidades de GitHub
+8. Otras funcionalidades de GitHub
     - Issues y Pull Requests
     - GitHub Pages
     - Integración con herramientas de terceros (e.g., IDEs, plataformas de integración continua)
     
-- Buenas prácticas
+9. Buenas prácticas
     - Organización de repositorios
     - Gestión de ramas
     - Cómo escribir buenos mensajes de commit
