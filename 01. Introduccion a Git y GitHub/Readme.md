@@ -8,13 +8,21 @@
 
 `Git` es un sistema de control de versiones distribuido, ampliamente utilizado en el desarrollo de software. Permite rastrear los cambios realizados en archivos y directorios a lo largo del tiempo, lo que facilita la colaboración entre múltiples personas que trabajan en un proyecto.
 
-En lugar de guardar solo la última versión de un archivo, como lo hacen los sistemas de control de versiones tradicionales, `Git` almacena una instantánea de cada cambio realizado, lo que brinda un historial completo y detallado de las modificaciones. Esto permite revertir cambios no deseados, comparar versiones, fusionar diferentes ramas de desarrollo y colaborar de manera eficiente con otros desarrolladores.
+En lugar de guardar solo la última versión de un archivo, como lo hacen los sistemas de control de versiones tradicionales, `Git` almacena una instantánea de cada cambio realizado, lo que brinda un historial completo y detallado de las modificaciones. 
+
+Esto permite revertir cambios no deseados, comparar versiones, fusionar diferentes ramas de desarrollo y colaborar de manera eficiente con otros desarrolladores.
+
 
 ![img](https://static.platzi.com/media/user_upload/git_fire-9b873abb-7c7d-40d3-a418-0816a5a689bd.jpg)
 
-Una de las características distintivas de `Git` es que es un sistema distribuido, lo que significa que cada desarrollador tiene una copia completa del repositorio, incluyendo todo el historial de cambios. Esto permite a los desarrolladores trabajar de forma independiente y sin conexión a Internet, y luego sincronizar sus cambios con otros repositorios remotos, como `GitHub, `GitLab o un servidor propio.
 
-`Git` utiliza comandos de línea de comandos o interfaces gráficas para realizar operaciones como la creación de un repositorio, la confirmación de cambios, la creación y fusión de ramas, entre otros. Proporciona una gran flexibilidad y potencia para administrar el versionamiento de proyectos de software, lo que lo convierte en una herramienta fundamental para desarrolladores y equipos de desarrollo.
+Una de las características distintivas de `Git` es que es un sistema distribuido, lo que significa que cada desarrollador tiene una copia completa del repositorio, incluyendo todo el historial de cambios. 
+
+Esto permite a los desarrolladores trabajar de forma independiente y sin conexión a Internet, y luego sincronizar sus cambios con otros repositorios remotos, como `GitHub, `GitLab o un servidor propio.
+
+`Git` utiliza comandos de línea de comandos o interfaces gráficas para realizar operaciones como la creación de un repositorio, la confirmación de cambios, la creación y fusión de ramas, entre otros.
+
+ Proporciona una gran flexibilidad y potencia para administrar el versionamiento de proyectos de software, lo que lo convierte en una herramienta fundamental para desarrolladores y equipos de desarrollo.
 
 Aquí tienes los **ejemplos** de Git:
 
@@ -41,6 +49,7 @@ GitHub es una plataforma web y un servicio de alojamiento para proyectos de desa
 
 En GitHub, los desarrolladores pueden crear repositorios para almacenar y organizar su código. Estos repositorios actúan como almacenes centrales donde se guarda toda la información relacionada con el proyecto, incluyendo los archivos de código, documentación, imágenes y otros recursos.
 
+---
 ### Algunas características clave de GitHub incluyen:
 
 1. **Control de versiones**: GitHub aprovecha la potencia de Git como sistema de control de versiones. Esto significa que puedes realizar un seguimiento de los cambios en tus archivos, ver el historial de modificaciones y revertir a versiones anteriores si es necesario.
@@ -60,7 +69,7 @@ En resumen, GitHub es una plataforma que utiliza Git como base, pero agrega cara
 
 ## ¿Por qué Git y GitHub son importantes?
 
-![img](https://edteam-media.s3.amazonaws.com/community/original/9f645716-a316-4297-b1be-d2cbd23e4853.jpg)
+![img](https://kinsta.com/es/wp-content/uploads/sites/8/2023/02/github-pages.jpg)
 
 Git y GitHub son importantes por varias razones:
 

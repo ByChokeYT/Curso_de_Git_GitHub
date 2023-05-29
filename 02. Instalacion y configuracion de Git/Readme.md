@@ -14,7 +14,7 @@ Aquí tienes los pasos para descargar e instalar Git en tu equipo:
 
 4. Sigue las instrucciones del instalador para completar la instalación. A continuación, se presentarán algunas opciones de configuración durante el proceso de instalación. Puedes mantener las opciones predeterminadas o personalizarlas según tus preferencias.
 
-![img](https://www.neoguias.com/wp-content/uploads/2020/05/instalar-git-windows-03.png)
+    ![img](https://www.neoguias.com/wp-content/uploads/2020/05/instalar-git-windows-03.png)
 
 5. Una vez que la instalación se haya completado, puedes verificar si Git se ha instalado correctamente abriendo una ventana de terminal (en Windows, abre Git Bash o la terminal de comandos) y ejecutando el siguiente comando:
 
@@ -24,7 +24,7 @@ Aquí tienes los pasos para descargar e instalar Git en tu equipo:
 
    Si Git está instalado correctamente, verás la versión de Git en la salida del comando.
 
-![img](https://linuxhint.com/wp-content/uploads/2022/09/image10.png)
+   ![img](https://linuxhint.com/wp-content/uploads/2022/09/image10.png)
 
 ¡Eso es todo! Ahora tienes Git instalado en tu equipo. Puedes comenzar a utilizar Git en la línea de comandos o utilizar una interfaz gráfica de usuario, según tus preferencias. Recuerda que Git te permitirá realizar un seguimiento de los cambios en tu código fuente y facilitará la colaboración en proyectos de desarrollo de software.
 
@@ -46,23 +46,23 @@ Este comando establece tu nombre de usuario que se utilizará en los commits que
 ```bash
 git config --global user.email "tu_correo@example.com"
 ```
-Este comando establece tu dirección de correo electrónico que se asociará con los commits que realices. Reemplaza "tu_correo@example.com" con tu dirección de correo electrónico.
+-  Este comando establece tu dirección de correo electrónico que se asociará con los commits que realices. Reemplaza "tu_correo@example.com" con tu dirección de correo electrónico.
 
-![img](https://1.bp.blogspot.com/-PWK4gDGa0GQ/YItalgCRuRI/AAAAAAAAD6Q/AvHpHm0oW5An4fUF4a2A4g9tq3fdE1ewgCLcBGAsYHQ/s448/2.configurar-usuario.png)
+   ![img](https://1.bp.blogspot.com/-PWK4gDGa0GQ/YItalgCRuRI/AAAAAAAAD6Q/AvHpHm0oW5An4fUF4a2A4g9tq3fdE1ewgCLcBGAsYHQ/s448/2.configurar-usuario.png)
 
 3. Configuración del editor de texto:
 
 ```bash
 git config --global core.editor "nombre_del_editor"
 ```
-Este comando establece el editor de texto que se utilizará para editar los mensajes de commit. Reemplaza "nombre_del_editor" con el nombre de tu editor preferido, como "vim", "nano" o "sublime".
+- Este comando establece el editor de texto que se utilizará para editar los mensajes de commit. Reemplaza "nombre_del_editor" con el nombre de tu editor preferido, como "vim", "nano" o "sublime".
 
 4. Verificación de la configuración:
 
 ```bash
 git config --list
 ```
-Este comando muestra la configuración actual de Git en tu sistema, incluyendo el nombre de usuario, correo electrónico y otras opciones.y alfina si te traba el terminal solo tienes que precionar la letra **"Q".** 
+- Este comando muestra la configuración actual de Git en tu sistema, incluyendo el nombre de usuario, correo electrónico y otras opciones.y alfina si te traba el terminal solo tienes que precionar la letra **"Q".** 
 
 Recuerda que el uso del modificador `--global` en los comandos de configuración establece la configuración a nivel global, lo que significa que se aplicará a todos los repositorios en tu sistema. Si deseas configurar opciones específicas para un repositorio en particular, puedes omitir `--global` y ejecutar los comandos dentro del directorio del repositorio.
 
@@ -75,7 +75,9 @@ Estos son solo algunos ejemplos de configuración básica de Git en la línea de
 Si prefieres utilizar una interfaz gráfica en lugar de la línea de comandos para configurar Git, existen varias opciones disponibles. Aquí te mencionaré dos interfaces gráficas populares para configurar Git:
 
 1. **Git GUI:**
-   Git GUI es una interfaz gráfica oficial proporcionada por Git. Viene incluida en la mayoría de las distribuciones de Git y proporciona una forma intuitiva de configurar Git y realizar operaciones básicas. Puedes abrir Git GUI ejecutando el siguiente comando en la línea de comandos:
+   Git GUI es una interfaz gráfica oficial proporcionada por Git. Viene incluida en la mayoría de las distribuciones de Git y proporciona una forma intuitiva de configurar Git y realizar operaciones básicas.
+   
+ Puedes abrir Git GUI ejecutando el siguiente comando en la línea de comandos:
 
    ```bash
    git gui
@@ -87,7 +89,7 @@ Si prefieres utilizar una interfaz gráfica en lugar de la línea de comandos pa
 2. **Sourcetree:**
    Sourcetree es una herramienta de gestión de repositorios Git con una interfaz gráfica completa. Es desarrollada por Atlassian y está disponible de forma gratuita para Windows y macOS. Puedes descargar Sourcetree desde su sitio web oficial: [https://www.sourcetreeapp.com/](https://www.sourcetreeapp.com/). Una vez instalado, puedes abrir Sourcetree y seguir el asistente de configuración para establecer tu nombre de usuario, dirección de correo electrónico y otras opciones de configuración.
 
-![img](https://blog.sourcetreeapp.com/files/2017/01/win_2_header.png)
+   ![img](https://blog.sourcetreeapp.com/files/2017/01/win_2_header.png)
 
 Estas son solo dos opciones populares de interfaces gráficas para configurar Git. Hay otras herramientas disponibles, como GitKraken, GitHub Desktop, entre otras, que también ofrecen una interfaz gráfica fácil de usar para configurar Git. Puedes explorar estas opciones y elegir la que mejor se adapte a tus necesidades y preferencias.
 
