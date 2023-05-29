@@ -47,7 +47,40 @@ $ git branch -r
   origin/feature
   origin/master
 ```
+
+Cuando ejecutas el comando `git branch` sin ningún argumento, muestra una lista de las ramas locales en tu repositorio y resalta la rama actual con un asterisco (*) antes del nombre de la rama. 
+
+Aquí tienes algunos ejemplos de cómo se utiliza el comando `git branch`:
+
+1. **Ver todas las ramas locales:**
+   ```
+   git branch
+   ```
+   Esto muestra una lista de todas las ramas locales en tu repositorio y resalta la rama actual.
+
+2. **Crear una nueva rama:**
+   ```bash
+   git branch nueva-rama
+   ```
+   Esto crea una nueva rama llamada "nueva-rama" basada en la rama actual. La nueva rama no se activará automáticamente, seguirás en la rama actual.
+
+3. **Cambiar a una rama existente:**
+   ```bash
+   git branch -m rama-destino
+   ```
+   Esto cambia a la rama existente llamada "rama-destino". Debes asegurarte de haber creado previamente esa rama.
+
+4. **Eliminar una rama:**
+   ```bash
+   git branch -d rama-a-eliminar
+   ```
+   Esto elimina la rama local llamada "rama-a-eliminar". Asegúrate de haber fusionado o empujado los cambios de la rama antes de eliminarla.
+
+Recuerda que el comando `git branch` se utiliza principalmente para trabajar con las ramas locales en tu repositorio. Puedes agregar opciones adicionales para realizar diferentes operaciones, como renombrar una rama, forzar la eliminación de una rama o verificar si hay ramas remotas. Consulta la documentación de Git para obtener más información sobre las opciones disponibles.
+
 Las ramas son muy importantes en el mundo de git. Mediante el uso de ramas, varios desarrolladores pueden trabajar en paralelo en el mismo proyecto simultáneamente. Podemos usar el comando `git branch` para crear, enumerar y eliminar ramas.
+
+
 
 ---
 
