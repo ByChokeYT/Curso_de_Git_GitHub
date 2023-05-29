@@ -76,32 +76,35 @@ Aquí tienes algunos ejemplos de cómo se utiliza el comando `git branch`:
    ```
    Esto elimina la rama local llamada "rama-a-eliminar". Asegúrate de haber fusionado o empujado los cambios de la rama antes de eliminarla.
 
-Recuerda que el comando `git branch` se utiliza principalmente para trabajar con las ramas locales en tu repositorio. Puedes agregar opciones adicionales para realizar diferentes operaciones, como renombrar una rama, forzar la eliminación de una rama o verificar si hay ramas remotas. Consulta la documentación de Git para obtener más información sobre las opciones disponibles.
+Recuerda que el comando `git branch` se utiliza principalmente para trabajar con las ramas locales en tu repositorio. 
 
+Puedes agregar opciones adicionales para realizar diferentes operaciones, como renombrar una rama, forzar la eliminación de una rama o verificar si hay ramas remotas.
+
+![img](https://i.ytimg.com/vi/Bg8tiOLZw4A/maxresdefault.jpg)
+
+ 
 Las ramas son muy importantes en el mundo de git. Mediante el uso de ramas, varios desarrolladores pueden trabajar en paralelo en el mismo proyecto simultáneamente. Podemos usar el comando `git branch` para crear, enumerar y eliminar ramas.
-
-
 
 ---
 
-## 8. **git checkout**:
+## 2. **git checkout**:
 
  Este comando se utiliza para cambiar entre ramas y restaurar archivos. Permite moverse a una rama existente y deshacer cambios locales.
 
    - Para cambiar a una rama existente:
-     ```
+     ```bash
      $ git checkout develop
      Switched to branch 'develop'
      ```
 
    - Para crear una nueva rama y cambiar a ella:
-     ```
+     ```bash
      $ git checkout -b feature
      Switched to a new branch 'feature'
      ```
 
    - Para descartar cambios locales en un archivo:
-     ```
+     ```bash
      $ git checkout archivo.txt
      ```
 
@@ -109,97 +112,52 @@ Las ramas son muy importantes en el mundo de git. Mediante el uso de ramas, vari
 
 Este es también uno de los comandos Git más utilizados. Para trabajar en una rama, primero debe cambiarse a ella. Usamos git checkout principalmente para cambiar de una rama a otra. También podemos usarlo para verificar archivos y confirmaciones.
 
----
+![img](https://static.javatpoint.com/tutorial/git/images/git-checkout.png)
 
-## 9. **git push**:
+El comando `git checkout` se utiliza principalmente para cambiar de rama en Git. Aquí tienes algunos ejemplos de cómo se utiliza:
 
- Este comando se utiliza para enviar los cambios locales al repositorio remoto. Actualiza el historial de commits en el repositorio remoto.
-
+1. Cambiar a una rama existente:
    ```
-   $ git push origin master
+   git checkout nombre-de-la-rama
    ```
-![img](https://media.geeksforgeeks.org/wp-content/uploads/20220831170024/GitPush3.jpg)
+   Esto cambia tu directorio de trabajo a la rama especificada. Por ejemplo, `git checkout develop` te cambiaría a la rama llamada "develop".
 
-Después de confirmar los cambios (con git commit), lo siguiente que hay que hacer es enviar estos cambios al servidor remoto. Git push sube tus confirmaciones al repositorio remoto.
-```bash
-git push <remote> <branch-name>
-```
-Sin embargo, si tu rama se creó recientemente, también debes cargar la rama con el siguiente comando:
-```bash
-git push --set-upstream <remote> <name-of-your-branch>
-O bien:
-git push -u origin <branch_name>
-```
-**Importante:** Git push solo carga los cambios que están confirmados.
-
----
-
-## 10. **git pull**:
-
- Este comando se utiliza para obtener los cambios más recientes desde el repositorio remoto y fusionarlos en la rama local. Actualiza el repositorio local con los últimos cambios.
-
-   ```bash
-   $ git pull origin master
+2. Crear una nueva rama y cambiar a ella:
    ```
+   git checkout -b nueva-rama
+   ```
+   Esto crea una nueva rama llamada "nueva-rama" basada en la rama actual y cambia a ella. Es equivalente a ejecutar `git branch nueva-rama` y luego `git checkout nueva-rama` por separado.
 
-![img](https://media.geeksforgeeks.org/wp-content/uploads/20220825165206/gitpull8.jpg)
+3. Cambiar a una confirmación específica (commit):
+   ```
+   git checkout código-de-confirmación
+   ```
+   Esto te permite revisar una confirmación anterior en tu historial de Git. Puedes especificar el código de confirmación completo o solo los primeros caracteres. Por ejemplo, `git checkout abc123` te llevaría al commit con el código "abc123".
 
-El comando `git pull` se usa para obtener actualizaciones del repositorio remoto. Este comando es una combinación de `git fetch y git merge,` lo que significa que, cuando usamos git pull, obtienes las actualizaciones del repositorio remoto (`git fetch`) e inmediatamente aplica los últimos cambios en su local (`git merge`). (En simples palabras, sirve para traer el repositorio remoto a tu repositorio local).
-```bash
-git pull <remote>
-```
-Esta operación puede causar conflictos que debes resolver manualmente.
+4. Recuperar un archivo específico de una confirmación anterior:
+   ```
+   git checkout código-de-confirmación -- ruta/al/archivo
+   ```
+   Esto te permite recuperar un archivo específico de una confirmación anterior sin cambiar de rama. Puedes especificar la ruta al archivo que deseas recuperar y el código de confirmación.
 
+Recuerda que el comando `git checkout` puede tener diferentes usos dependiendo de la situación, como cambiar de rama, revisar confirmaciones anteriores o recuperar archivos.
+
+Asegúrate de comprender bien la funcionalidad específica que deseas utilizar y verifica la documentación de Git para obtener más detalles sobre cada caso de uso.
 
 ---
 
-## 11. **git revert**:
-
- Este comando se utiliza para deshacer un commit anterior creando un nuevo commit que revierte los cambios introducidos por el commit anterior.
-
-   ```
-   $ git revert <commit-hash>
-   ```
-![img](https://sarafordnet.files.wordpress.com/2017/03/snaghtml5190ac2.png)
-
-A veces necesitamos deshacer los cambios que hemos hecho. Hay varias formas de deshacer nuestros cambios de forma local o remota (depende de lo que necesitemos), pero debemos usar estos comandos con cuidado para evitar eliminaciones no deseadas.
-
-Una forma más segura de deshacer nuestras confirmaciones es usando git revert. Para ver nuestro historial de confirmaciones, primero debemos usar `git log -- oneline`:
-
-![img](https://www.freecodecamp.org/espanol/news/content/images/2022/05/image-4.png)
-Historia de commits de la rama master
-
-Luego, solo necesitamos especificar el código hash junto a nuestro commit que nos gustaría deshacer:
-```bash
-git revert 3321844
-```
-Después de esto, verás una pantalla como la siguiente: simplemente presiona shift + q para salir:
-
-![img](https://www.freecodecamp.org/espanol/news/content/images/2022/05/image-5.png)
-
-El comando Git revert deshará la confirmación dada, pero creará una nueva confirmación sin eliminar la anterior:
-
-![img](https://www.freecodecamp.org/espanol/news/content/images/2022/05/image-6.png)
-Nuevo commit "revert".
-
-La ventaja de usar git revert es que no toca el historial de commits. Esto significa que aún puede ver todas las confirmaciones en su historial, incluso las revertidas. 
-
-Otra medida de seguridad aquí es que todo sucede en nuestro sistema local a menos que los insertemos en el repositorio remoto. Es por eso que git revert es más seguro de usar y es la forma preferida de deshacer nuestros commits.
-
----
-
-## 12. **git merge**:
+## 3. **git merge**:
 
  Este comando se utiliza para fusionar cambios de una rama a otra. Combina los cambios de una rama en otra rama activa.
 
    - Para fusionar una rama en la rama actual:
-     ```
+     ```bash
      $ git merge feature
      ```
 
 ![img](https://media.geeksforgeeks.org/wp-content/uploads/20190901201805/465.png)
 
-Git merge básicamente integra su rama de características (feature branch) con todas sus confirmaciones en la rama dev (o master). 
+Git merge básicamente integra su rama de características **(feature branch)** con todas sus confirmaciones en la rama dev (o master). 
 
 Es importante recordar que primero debes estar en la rama específica que deseas fusionar con tu rama de características.
 
@@ -214,3 +172,30 @@ Finalmente, puedes hacer la fusión:
 git merge <branch-name>
 ```
 **Sugerencia:** asegúrate que tu rama de desarrollo tenga la última versión antes de fusionar las ramas, de lo contrario, puede enfrentar conflictos u otros problemas no deseados.
+
+![img](https://res.cloudinary.com/practicaldev/image/fetch/s--MEKaM3dY--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://cl.ly/430Q2w473e2R/Image%25202018-04-30%2520at%25201.07.58%2520PM.png)
+
+Cuando ejecutamos el comando `git merge`, estamos fusionando una rama con otra rama activa. Esto significa que los cambios de una rama se incorporarán a la otra rama. Aquí tienes algunos ejemplos de cómo se utiliza el comando `git merge`:
+
+1. **Fusionar una rama específica en la rama actual:**
+   ```bash
+   git merge nombre-de-la-rama
+   ```
+   Este comando fusionará la rama especificada (`nombre-de-la-rama`) en la rama actual en la que te encuentras.
+
+2. **Resolver conflictos de fusión:**
+   Si hay conflictos entre las ramas al fusionar, Git te notificará sobre los conflictos y deberás resolverlos manualmente. Puedes utilizar una herramienta de resolución de conflictos o editar los archivos conflictivos directamente. Una vez que hayas resuelto los conflictos, puedes completar la fusión ejecutando `git merge --continue`.
+
+3. **Fusionar una rama y crear un nuevo commit de fusión:**
+   ```bash
+   git merge --no-ff nombre-de-la-rama
+   ```
+   Este comando fusionará la rama especificada y creará un nuevo commit de fusión, incluso si no hay conflictos. Esto es útil para mantener un historial de fusiones más claro y registrar explícitamente las fusiones realizadas.
+
+4. Fusionar una rama remota:
+   ```bash
+   git merge origin/nombre-de-la-rama
+   ```
+   Si estás trabajando con ramas remotas, puedes fusionar una rama remota en tu rama local utilizando este comando. Reemplaza `nombre-de-la-rama` con el nombre de la rama remota que deseas fusionar.
+
+Recuerda que al fusionar ramas, es posible que ocurran conflictos si los cambios en ambas ramas afectan las mismas líneas de código. Es importante revisar y resolver estos conflictos correctamente antes de completar la fusión.
