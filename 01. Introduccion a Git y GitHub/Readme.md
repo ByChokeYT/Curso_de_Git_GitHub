@@ -133,4 +133,4 @@ Recuerda que este es solo un ejemplo de examen y puede ser adaptado o ampliado s
 
 ---
 
-[¡Buena Suerte En Tu Próxima Clase!]()
+[¡Buena Suerte En Tu Próxima Clase!](https://github.com/ByChokeYT/Curso_de_Github/blob/main/02.%20Instalacion%20y%20configuracion%20de%20Git/Readme.md)
