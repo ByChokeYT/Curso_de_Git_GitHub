@@ -135,4 +135,4 @@ Recuerda que este es solo un ejemplo de examen y puede ser adaptado o ampliado s
 ![img](https://lh6.googleusercontent.com/Ry--MLieGMXkpHMcJGe9NhyGulLIXpXRE5xQB-_rt_u4BEzv06YNrBOHA3iXjUCoHTGPPdH1m4rDoF_tw9xlDaZgluV9pFsP9U4dU9p3OP4cHMxcTDx8jEksJevNUYbSMw=w1200-h630-p-k-no-nu)
 
 
-[¡Buena Suerte En Tu Próxima Clase!](02. Instalacion y configuracion de Git/Readme.md)
+[¡Buena Suerte En Tu Próxima Clase!](https://github.com/ByChokeYT/Curso_de_Github/blob/main/02.%20Instalacion%20y%20configuracion%20de%20Git/Readme.md)
