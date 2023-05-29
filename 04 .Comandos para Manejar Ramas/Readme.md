@@ -64,11 +64,12 @@ Aquí tienes algunos ejemplos de cómo se utiliza el comando `git branch`:
    ```
    Esto crea una nueva rama llamada "nueva-rama" basada en la rama actual. La nueva rama no se activará automáticamente, seguirás en la rama actual.
 
-3. **Cambiar a una rama existente:**
-   ```bash
-   git branch -m rama-destino
+3. **Cambiar el nombre de una rama existente:**
+Si deseas cambiar el nombre de la rama actual, debes utilizar el comando git `branch -m` seguido del nuevo nombre de la rama.
+  ```bash
+   git branch -m nuevo-nombre-de-rama
    ```
-   Esto cambia a la rama existente llamada "rama-destino". Debes asegurarte de haber creado previamente esa rama.
+   Reemplaza "nuevo-nombre-de-rama" con el nombre que deseas asignar a la rama actual. 
 
 4. **Eliminar una rama:**
    ```bash
