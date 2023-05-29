@@ -1,5 +1,6 @@
 # 🦑Curso de Github - Sistema de control de versiones🐙 
 
+![portada](https://github.com/ByChokeYT/Curso_de_Github/blob/main/Recursos/Portada_Git_vs_Github.gif)
 
 En este Curso Aprenderas a dominar el control de versiones y la colaboración en proyectos de desarrollo. Este curso te brindará los conocimientos y habilidades necesarios para utilizar GitHub de manera efectiva. Con GitHub, podrás gestionar y organizar tus proyectos, colaborar con otros desarrolladores y mantener un historial completo de cambios en tu código.
 
