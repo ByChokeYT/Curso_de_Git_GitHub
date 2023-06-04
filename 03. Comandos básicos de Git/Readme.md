@@ -63,11 +63,11 @@ Algunos ejemplos de cómo se utiliza el comando `git clone` son:
 
 ![img](https://i.ytimg.com/vi/bmh6wFTBY8c/maxresdefault.jpg)
 
-1. Clonar un repositorio remoto existente: Si deseas obtener una copia de un repositorio remoto en tu máquina local, puedes usar `git clone` seguido de la URL del repositorio. Por ejemplo: `git clone https://github.com/usuario/repositorio.git`. Esto creará un nuevo directorio con el nombre del repositorio y copiará todos los archivos y la historia de versiones en ese directorio.
+1. **Clonar un repositorio remoto existente:** Si deseas obtener una copia de un repositorio remoto en tu máquina local, puedes usar `git clone` seguido de la URL del repositorio. Por ejemplo: `git clone https://github.com/usuario/repositorio.git`. Esto creará un nuevo directorio con el nombre del repositorio y copiará todos los archivos y la historia de versiones en ese directorio.
 
-2. Clonar un repositorio específico o rama: Puedes clonar un repositorio específico o una rama específica utilizando el parámetro `-b` seguido del nombre de la rama o etiqueta que deseas clonar. Por ejemplo: `git clone -b nombre_de_rama https://github.com/usuario/repositorio.git`. Esto te permite clonar solo una parte específica del repositorio en lugar de toda la historia.
+2. **Clonar un repositorio específico o rama:** Puedes clonar un repositorio específico o una rama específica utilizando el parámetro `-b` seguido del nombre de la rama o etiqueta que deseas clonar. Por ejemplo: `git clone -b nombre_de_rama https://github.com/usuario/repositorio.git`. Esto te permite clonar solo una parte específica del repositorio en lugar de toda la historia.
 
-3. Clonar un repositorio privado: Si el repositorio que deseas clonar es privado y requiere autenticación, puedes incluir tu nombre de usuario y contraseña en la URL del repositorio al ejecutar `git clone`. Por ejemplo: `git clone https://usuario:contraseña@github.com/usuario/repositorio.git`.
+3. **Clonar un repositorio privado:** Si el repositorio que deseas clonar es privado y requiere autenticación, puedes incluir tu nombre de usuario y contraseña en la URL del repositorio al ejecutar `git clone`. Por ejemplo: `git clone https://usuario:contraseña@github.com/usuario/repositorio.git`.
 
 Después de ejecutar `git clone`, se creará un nuevo directorio con el nombre del repositorio y tendrás una copia completa del repositorio remoto en tu máquina local. Puedes realizar cambios en los archivos, agregar nuevas ramas, realizar confirmaciones, entre otras operaciones, y luego sincronizar tus cambios con el repositorio remoto utilizando los comandos `git add`, `git commit` y `git push`.
 
@@ -100,11 +100,11 @@ Cuando ejecutas el comando `git add`, estás agregando los cambios realizados en
 
 Algunos ejemplos de cómo se utiliza el comando `git add` son:
 
-1. Agregar cambios en un archivo específico: Puedes utilizar `git add` seguido del nombre del archivo para agregar los cambios realizados en ese archivo al área de preparación. Por ejemplo: `git add archivo.txt`. Esto preparará los cambios realizados en `archivo.txt` para ser confirmados.
+1. **Agregar cambios en un archivo específico:** Puedes utilizar `git add` seguido del nombre del archivo para agregar los cambios realizados en ese archivo al área de preparación. Por ejemplo: `git add archivo.txt`. Esto preparará los cambios realizados en `archivo.txt` para ser confirmados.
 
-2. Agregar cambios en varios archivos: Si deseas agregar los cambios realizados en varios archivos, puedes especificar todos los nombres de archivo separados por espacios. Por ejemplo: `git add archivo1.txt archivo2.txt archivo3.txt`. Esto agregará los cambios en los tres archivos al área de preparación.
+2. **Agregar cambios en varios archivos:** Si deseas agregar los cambios realizados en varios archivos, puedes especificar todos los nombres de archivo separados por espacios. Por ejemplo: `git add archivo1.txt archivo2.txt archivo3.txt`. Esto agregará los cambios en los tres archivos al área de preparación.
 
-3. Agregar todos los cambios: Para agregar todos los cambios realizados en el repositorio, puedes utilizar `git add .` o `git add -A`. Esto agregará todos los archivos modificados y nuevos al área de preparación.
+3. **Agregar todos los cambios:** Para agregar todos los cambios realizados en el repositorio, puedes utilizar `git add .` o `git add -A`. Esto agregará todos los archivos modificados y nuevos al área de preparación.
 
 Es importante tener en cuenta que `git add` solo agrega los cambios al área de preparación, pero no los confirma definitivamente en el historial de versiones. Para guardar los cambios de manera permanente en Git, debes utilizar `git commit`.
 

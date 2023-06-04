@@ -117,25 +117,25 @@ Este es también uno de los comandos Git más utilizados. Para trabajar en una r
 
 El comando `git checkout` se utiliza principalmente para cambiar de rama en Git. Aquí tienes algunos ejemplos de cómo se utiliza:
 
-1. Cambiar a una rama existente:
+1. **Cambiar a una rama existente:**
    ```
    git checkout nombre-de-la-rama
    ```
    Esto cambia tu directorio de trabajo a la rama especificada. Por ejemplo, `git checkout develop` te cambiaría a la rama llamada "develop".
 
-2. Crear una nueva rama y cambiar a ella:
+2. **Crear una nueva rama y cambiar a ella:**
    ```
    git checkout -b nueva-rama
    ```
    Esto crea una nueva rama llamada "nueva-rama" basada en la rama actual y cambia a ella. Es equivalente a ejecutar `git branch nueva-rama` y luego `git checkout nueva-rama` por separado.
 
-3. Cambiar a una confirmación específica (commit):
+3. **Cambiar a una confirmación específica (commit):**
    ```
    git checkout código-de-confirmación
    ```
    Esto te permite revisar una confirmación anterior en tu historial de Git. Puedes especificar el código de confirmación completo o solo los primeros caracteres. Por ejemplo, `git checkout abc123` te llevaría al commit con el código "abc123".
 
-4. Recuperar un archivo específico de una confirmación anterior:
+4. **Recuperar un archivo específico de una confirmación anterior:**
    ```
    git checkout código-de-confirmación -- ruta/al/archivo
    ```
@@ -193,10 +193,12 @@ Cuando ejecutamos el comando `git merge`, estamos fusionando una rama con otra r
    ```
    Este comando fusionará la rama especificada y creará un nuevo commit de fusión, incluso si no hay conflictos. Esto es útil para mantener un historial de fusiones más claro y registrar explícitamente las fusiones realizadas.
 
-4. Fusionar una rama remota:
+4. **Fusionar una rama remota:**
    ```bash
    git merge origin/nombre-de-la-rama
    ```
    Si estás trabajando con ramas remotas, puedes fusionar una rama remota en tu rama local utilizando este comando. Reemplaza `nombre-de-la-rama` con el nombre de la rama remota que deseas fusionar.
 
 Recuerda que al fusionar ramas, es posible que ocurran conflictos si los cambios en ambas ramas afectan las mismas líneas de código. Es importante revisar y resolver estos conflictos correctamente antes de completar la fusión.
+
+[¡Buena Suerte En Tu Próxima Clase!]()
