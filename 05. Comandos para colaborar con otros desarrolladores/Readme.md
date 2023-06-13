@@ -7,7 +7,7 @@ Los comandos son importantes para colaborar con otros desarrolladores porque pro
 
 ---
 
-## git fetch
+# git fetch
 
 
 Cuando ejecutas `git fetch`, Git realiza las siguientes acciones:
@@ -40,14 +40,16 @@ Espero que esto aclare cómo funciona `git fetch` y cómo se utilizan los comand
 ---
 
 
-## 10. **git pull**:
+# **git pull**:
 
- Este comando se utiliza para obtener los cambios más recientes desde el repositorio remoto y fusionarlos en la rama local. Actualiza el repositorio local con los últimos cambios.
+ Este comando`git pull` se utiliza para obtener los cambios más recientes desde el repositorio remoto y fusionarlos en la rama local. Actualiza el repositorio local con los últimos cambios.
 
    ```bash
    $ git pull origin master
    ```
+
 git pull es un comando de Git que combina dos acciones en una: 
+
 `git fetch y git merge`. En resumen, realiza una descarga de los cambios más recientes del repositorio remoto y los fusiona automáticamente con la rama local actual.
 
 Ejemplos de `git pull`:
@@ -70,7 +72,9 @@ Ejemplos de `git pull`:
 Recuerda que al ejecutar `git pull`, es importante tener en cuenta si tienes cambios locales no confirmados, ya que podría generar conflictos. En ese caso, deberás resolver los conflictos manualmente antes de poder fusionar los cambios.
 
 Estos son solo ejemplos básicos de `git pull`. Puedes consultar la documentación oficial de Git para obtener más información sobre este comando y sus opciones.
+
 ![img](https://media.geeksforgeeks.org/wp-content/uploads/20220825165206/gitpull8.jpg)
+
 
 El comando `git pull` se usa para obtener actualizaciones del repositorio remoto. Este comando es una combinación de `git fetch y git merge,` lo que significa que, cuando usamos git pull, obtienes las actualizaciones del repositorio remoto (`git fetch`) e inmediatamente aplica los últimos cambios en su local (`git merge`). (En simples palabras, sirve para traer el repositorio remoto a tu repositorio local).
 
@@ -81,13 +85,14 @@ Esta operación puede causar conflictos que debes resolver manualmente.
 
 ---
 
-## 9. **git push**:
+# **git push**:
 
- Este comando se utiliza para enviar los cambios locales al repositorio remoto. Actualiza el historial de commits en el repositorio remoto.
+ Este comando`git push` se utiliza para enviar los cambios locales al repositorio remoto. Actualiza el historial de commits en el repositorio remoto.
 
-   ```
+   ```bash
    $ git push origin master
    ```
+
 ![img](https://media.geeksforgeeks.org/wp-content/uploads/20220831170024/GitPush3.jpg)
 
 Después de confirmar los cambios (con git commit), lo siguiente que hay que hacer es enviar estos cambios al servidor remoto. Git push sube tus confirmaciones al repositorio remoto.
@@ -103,6 +108,8 @@ git push -u origin <branch_name>
 **Importante:** Git push solo carga los cambios que están confirmados.
 
 ![img](https://assets-global.website-files.com/61c02e339c11997e6926e3d9/61c2e47b4d436d4d1a382d76_5e2a1539b3437be8c9018c2f_cover-git-push-force2.png)
+
+
 El comando `git push` se utiliza para enviar los cambios locales de tu repositorio a un repositorio remoto. Esto actualiza el estado del repositorio remoto con tus cambios locales. El formato general del comando es:
 
 ```
@@ -124,10 +131,12 @@ Donde `<repositorio-remoto>` es el nombre o URL del repositorio remoto y `<rama-
    ```
 
 3. Enviar todos los cambios de todas las ramas locales al repositorio remoto "origin":
-   ```
+   ```bash
    git push --all origin
    ```
 
 Recuerda que antes de ejecutar `git push`, debes haber realizado un `git commit` para confirmar tus cambios locales.
 
 Estos son solo ejemplos básicos de `git push`. Puedes consultar la documentación oficial de Git para obtener más información sobre este comando y sus opciones.
+
+[¡Buena Suerte En Tu Próxima Clase!]()
