@@ -53,7 +53,7 @@ No pierdas la oportunidad de adquirir estas habilidades altamente demandadas en 
     - [ ] Cómo escribir buenos mensajes de commit
     - [ ] Cómo documentar el trabajo realizado
 
->NOTA: Tomate tu tiempo Para cada punto del tema Recuerda que roma no se Hiso en un dia ¡Tienes lo chech list Para sabere tu pogresos¡
+>NOTA: Tomate tu tiempo Para cada punto del tema Recuerda que roma no se Hiso en un dia ¡Tienes lo chech list Para sabere tu pogresos!
 
 ---
 ## Ensales de Interes
