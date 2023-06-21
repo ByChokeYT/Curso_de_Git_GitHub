@@ -81,7 +81,7 @@ No pierdas la oportunidad de adquirir estas habilidades altamente demandadas en 
 Si quieres unirte a nuestra comunidad de desarrollo, aprender programación de Apps, mejorar tus habilidades y ayudar a la continuidad del proyecto, puedes encontrarnos en:
 
 [![Discord](https://img.shields.io/badge/Discord-Servidor_de_la_comunidad-5865F2?style=for-the-badge&logo=discord&logoColor=white&labelColor=101010)](https://discord.gg/akHPY7EbJW)
-[![Link](https://img.shields.io/badge/Links_de_interés-moure.dev-39E09B?style=for-the-badge&logo=Linktree&logoColor=white&labelColor=101010)](https://moure.dev)
+[![Link](https://img.shields.io/badge/Links_de_interés-Markdown-39E09B?style=for-the-badge&logo=Linktree&logoColor=white&labelColor=101010)](https://github.com/ByChokeYT/Curso_de_Markdown)
 
 ---
 [![Git](https://img.shields.io/badge/Git-2.37+-f14e32?style=for-the-badge&logo=git&logoColor=white&labelColor=101010)](https://git-scm.com/)

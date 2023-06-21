@@ -3,52 +3,25 @@
 
 
 
-## ¿Qué es `Git`?
+# ¿Qué es `Git`?
 
-``Git`` es un sistema de control de versiones distribuido, ampliamente utilizado en el desarrollo de software. Permite rastrear los cambios realizados en archivos y directorios a lo largo del tiempo, lo que facilita la colaboración entre múltiples personas que trabajan en un proyecto.
+Git es un sistema de control de versiones distribuido ampliamente utilizado en el desarrollo de software. Permite rastrear los cambios realizados en archivos y directorios a lo largo del tiempo, facilitando la colaboración entre múltiples personas que trabajan en un proyecto.
 
-En lugar de guardar solo la última versión de un archivo, como lo hacen los sistemas de control de versiones tradicionales, ``Git`` almacena una instantánea de cada cambio realizado, lo que brinda un historial completo y detallado de las modificaciones. 
+A diferencia de los sistemas de control de versiones tradicionales, Git no solo guarda la última versión de un archivo, sino que almacena una instantánea de cada cambio realizado, proporcionando un historial completo y detallado de las modificaciones. Esto permite revertir cambios no deseados, comparar versiones, fusionar diferentes ramas de desarrollo y colaborar eficientemente con otros desarrolladores.
 
-Esto permite revertir cambios no deseados, comparar versiones, fusionar diferentes ramas de desarrollo y colaborar de manera eficiente con otros desarrolladores.
+Una de las características distintivas de Git es que es un sistema distribuido, lo que significa que cada desarrollador tiene una copia completa del repositorio, incluyendo todo el historial de cambios. Esto permite a los desarrolladores trabajar de forma independiente y sin conexión a Internet, y luego sincronizar sus cambios con otros repositorios remotos, como GitHub, GitLab o un servidor propio.
 
+Git se utiliza a través de comandos de línea de comandos o interfaces gráficas, y permite realizar operaciones como la creación de un repositorio, la confirmación de cambios, la creación y fusión de ramas, entre otros. Proporciona flexibilidad y potencia para gestionar el versionamiento de proyectos de software, convirtiéndose en una herramienta fundamental para desarrolladores y equipos de desarrollo.
 
-![img](https://static.platzi.com/media/user_upload/git_fire-9b873abb-7c7d-40d3-a418-0816a5a689bd.jpg)
-
-
-Una de las características distintivas de ``Git`` es que es un sistema distribuido, lo que significa que cada desarrollador tiene una copia completa del repositorio, incluyendo todo el historial de cambios. 
-
-Esto permite a los desarrolladores trabajar de forma independiente y sin conexión a Internet, y luego sincronizar sus cambios con otros repositorios remotos, como `GitHub`` `GitLab` o un servidor propio.
-
-``Git`` utiliza comandos de línea de comandos o interfaces gráficas para realizar operaciones como la creación de un repositorio, la confirmación de cambios, la creación y fusión de ramas, entre otros.
-
-Proporciona una gran flexibilidad y potencia para administrar el versionamiento de proyectos de software, lo que lo convierte en una herramienta fundamental para desarrolladores y equipos de desarrollo.
-
-Aquí tienes los **ejemplos** de `Git`:
-
-| Comando | Descripción |
-|---------|-------------|
-| `git init` | Inicia un nuevo repositorio `Git` en un directorio vacío o existente. |
-| `git clone <URL del repositorio>` | Clona un repositorio existente desde un servidor remoto a tu máquina local. |
-| `git add <nombre de archivo>` | Agrega archivos al área de preparación (staging) para que se incluyan en el próximo commit. |
-| `git commit -m "Mensaje descriptivo"` | Crea un nuevo commit que incluye los cambios en el área de preparación con un mensaje descriptivo. |
-| `git status` | Muestra el estado actual del repositorio, incluyendo archivos modificados, agregados o eliminados. |
-| `git log` | Muestra el historial de commits realizados en el repositorio, incluyendo información como el autor, fecha y mensaje. |
-| `git branch` | Muestra una lista de ramas disponibles en el repositorio. |
-| `git checkout <nombre de rama>` | Cambia entre ramas o restaura archivos desde commits anteriores. |
-| `git merge <nombre de rama>` | Fusiona una rama específica en la rama actual. |
-| `git push <nombre del repositorio remoto> <nombre de la rama>` | Envía los commits locales al repositorio remoto especificado. |
-
----
-
-## ¿Qué es`GitHub`
-`GitHub`es una plataforma web y un servicio de alojamiento para proyectos de desarrollo de software basados en `Git`. Proporciona un entorno en línea donde los desarrolladores pueden colaborar, compartir y administrar el código fuente de sus proyectos.
+# ¿Qué es`GitHub`
+`GitHub` es una plataforma web y un servicio de alojamiento para proyectos de desarrollo de software basados en `Git`. Proporciona un entorno en línea donde los desarrolladores pueden colaborar, compartir y administrar el código fuente de sus proyectos.
 
 ![img](https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2017/12/gitHub.png)
 
 En `GitHub`, los desarrolladores pueden crear repositorios para almacenar y organizar su código. Estos repositorios actúan como almacenes centrales donde se guarda toda la información relacionada con el proyecto, incluyendo los archivos de código, documentación, imágenes y otros recursos.
 
 ---
-## Algunas características clave de `GitHub` incluyen:
+ Algunas características clave de `GitHub` incluyen:
 
 1. **Control de versiones**: `GitHub` aprovecha la potencia de `Git` como sistema de control de versiones. Esto significa que puedes realizar un seguimiento de los cambios en tus archivos, ver el historial de modificaciones y revertir a versiones anteriores si es necesario.
 
@@ -62,10 +35,7 @@ Además, `GitHub` ha crecido hasta convertirse en una comunidad global de desarr
 
 En resumen, `GitHub` es una plataforma que utiliza `Git` como base, pero agrega características y herramientas adicionales para facilitar la colaboración, el seguimiento de problemas y el desarrollo de software en equipo. Es ampliamente utilizado por desarrolladores y organizaciones en todo el mundo para administrar y compartir su código fuente.
 
----
-
-
-## ¿Por qué `Git` y `GitHub` son importantes?
+# ¿Por qué `Git` y `GitHub` son importantes?
 
 ![img](https://kinsta.com/es/wp-content/uploads/sites/8/2023/02/github-pages.jpg)
 
