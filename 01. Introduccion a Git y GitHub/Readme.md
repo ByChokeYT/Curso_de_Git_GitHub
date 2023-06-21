@@ -1,4 +1,4 @@
-# Clase 1: Introducción a `Git` y`GitHub`
+# Clase 1: Introducción a `Git` y `GitHub`
 ![portada](https://blog.facialix.com/wp-content/uploads/2021/04/git-github-cero-facialix.jpg)
 
 
@@ -104,5 +104,7 @@ Estas características son fundamentales en el desarrollo de software moderno y 
 
 ---
 
+[Dar Examen: Clase 1: Introducción a `Git` y `GitHub`](https://forms.gle/toiLYERfdE2BQT1V8)
 
 [¡Buena Suerte En Tu Próxima Clase!](https://github.com/ByChokeYT/Curso_de_Github/blob/main/02.%20Instalacion%20y%20configuracion%20de%20Git/Readme.md)
+

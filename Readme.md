@@ -5,21 +5,24 @@
 En este Curso Aprenderas a dominar el control de versiones y la colaboración en proyectos de desarrollo. Este curso te brindará los conocimientos y habilidades necesarios para utilizar GitHub de manera efectiva. Con GitHub, podrás gestionar y organizar tus proyectos, colaborar con otros desarrolladores y mantener un historial completo de cambios en tu código.
 
 No pierdas la oportunidad de adquirir estas habilidades altamente demandadas en el mercado laboral. ¡Inscríbete en el curso de GitHub y destaca como desarrollador en tu carrera profesional!
-### Ingenrieo de sistemas Independiente 
+
+## Ingeniero de sistemas freelance 
+
 [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCxPD7bsocoAMq8Dj18kmGyQ?style=social)](https://youtube.com/mouredevapps?sub_confirmation=1)
 [![Twitch Status](https://img.shields.io/twitch/status/mouredev?style=social)](https://twitch.com/mouredev)
 [![Discord](https://img.shields.io/discord/729672926432985098?style=social&label=Discord&logo=discord)](https://mouredev.com/discord)
-[![Twitter Follow](https://img.shields.io/twitter/follow/mouredev?style=social)](https://twitter.com/mouredev)
+[![Twitter Follow](https://img.shields.io/twitter/follow/ByChoke?style=social)](https://twitter.com/)
 ![GitHub Followers](https://img.shields.io/github/followers/mouredev?style=social)
 ![GitHub Followers](https://img.shields.io/github/stars/mouredev?style=social)
-## Temario
-----
 
-1. Introducción a Git y GitHub
+## Temario Del Curso
+
+1. [Introducción a Git y GitHub](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/01.%20Introduccion%20a%20Git%20y%20GitHub)
+
     - [ ] ¿Qué es Git?
     - [ ] ¿Qué es GitHub?
     - [ ] ¿Por qué Git y GitHub son importantes?
-    
+    - [ ] [Dar Examen: Clase 1: Introducción a `Git` y `GitHub`](https://forms.gle/toiLYERfdE2BQT1V8)
 2. Instalación y configuración de Git
     - [ ] Descarga e instalación de Git
     - [ ] Configuración de Git en la línea de comandos
@@ -53,9 +56,8 @@ No pierdas la oportunidad de adquirir estas habilidades altamente demandadas en 
     - [ ] Cómo escribir buenos mensajes de commit
     - [ ] Cómo documentar el trabajo realizado
 
->NOTA: Tomate tu tiempo Para cada punto del tema Recuerda que roma no se Hiso en un dia ¡Tienes lo chech list Para sabere tu pogresos!
+>NOTA: ¡Tómate tu tiempo! Recuerda que Roma no se construyó en un día. Cada punto del tema merece atención y dedicación. Utiliza la lista de verificación para evaluar tu progreso.
 
----
 ## Ensales de Interes
 
 - [Web](https://git-scm.com) oficial Git (Documentación, descarga...)
@@ -71,7 +73,10 @@ No pierdas la oportunidad de adquirir estas habilidades altamente demandadas en 
 - [GitHub Pages](https://pages.github.com/)
 - [GitHub Actions](https://github.com/features/actions)
 
-#### Puedes apoyar mi trabajo haciendo "☆ Star" en el repo o nominarme a "GitHub Star". ¡Gracias!
+
+
+
+## Puedes apoyar mi trabajo haciendo "☆ Star" en el repo o nominarme a "GitHub Star". ¡Gracias!
 [![GitHub Star](https://img.shields.io/badge/GitHub-Nominar_a_star-yellow?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://stars.github.com/nominate/)
 
 Si quieres unirte a nuestra comunidad de desarrollo, aprender programación de Apps, mejorar tus habilidades y ayudar a la continuidad del proyecto, puedes encontrarnos en:
@@ -84,6 +89,6 @@ Si quieres unirte a nuestra comunidad de desarrollo, aprender programación de A
 [![Git](https://img.shields.io/badge/Git-2.37+-f14e32?style=for-the-badge&logo=git&logoColor=white&labelColor=101010)](https://git-scm.com/)
 [![GitHub](https://img.shields.io/badge/GitHub-Web-blue?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/)
 
-### En mi perfil de GitHub tienes más información
+## En mi perfil de GitHub tienes más información
 
 [![Web](https://img.shields.io/badge/GitHub-ByChoke-14a1f0?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/ByChokeYT)
