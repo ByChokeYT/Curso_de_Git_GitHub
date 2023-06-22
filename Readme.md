@@ -21,12 +21,15 @@ No pierdas la oportunidad de adquirir estas habilidades altamente demandadas en 
     - [ ] ¿Qué es GitHub?
     - [ ] ¿Por qué Git y GitHub son importantes?
     - [ ] [Dar Examen: Clase 1: Introducción a `Git` y `GitHub`](https://forms.gle/toiLYERfdE2BQT1V8)
-2. Instalación y configuración de Git
+2. [Instalación y configuración de Git](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/02.%20Instalaci%C3%B3n%20y%20configuraci%C3%B3n%20de%20Git)
+
     - [ ] Descarga e instalación de Git
     - [ ] Configuración de Git en la línea de comandos
     - [ ] Configuración de Git con una interfaz gráfica
-    
-3. Comandos básicos de Git
+    - [ ] [Dar Examen: Clase 2: Instalación y Configuraciones de Github](https://forms.gle/KH5trB9CRZ68MgRRA)
+
+3. [Comandos básicos de Git](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/03.%20Comandos%20b%C3%A1sicos%20de%20Git)
+
     - [ ] init, clone, add, commit, status, log
     
 4. Comandos para manejar ramas

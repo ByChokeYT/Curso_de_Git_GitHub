@@ -96,4 +96,4 @@ Estas son solo dos opciones populares de interfaces gráficas para configurar Gi
 
 [Dar Examen: 02.Instalación y Configuraciones de Github](https://forms.gle/KH5trB9CRZ68MgRRA)
 
-[¡Buena Suerte En Tu Próxima Clase!]()
+[¡Buena Suerte En Tu Próxima Clase!](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/03.%20Comandos%20b%C3%A1sicos%20de%20Git)
