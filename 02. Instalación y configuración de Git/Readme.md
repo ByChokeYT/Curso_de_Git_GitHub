@@ -93,4 +93,7 @@ Si prefieres utilizar una interfaz gráfica en lugar de la línea de comandos pa
 
 Estas son solo dos opciones populares de interfaces gráficas para configurar Git. Hay otras herramientas disponibles, como GitKraken, GitHub Desktop, entre otras, que también ofrecen una interfaz gráfica fácil de usar para configurar Git. Puedes explorar estas opciones y elegir la que mejor se adapte a tus necesidades y preferencias.
 
+
+[Dar Examen: 02.Instalación y Configuraciones de Github](https://forms.gle/KH5trB9CRZ68MgRRA)
+
 [¡Buena Suerte En Tu Próxima Clase!]()
