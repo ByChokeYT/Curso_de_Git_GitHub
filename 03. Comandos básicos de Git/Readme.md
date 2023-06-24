@@ -1,5 +1,5 @@
 # Comandos Basico de Git
-### init, clone, add, commit, status, log.
+## init, clone, add, commit, status, log.
 
 ![Portada](https://pixonauta.com/wp-content/uploads/2020/01/gitcommands2.jpg)
 
@@ -290,6 +290,3 @@ Estos son solo algunos ejemplos de comandos básicos de Git. Puedes explorar má
 
 [¡Buena Suerte En Tu Próxima Clase!]()
 
-![img](https://static.platzi.com/media/user_upload/git_fire-9b873abb-7c7d-40d3-a418-0816a5a689bd.jpg)
-
->NOTA: aki tienes unas comandos para mejorar sirtos apuntes.

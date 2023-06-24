@@ -1,6 +1,8 @@
 # Examen final 
 Ejercicios
+![img](https://static.platzi.com/media/user_upload/git_fire-9b873abb-7c7d-40d3-a418-0816a5a689bd.jpg)
 
+>NOTA: aki tienes unas comandos para mejorar sirtos apuntes.
 
 Ejercicios
 
