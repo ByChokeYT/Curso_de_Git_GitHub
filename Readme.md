@@ -32,7 +32,7 @@
 3. [Comandos básicos de Git](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/03.%20Comandos%20b%C3%A1sicos%20de%20Git)
 
     - [ ] init, clone, add, commit, status, log
-    - [ ]
+    - [ ] [Dar Examen: Clase 3: Comandos Basícos de `Git`](https://forms.gle/Q2N95DmwXKKRKbTi8)
 4. Comandos para manejar ramas
     - [ ] branch, checkout, merge
     
@@ -110,4 +110,5 @@
 </div>
 
 
-  [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/https://paypal.me/bychoke?country.x=CL&locale.x=es_XC) [![](https://visitcount.itsvg.in/api?id=ByChokeYT&icon=3&color=5)](https://visitcount.itsvg.in)
+  [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/https://paypal.me/bychoke?country.x=CL&locale.x=es_XC)[![Patreon](https://img.shields.io/badge/Patreon-FFA500?style=for-the-badge&logo=patreon&logoColor=white)](https://patreon.com/ByChoke)
+  
