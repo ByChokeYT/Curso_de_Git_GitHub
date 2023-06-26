@@ -290,5 +290,5 @@ Estos son solo algunos ejemplos de comandos básicos de Git. Puedes explorar má
 
 [Dar Examen: 03.Comandos basicos de Git](https://forms.gle/1iq8VQ5eNsph7SfTA)
 
-[¡Buena Suerte En Tu Próxima Clase!]()
+[¡Buena Suerte En Tu Próxima Clase!](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/04%20.Comandos%20para%20Manejar%20Ramas)
 

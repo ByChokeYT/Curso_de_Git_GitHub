@@ -4,7 +4,7 @@
 Si estás en la comodidad de tu hogar o en tu entorno de desarrollo, te invito a seguirme paso a paso en este emocionante recorrido por los comandos de `git branch`. Descubriremos cómo explorar ramas, crear nuevas, cambiar nombres y más. **¡Prepárate para sumergirte en el fascinante mundo de Git y llevar tu control de versiones al siguiente nivel!**
 ![portada](https://miro.medium.com/v2/resize:fit:801/1*DhagidpZutkaCmAZobmzDQ.png)
 
-## 1. **git branch**:
+## 1. **git branch**: (RAMA)
 
  Cuando ejecutas el comando `git branch` sin ningún argumento, muestra una lista de las ramas locales en tu repositorio y resalta la rama actual con un asterisco **(*)** antes del nombre de la rama. 
 
@@ -84,32 +84,13 @@ Las ramas son muy importantes en el mundo de git. Mediante el uso de ramas, vari
 
 ---
 
-## 2. **git checkout**:
-
- Este comando se utiliza para cambiar entre ramas y restaurar archivos. Permite moverse a una rama existente y deshacer cambios locales.
-
-   - Para cambiar a una rama existente:
-     ```bash
-     $ git checkout develop
-     Switched to branch 'develop'
-     ```
-
-   - Para crear una nueva rama y cambiar a ella:
-     ```bash
-     $ git checkout -b feature
-     Switched to a new branch 'feature'
-     ```
-
-   - Para descartar cambios locales en un archivo:
-     ```bash
-     $ git checkout archivo.txt
-     ```
-
-![img](https://media.geeksforgeeks.org/wp-content/uploads/20190901201805/465.png)
-
-Este es también uno de los comandos Git más utilizados. Para trabajar en una rama, primero debe cambiarse a ella. Usamos git checkout principalmente para cambiar de una rama a otra. También podemos usarlo para verificar archivos y confirmaciones.
+## 2. **git checkout**: (CAMBIAR)
 
 ![img](https://static.javatpoint.com/tutorial/git/images/git-checkout.png)
+
+ Este es también uno de los comandos Git más utilizados. Para trabajar en una rama, primero debe cambiarse a ella. Usamos `git checkout` principalmente para **cambiar** de una rama a otra. También podemos usarlo para verificar archivos y confirmaciones.
+  
+![img](https://media.geeksforgeeks.org/wp-content/uploads/20190901201805/465.png)
 
 El comando `git checkout` se utiliza principalmente para cambiar de rama en Git. Aquí tienes algunos ejemplos de cómo se utiliza:
 
