@@ -288,5 +288,7 @@ El comando `git log` es útil para ver el historial de cambios en un repositorio
 
 Estos son solo algunos ejemplos de comandos básicos de Git. Puedes explorar más comandos y opciones en la documentación oficial de Git para ampliar tus conocimientos y prácticas con Git.
 
+[Dar Examen: 03.Comandos basicos de Git](https://forms.gle/1iq8VQ5eNsph7SfTA)
+
 [¡Buena Suerte En Tu Próxima Clase!]()
 
