@@ -7,20 +7,27 @@ Los comandos son importantes para colaborar con otros desarrolladores porque pro
 
 ---
 
-# git fetch
+# git fetch [Buscar]
+
+`git fetch` es un comando en Git que permite obtener (fetch) los cambios más recientes de un repositorio remoto sin fusionarlos en tu rama actual. Aquí está cómo funciona:
 
 
-Cuando ejecutas `git fetch`, Git realiza las siguientes acciones:
 
-1. **Conexión al repositorio remoto:** Git establece una conexión con el repositorio remoto especificado, ya sea a través de HTTPS o SSH.
+1. Imagina que tienes un repositorio remoto (por ejemplo, en GitHub) y tu propio repositorio local clonado desde ese remoto.
 
-2. **Descarga de referencias:** Git descarga todas las referencias del repositorio remoto, incluyendo las ramas y los commits asociados a ellas. Esto incluye las ramas principales, ramas secundarias y cualquier otra rama existente.
+2. Cuando ejecutas `git fetch origin`, le estás diciendo a Git que obtenga cualquier cambio nuevo que haya ocurrido en el repositorio remoto llamado "origin".
 
-3. **Actualización de referencias locales:** Git actualiza las referencias locales correspondientes a las ramas remotas. Estas referencias se conocen como ramas remotas o "refs/remotes". Por ejemplo, si descargas los cambios de la rama `main` del repositorio remoto, Git actualizará la referencia `refs/remotes/origin/main`.
+3. Git compara las ramas y los commits en tu repositorio local con los del repositorio remoto y descarga cualquier diferencia o cambio que haya ocurrido en el repositorio remoto desde la última vez que sincronizaste.
 
-4. **Obtención de objetos:** Git descarga los objetos necesarios asociados con los commits y las referencias descargadas. Estos objetos incluyen los árboles de archivos y los contenidos de los archivos.
+4. Los cambios descargados se almacenan en una rama especial llamada `origin/<nombre-de-la-rama>`, que representa la rama en el repositorio remoto.
 
-5. **Actualización del registro de seguimiento:** Git actualiza el registro de seguimiento local con la información más reciente del repositorio remoto. Esto permite a Git realizar un seguimiento de los cambios y las diferencias entre las ramas locales y remotas.
+5. A diferencia del comando `git pull`, que combina automáticamente los cambios descargados en tu rama actual, `git fetch` no realiza ninguna fusión automática. En su lugar, te brinda la oportunidad de revisar los cambios y decidir cuándo y cómo fusionarlos en tu rama local.
+
+6. Después de ejecutar `git fetch`, puedes examinar los cambios descargados utilizando comandos como `git log origin/<nombre-de-la-rama>` para ver el historial de commits en la rama remota.
+
+7. Luego, puedes decidir cuándo y cómo incorporar los cambios descargados en tu rama local. Puedes utilizar comandos como `git merge` o `git rebase` para fusionar los cambios en tu rama actual.
+
+En resumen, `git fetch` te permite obtener los cambios más recientes de un repositorio remoto sin fusionarlos automáticamente. Esto te da mayor control sobre cuándo y cómo incorporar los cambios en tu rama local, lo que puede ser útil si deseas revisar los cambios antes de fusionarlos o si necesitas realizar algún tipo de manipulación adicional antes de la fusión.
 
 Una vez completada la descarga y actualización de referencias, puedes utilizar otros comandos, como `git diff` o `git merge`, para revisar y fusionar los cambios descargados en tu rama actual.
 
@@ -40,7 +47,7 @@ Espero que esto aclare cómo funciona `git fetch` y cómo se utilizan los comand
 ---
 
 
-# **git pull**:
+# **git pull**: [Tirar]
 
  Este comando`git pull` se utiliza para obtener los cambios más recientes desde el repositorio remoto y fusionarlos en la rama local. Actualiza el repositorio local con los últimos cambios.
 
@@ -85,7 +92,7 @@ Esta operación puede causar conflictos que debes resolver manualmente.
 
 ---
 
-# **git push**:
+# **git push**: [Empujar]
 
  Este comando`git push` se utiliza para enviar los cambios locales al repositorio remoto. Actualiza el historial de commits en el repositorio remoto.
 
@@ -138,5 +145,7 @@ Donde `<repositorio-remoto>` es el nombre o URL del repositorio remoto y `<rama-
 Recuerda que antes de ejecutar `git push`, debes haber realizado un `git commit` para confirmar tus cambios locales.
 
 Estos son solo ejemplos básicos de `git push`. Puedes consultar la documentación oficial de Git para obtener más información sobre este comando y sus opciones.
+
+[Dar Examen: 05.Comandos para colaborar con otros Desarrolladores](https://forms.gle/xxKEAv6z33Qh6sZ98)
 
 [¡Buena Suerte En Tu Próxima Clase!]()

@@ -269,6 +269,6 @@ Esto revertirá cualquier cambio realizado durante la fusión y te devolverá al
 
 Recuerda que al fusionar ramas, es posible que ocurran conflictos si los cambios en ambas ramas afectan las mismas líneas de código. Es importante revisar y resolver estos conflictos correctamente antes de completar la fusión.
 
-[Dar Examen: 04 .Comandos para Manejar Ramas](https://forms.gle/TaTF9oBPbVHShdaD9)
+[Dar Examen: 04.Comandos para Manejar Ramas](https://forms.gle/TaTF9oBPbVHShdaD9)
 
 [¡Buena Suerte En Tu Próxima Clase!](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/05.%20Comandos%20para%20colaborar%20con%20otros%20desarrolladores)

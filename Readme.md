@@ -35,10 +35,10 @@
     - [ ] [Dar Examen: Clase 3: Comandos Basícos de `Git`](https://forms.gle/Q2N95DmwXKKRKbTi8)
 4. Comandos para manejar ramas
     - [ ] branch, checkout, merge
-    - [ ] [Dar Examen: 04 .Comandos para Manejar `Ramas`](https://forms.gle/TaTF9oBPbVHShdaD9)
+    - [ ] [Dar Examen: Clase 4: Comandos para Manejar `Ramas`](https://forms.gle/TaTF9oBPbVHShdaD9)
 5. Comandos para colaborar con otros desarrolladores
-    - [ ] fetch, pull, push
-    
+    - [ ] fetch, pull, push 
+    - [ ] [Dar Examen: Clase 5: Comandos para colaborar con otros Desarrolladores](https://forms.gle/xxKEAv6z33Qh6sZ98)
 6. Trabajo en equipo con GitHub
     - [ ] Creación de un repositorio en GitHub
     - [ ] Clonación de un repositorio de GitHub
