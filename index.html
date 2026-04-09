@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Git y GitHub - ByChokeYT</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png">
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+    <!-- Background Elements -->
+    <div class="blob-bg blob-1"></div>
+    <div class="blob-bg blob-2"></div>
+
+    <div class="container">
+        <!-- Sidebar Menu -->
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div class="sidebar-header">
+                <h2><img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" alt="Git Logo" width="28" style="vertical-align: middle; margin-right: 8px;">Git<span>Hub</span></h2>
+                <button class="menu-close-btn" id="menuCloseBtn"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="sidebar-search glass-panel">
+                <i class="ri-search-line"></i>
+                <input type="text" id="moduleSearch" placeholder="Buscar clase o tema...">
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="progress-container">
+                    <span class="progress-label">Tu Progreso</span>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressBar"></div>
+                    </div>
+                    <span class="progress-percent" id="progressPercent">0%</span>
+                </div>
+
+                <ul id="moduleList">
+                    <p class="nav-title"><i class="ri-node-tree"></i> 01. Arquitectura Profunda <span class="level-badge advanced">Nivel Core</span></p>
+                    <li class="active" data-target="Curso/01-Intro/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-cpu-line"></i> Internals, Blobs y SHA-256
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+
+                    <p class="nav-title"><i class="ri-terminal-window-fill"></i> 02. Flujo Profesional <span class="level-badge basics">Nivel Pro</span></p>
+                    <li data-target="Curso/02-Instalacion/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-settings-4-line"></i> Ciclo de Vida y Staging
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+                    <li data-target="Curso/03-Comandos-Basicos/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-code-s-line"></i> Commits Semánticos
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+
+                    <p class="nav-title"><i class="ri-git-branch-line"></i> 03. Gestión de Ramas <span class="level-badge intermediate">Nivel Pro</span></p>
+                    <li data-target="Curso/04-Ramas/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-git-merge-line"></i> Rebase vs Merge
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+
+                    <p class="nav-title"><i class="ri-team-line"></i> 04. Colaboración & DevOps <span class="level-badge intermediate">Nivel Pro</span></p>
+                    <li data-target="Curso/05-Colaboracion/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-user-shared-line"></i> PRs y Code Review
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+                    <li data-target="Curso/06-GitHub/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-github-line"></i> Ecosistema GitHub
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+
+                    <p class="nav-title"><i class="ri-robot-line"></i> 05. GitHub Actions 2027 <span class="level-badge advanced">Nivel AI</span></p>
+                    <li data-target="Curso/10-Actions/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-robot-2-line"></i> AI-Integrated Pipelines
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+
+                    <p class="nav-title"><i class="ri-speed-mini-line"></i> 06. Productividad Élite <span class="level-badge advanced">Nivel Experto</span></p>
+                    <li data-target="Curso/11-Productividad/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-guide-line"></i> Worktrees y Bisect
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+
+                    <p class="nav-title"><i class="ri-shield-keyhole-line"></i> 07. Seguridad & Escala <span class="level-badge advanced">Nivel Senior</span></p>
+                    <li data-target="Curso/07-Conflictos/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-lock-password-line"></i> Secrets y GPG Signing
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+
+                    <p class="nav-title"><i class="ri-building-line"></i> 08. Enterprise & Master <span class="level-badge advanced">Nivel Maestría</span></p>
+                    <li data-target="Curso/08-Extras/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-flask-line"></i> Monorepos y Labs
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+                    <li data-target="Curso/09-Buenas-Practicas/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-award-line"></i> Proyecto Integrador
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="https://discord.gg/akHPY7EbJW" target="_blank" class="glass-btn btn-discord">
+                    <i class="ri-discord-fill"></i> Únete a la Comunidad
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-nav glass-panel">
+                <button class="menu-open-btn" id="menuOpenBtn"><i class="ri-menu-4-line"></i></button>
+                <div class="header-content">
+                    <span class="badge"><i class="ri-github-line"></i> ByChokeYT</span>
+                    <a href="https://github.com/ByChokeYT" target="_blank" class="profile-link">
+                        <img src="https://github.com/ByChokeYT.png" alt="Profile" class="profile-img">
+                    </a>
+                </div>
+            </header>
+
+            <div class="hero-section glass-panel" id="dynamicHero">
+                <div class="hero-text">
+                    <div class="tag-pill"><i class="ri-github-line"></i> Curso Completo 2026</div>
+                    <h1>Domina el verdadero poder del control de versiones</h1>
+                    <p>Aprende de 0 a Experto las mejores prácticas de Git y GitHub para trabajar en equipo y destacar como desarrollador.</p>
+                </div>
+                <div class="hero-media">
+                    <img src="https://github.com/ByChokeYT/Curso_de_Git_GitHub/blob/main/Recursos/Portada_Git_vs_Github.gif?raw=true" alt="Hero GIF">
+                </div>
+            </div>
+
+            <!-- Dynamic Content Area -->
+            <section class="content-area" id="contentArea">
+                <!-- Vistas dinámicas cargadas por JS -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
