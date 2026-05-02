@@ -1,39 +1,55 @@
-# Módulo 08: GitHub Actions 2027 (IA & Automación)
+# Módulo 08: Otras Funcionalidades de GitHub
 
-Entramos en el terreno de la **Ingeniería de Plataforma**. GitHub Actions es el motor CI/CD que permite que el software se pruebe y despliegue solo, con la ayuda de la Inteligencia Artificial.
-
----
-
-## 🔬 Arquitectura de un Workflow 2027
-
-### Componentes Core
--   **Events (Triggers):** Qué dispara la acción (`push`, `pull_request`, `schedule`).
--   **Jobs:** Unidades ejecutadas en paralelo en Runners (computadoras virtuales).
--   **Steps:** Secuencias lógicas (Instalar dependencias, Correr tests).
-
-### IA Integrada: El Autopilot del DevOps
-En 2027, las Actions no solo corren código; lo analizan.
--   **Auto-Review:** La IA revisa el PR y sugiere cambios basados en la guía de estilo del equipo.
--   **Auto-Summary:** Generación automática de notas de lanzamiento extrayendo el contexto de los commits semánticos.
+GitHub es un centro de operaciones (DevOps). Aquí exploramos las herramientas que orquestan el ciclo de vida del software más allá del código.
 
 ---
 
-## ⚙️ Seguridad en Pipelines (OIDC & Secrets)
+## 🎫 Issues & Project Management
+-   **Issues:** Reportes de bugs, sugerencias o tareas. Usa **Labels** (bug, enhancement, help wanted) para organizar.
+-   **GitHub Projects:** Un tablero Kanban (estilo Trello/Jira) integrado totalmente con tus PRs e Issues.
+-   **Milestones:** Grupos de issues para medir el progreso de una versión específica.
 
-Nunca, bajo ninguna circunstancia, escribas una contraseña en un archivo YAML.
+---
 
-### Gestión de Secretos
-Usa `secrets.YOUR_KEY` para que Git oculte el valor en los logs.
+## 🌐 GitHub Pages
+La forma más rápida de desplegar sitios web estáticos (HTML/CSS/JS) de forma gratuita.
+-   Perfecto para **Portafolios**, **Documentación** o este mismo **Curso**.
+-   Soporta dominios personalizados y HTTPS automático.
 
-### OIDC (OpenID Connect)
-La forma moderna de conectar GitHub con nubes como AWS o Azure sin usar claves de larga duración. Usamos tokens temporales de un solo uso para máxima seguridad.
+---
+
+## 📦 Releases & Tags
+-   **Tags:** Puntos fijos en la historia (ej: `v1.0.0`).
+-   **Releases:** Empaquetan una versión específica, permitiendo adjuntar binarios (.exe, .apk, .zip) y notas de lanzamiento (Changelog).
+
+---
+
+## 🔗 Integraciones (Webhooks & Apps)
+GitHub se puede conectar con:
+-   **Discord/Slack:** Notificaciones en tiempo real de commits.
+-   **Jira:** Sincronización de tickets.
+-   **Vercel/Netlify:** Despliegue automático (CD).
 
 ---
 
 ## ## Resumen (Ingeniería de Sistemas)
+1.  **Documentación viva:** Usa la Wiki o GitHub Pages para que tu proyecto sea entendible.
+2.  **Trazabilidad:** Cada línea de código debe poder rastrearse hasta un Issue o una necesidad de negocio.
+3.  **Automatización:** Si lo haces más de dos veces, automatízalo con una GitHub Action o un Webhook.
 
-1.  **Falla Rápido:** Configura tus Actions para que los tests corran ante cualquier cambio. Es mejor detectar un error en 1 minuto que en 1 mes.
-2.  **Lint-staged:** No permitas commits que no cumplan con el formato. Automatiza el `prettier` o `eslint` antes del push.
-3.  **Seguridad por Defecto:** Los permisos de los tokens de GitHub Actions deben ser de "solo lectura" a menos que necesiten escribir explícitamente.
+## 💻 Laboratorio Práctico: Paso a Paso
 
-[Examen: Módulo 08 - Laboratorio de Actions](https://forms.gle/toiLYERfdE2BQT1V8)
+1. **Crea un Tag (etiqueta) ligero y súbelo:**
+   ```bash
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+2. **Crea un Tag anotado (más profesional):**
+   ```bash
+   git tag -a v2.0.0 -m "Release v2.0.0: Nuevo login y UI"
+   git push origin v2.0.0
+   ```
+
+---
+
+[Laboratorio: Despliega tu primer sitio en GitHub Pages](https://pages.github.com/)

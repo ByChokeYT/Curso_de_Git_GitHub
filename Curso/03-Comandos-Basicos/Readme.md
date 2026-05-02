@@ -50,4 +50,23 @@ git commit --fixup <HASH_DEL_COMMIT_PADRE>
 2.  **Mensajes Explicativos:** El mensaje debe explicar el *qué* y el cuerpo el *por qué*. El código ya dice el *cómo*.
 3.  **Higiene del Historial:** Usa `amend` y `fixup` para que tu historia parezca impecable antes de compartirla con el equipo.
 
+## 💻 Laboratorio Práctico: Paso a Paso
+
+1. **Haz cambios y revisa el estado:**
+   ```bash
+   echo "Nuevos cambios" >> index.txt
+   git status
+   ```
+2. **Revisa la historia:**
+   ```bash
+   git log --oneline
+   ```
+3. **Agrega y comitea:**
+   ```bash
+   git add index.txt
+   git commit -m "docs: agregar detalles a index"
+   ```
+
+---
+
 [Examen: Módulo 03 - Commits de Calidad](https://forms.gle/Q2N95DmwXKKRKbTi8)

@@ -1,30 +1,29 @@
-# Examen final 
-Ejercicios
-![img](https://static.platzi.com/media/user_upload/git_fire-9b873abb-7c7d-40d3-a418-0816a5a689bd.jpg)
+# 🏆 Desafío de Certificación Final: Git & GitHub Master
 
->NOTA: aki tienes unas comandos para mejorar sirtos apuntes.
+Este examen no es solo una lista de comandos. Es una simulación de un día real como Desarrollador Senior en una empresa tecnológica.
 
-Ejercicios
+---
 
+## 🛠️ Fase 1: Configuración de Infraestructura
+1.  Crea un repositorio en GitHub llamado `git-masterclass-tu-nombre`.
+2.  Configura un archivo `.gitignore` profesional para un proyecto de tu lenguaje favorito (Node, Python, Go, etc.).
+3.  Establece una regla de protección de rama para que nadie pueda hacer push directo a `main` (descríbelo en un commit).
 
-Crea un repositorio en GitHub llamado nombreapellidos para almacenar el código de un proyecto en Java.
-Añade un fichero README.md al repositorio con el título del proyecto, una descripción del mismo y la información del autor
-Añade un fichero con la licencia del proyecto
-Añade un fichero .gitignore para ignorar los ficheros compilados del proyecto y de configuración (.conf)
-Descarga el repositorio en tu equipo y comienza a trabajar
-Cuando tengas la primera funcionalidad terminada sube el código al repositorio y validalo
-Sobre el repositorio anterior, imagina ahora que empiezas a trabajar en dicho proyecto y eres el encargado de añadir una nueva funcionalidad (un nuevo método, por ejemplo):
-Descargate el repositorio con la idea de seguir trabajando en él
-Añade la funcionalidad requerida
-Modifica el README.md para añadir tu nombre como colaborador del mismo
-Comprueba el estado del repositorio en tu equipo (status)
-Añade los cambios realizados al proyecto
-Sobre el mismo repositorio que los puntos anteriores, imagina que debes de eliminar un fichero que ya no es necesario que forme parte del mismo (si hace falta añade alguno para luego eliminarlo) y tampoco quieres que siga en tu equipo
-Imagina ahora que debes de eliminar un fichero que ya no es necesario que forme parte del mismo (si hace falta añade alguno para luego eliminarlo) pero quieres que siga formando parte del repositorio local en tu equipo
-Añade ahora en la Wiki del proyecto información sobre como instalar, ejecutar y usar la aplicación (3 páginas diferentes enlazadas y organizadas desde la portada de la Wiki)
-Registra ahora una nueva incidencia de tipo mejora para el repositorio y programa dicha mejora. En el momento de hacer el commit del código que la añade, haz que se marque como corregida.
-Amplia el README del proyecto y asegurate de que, al menos, incluyes la siguiente información
-Descripción breve del proyecto
-Requisitos para su instalación/puesta en marcha (remite a la Wiki para más información)
-Guía rápida de instalación (remite a la Wiki para más información)
-Información sobre los autores
+## 🚀 Fase 2: Flujo de Trabajo Profesional
+4.  Crea una rama `develop` y otra `feature/auth`.
+5.  En `feature/auth`, realiza 3 commits simulando la implementación de un login. Usa **Conventional Commits** (ej: `feat(auth): add login logic`).
+6.  Realiza un **Interactive Rebase** para hacer `squash` de esos 3 commits en uno solo más limpio.
+
+## 💥 Fase 3: Gestión de Crisis
+7.  Simula un conflicto: modifica la línea 1 de `README.md` en `main` y en `develop` con textos diferentes. Intenta hacer un merge y resuélvelo usando el editor de conflictos.
+8.  **El Desastre:** Borra una rama que tenga commits importantes y recupérala usando `git reflog`. Documenta el hash que usaste en un archivo llamado `rescue.txt`.
+
+## 🤖 Fase 4: DevOps & AI
+9.  Configura una GitHub Action simple (puedes usar un template) que imprima "🚀 Pipeline exitoso" cada vez que se haga un push a `main`.
+10. Usa una herramienta de IA (o simúlalo) para generar un mensaje de commit perfecto para un cambio que borre 10 archivos innecesarios.
+
+## 🏁 Entrega
+Sube todo a tu repositorio de GitHub y asegúrate de que el historial de commits sea una obra de arte lineal y descriptiva.
+
+> "Un buen programador escribe código que los humanos entienden. Un maestro de Git escribe una historia que el equipo puede seguir."
+

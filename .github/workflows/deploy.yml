@@ -1,0 +1,32 @@
+name: Build and Deploy Data
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Curso/**/*.md'
+      - 'generate_data.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Generate Data.js
+        run: python3 generate_data.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add assets/js/data.js
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-regenerate data.js [skip ci]" && git push)

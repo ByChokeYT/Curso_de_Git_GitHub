@@ -46,6 +46,38 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             title.style.display = hasVisible ? 'block' : 'none';
         });
+
+        // Highlight logic in main content
+        const mBodies = document.querySelectorAll('.markdown-body');
+        mBodies.forEach(body => {
+            // Remove old spans (reset)
+            const marks = body.querySelectorAll('mark.search-highlight');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (query.trim().length > 2) {
+                const regex = new RegExp(`(${query})`, 'gi');
+                const walk = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
+                let node;
+                const nodesToReplace = [];
+                while(node = walk.nextNode()) {
+                    if (node.nodeValue.toLowerCase().includes(query) && !['SCRIPT', 'STYLE', 'CODE', 'PRE'].includes(node.parentElement.tagName)) {
+                        nodesToReplace.push(node);
+                    }
+                }
+                nodesToReplace.forEach(n => {
+                    const span = document.createElement('span');
+                    span.innerHTML = n.nodeValue.replace(regex, '<mark class="search-highlight">$1</mark>');
+                    while(span.firstChild) {
+                        n.parentNode.insertBefore(span.firstChild, n);
+                    }
+                    n.parentNode.removeChild(n);
+                });
+            }
+        });
     });
 
     // --- GESTIÓN DE PROGRESO ---
@@ -67,6 +99,54 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         localStorage.setItem('gitCourseProgress', JSON.stringify(completedModules));
+
+        // Gamification: 100% completion
+        if (percent === 100 && total > 0) {
+            triggerConfetti();
+            showCertificate();
+        }
+    }
+
+    function triggerConfetti() {
+        if (typeof confetti !== 'undefined') {
+            var duration = 3000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ffbd2e', '#ff5f56', '#27c93f']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ffbd2e', '#ff5f56', '#27c93f']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+    }
+
+    function showCertificate() {
+        contentArea.innerHTML = `
+            <div class="certificate-card">
+                <i class="ri-medal-fill certificate-icon"></i>
+                <h1 class="certificate-title">¡Masterclass Completada!</h1>
+                <p class="certificate-subtitle">Has dominado Git & GitHub a nivel Experto.</p>
+                <div class="markdown-body" style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px;">
+                    <p><strong>Certificado de Excelencia Técnica</strong></p>
+                    <p>Otorgado a un desarrollador que ya no le teme a la terminal, que resuelve conflictos con los ojos cerrados y que utiliza reflog como un verdadero viajero del tiempo.</p>
+                </div>
+            </div>
+        `;
     }
 
     function toggleComplete(path) {
@@ -233,6 +313,103 @@ document.addEventListener('DOMContentLoaded', () => {
                 } catch(e) { console.error("Mermaid error", e); }
             });
         }, 500);
+    }
+
+    // --- TERMINAL INTERACTIVA ---
+    const termToggle = document.getElementById('terminalToggleBtn');
+    const termContainer = document.getElementById('terminalContainer');
+    const termClose = document.getElementById('termCloseBtn');
+    const termInput = document.getElementById('terminalInput');
+    const termBody = document.getElementById('terminalBody');
+
+    let isTerminalOpen = false;
+
+    function toggleTerminal() {
+        isTerminalOpen = !isTerminalOpen;
+        if(isTerminalOpen) {
+            termContainer.classList.add('show');
+            termInput.focus();
+            termToggle.innerHTML = '<i class="ri-close-line"></i> Cerrar Terminal';
+            termToggle.style.background = '#ff5f56';
+        } else {
+            termContainer.classList.remove('show');
+            termToggle.innerHTML = '<i class="ri-terminal-box-line"></i> Abrir Terminal';
+            termToggle.style.background = 'var(--accent-color)';
+        }
+    }
+
+    termToggle.addEventListener('click', toggleTerminal);
+    termClose.addEventListener('click', toggleTerminal);
+
+    function printToTerminal(text, type = 'system') {
+        const div = document.createElement('div');
+        div.className = `terminal-line ${type}`;
+        div.innerText = text;
+        termBody.appendChild(div);
+        termBody.scrollTop = termBody.scrollHeight;
+    }
+
+    termInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            const cmd = this.value.trim();
+            if (cmd) {
+                printToTerminal(`usuario@git-master:~$ ${cmd}`, 'command');
+                processCommand(cmd);
+            }
+            this.value = '';
+        }
+    });
+
+    termContainer.addEventListener('click', () => {
+        termInput.focus();
+    });
+
+    function processCommand(cmd) {
+        const parts = cmd.toLowerCase().split(' ');
+        const main = parts[0];
+        
+        if (main === 'clear') {
+            termBody.innerHTML = '';
+            return;
+        }
+
+        if (main !== 'git') {
+            printToTerminal(`bash: ${main}: command not found. (Esta es una terminal simulada, intenta comandos 'git')`, 'error');
+            return;
+        }
+
+        if (parts.length === 1) {
+            printToTerminal(`usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]`, 'system');
+            return;
+        }
+
+        const subCmd = parts[1];
+        switch(subCmd) {
+            case 'init':
+                printToTerminal('Initialized empty Git repository in /home/usuario/proyecto/.git/', 'success');
+                break;
+            case 'status':
+                printToTerminal(`On branch main\n\nNo commits yet\n\nUntracked files:\n  (use "git add <file>..." to include in what will be committed)\n\tindex.html\n\nnothing added to commit but untracked files present`, 'system');
+                break;
+            case 'add':
+                printToTerminal('Cambios añadidos al staging area.', 'success');
+                break;
+            case 'commit':
+                printToTerminal(`[main (root-commit) 4c5b3d2] feat: initial commit\n 1 file changed, 10 insertions(+)`, 'success');
+                break;
+            case 'push':
+                printToTerminal(`Enumerating objects: 3, done.\nCounting objects: 100% (3/3), done.\nWriting objects: 100% (3/3), 215 bytes | 215.00 KiB/s, done.\nTotal 3 (delta 0), reused 0 (delta 0), pack-reused 0\nTo https://github.com/usuario/repo.git\n * [new branch]      main -> main`, 'system');
+                break;
+            case 'log':
+                printToTerminal(`commit 4c5b3d2ef9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4 (HEAD -> main)\nAuthor: ByChokeYT <bychoke@example.com>\nDate:   Thu May 1 20:34:00 2026 -0400\n\n    feat: initial commit`, 'system');
+                break;
+            default:
+                printToTerminal(`git: '${subCmd}' is not a git command. See 'git --help'.`, 'error');
+        }
     }
 
     // Inicializar

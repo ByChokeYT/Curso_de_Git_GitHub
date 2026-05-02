@@ -74,6 +74,12 @@
                         </div>
                         <span class="check-mark"><i class="ri-check-line"></i></span>
                     </li>
+                    <li data-target="Curso/07-Conflictos/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-mickey-line"></i> Resolución de Conflictos
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
 
                     <p class="nav-title"><i class="ri-team-line"></i> 04. Colaboración & DevOps <span class="level-badge intermediate">Nivel Pro</span></p>
                     <li data-target="Curso/05-Colaboracion/Readme.md">
@@ -88,44 +94,49 @@
                         </div>
                         <span class="check-mark"><i class="ri-check-line"></i></span>
                     </li>
-
-                    <p class="nav-title"><i class="ri-robot-line"></i> 05. GitHub Actions 2027 <span class="level-badge advanced">Nivel AI</span></p>
-                    <li data-target="Curso/10-Actions/Readme.md">
+                    <li data-target="Curso/08-Extras/Readme.md">
                         <div class="li-content">
-                            <i class="ri-robot-2-line"></i> AI-Integrated Pipelines
+                            <i class="ri-flask-line"></i> GitHub Pages & Issues
                         </div>
                         <span class="check-mark"><i class="ri-check-line"></i></span>
                     </li>
 
-                    <p class="nav-title"><i class="ri-speed-mini-line"></i> 06. Productividad Élite <span class="level-badge advanced">Nivel Experto</span></p>
+                    <p class="nav-title"><i class="ri-robot-line"></i> 05. Automatización & AI <span class="level-badge advanced">Nivel AI</span></p>
+                    <li data-target="Curso/10-Actions/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-robot-2-line"></i> GitHub Actions CI/CD
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+                    <li data-target="Curso/13-AI-Dev/Readme.md">
+                        <div class="li-content">
+                            <i class="ri-magic-line"></i> IA en el Ciclo Git
+                        </div>
+                        <span class="check-mark"><i class="ri-check-line"></i></span>
+                    </li>
+
+                    <p class="nav-title"><i class="ri-speed-mini-line"></i> 06. Productividad & Rescate <span class="level-badge advanced">Nivel Senior</span></p>
                     <li data-target="Curso/11-Productividad/Readme.md">
                         <div class="li-content">
                             <i class="ri-guide-line"></i> Worktrees y Bisect
                         </div>
                         <span class="check-mark"><i class="ri-check-line"></i></span>
                     </li>
-
-                    <p class="nav-title"><i class="ri-shield-keyhole-line"></i> 07. Seguridad & Escala <span class="level-badge advanced">Nivel Senior</span></p>
-                    <li data-target="Curso/07-Conflictos/Readme.md">
+                    <li data-target="Curso/12-Desastres/Readme.md">
                         <div class="li-content">
-                            <i class="ri-lock-password-line"></i> Secrets y GPG Signing
+                            <i class="ri-lifebuoy-line"></i> Reflog & Recuperación
                         </div>
                         <span class="check-mark"><i class="ri-check-line"></i></span>
                     </li>
 
-                    <p class="nav-title"><i class="ri-building-line"></i> 08. Enterprise & Master <span class="level-badge advanced">Nivel Maestría</span></p>
-                    <li data-target="Curso/08-Extras/Readme.md">
-                        <div class="li-content">
-                            <i class="ri-flask-line"></i> Monorepos y Labs
-                        </div>
-                        <span class="check-mark"><i class="ri-check-line"></i></span>
-                    </li>
+                    <p class="nav-title"><i class="ri-award-line"></i> 07. Maestría & Proyecto <span class="level-badge advanced">Nivel Senior</span></p>
                     <li data-target="Curso/09-Buenas-Practicas/Readme.md">
                         <div class="li-content">
-                            <i class="ri-award-line"></i> Proyecto Integrador
+                            <i class="ri-shield-check-line"></i> Buenas Prácticas Pro
                         </div>
                         <span class="check-mark"><i class="ri-check-line"></i></span>
                     </li>
+
                 </ul>
             </nav>
             <div class="sidebar-footer">
@@ -165,8 +176,31 @@
         </main>
     </div>
 
+    <!-- Floating Terminal -->
+    <button class="terminal-toggle-btn" id="terminalToggleBtn">
+        <i class="ri-terminal-box-line"></i> Abrir Terminal
+    </button>
+    <div class="terminal-container glass-panel" id="terminalContainer">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="term-btn close" id="termCloseBtn"></span>
+                <span class="term-btn minimize"></span>
+                <span class="term-btn maximize"></span>
+            </div>
+            <div class="terminal-title">git-bash — ByChokeYT</div>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+            <div class="terminal-line welcome">Bienvenido a la consola interactiva. Escribe comandos de Git para practicar.</div>
+        </div>
+        <div class="terminal-input-line">
+            <span class="prompt">usuario@git-master:~$</span>
+            <input type="text" id="terminalInput" class="terminal-input" autocomplete="off" spellcheck="false">
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="assets/js/data.js"></script>
     <script src="assets/js/script.js"></script>
 </body>

@@ -37,4 +37,24 @@ Mueve la base de tu rama al final de la rama objetivo, re-escribiendo los commit
 2.  **Estrategia de Equipo:** Define una política de integración. ¿Usamos `merge --no-ff` para ver el bulto de la rama o `rebase` para limpieza total?
 3.  **Higiene de Ramas:** Borra las ramas locales y remotas una vez integradas para mantener el sistema de control de versiones ligero.
 
+## 💻 Laboratorio Práctico: Paso a Paso
+
+1. **Crea y salta a una nueva rama:**
+   ```bash
+   git checkout -b feature/login
+   ```
+2. **Haz un commit en la nueva rama:**
+   ```bash
+   echo "Lógica de Login" > login.js
+   git add .
+   git commit -m "feat: crear base de login"
+   ```
+3. **Vuelve a main y fusiona (merge):**
+   ```bash
+   git checkout main
+   git merge feature/login
+   ```
+
+---
+
 [Examen: Módulo 04 - Manejo de Ramas](https://forms.gle/TaTF9oBPbVHShdaD9)

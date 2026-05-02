@@ -42,4 +42,22 @@ Es el momento donde otros ingenieros critican constructivamente el código. En 2
 2.  **Higiene de Commits:** Siempre haz un `rebase` o un `merge` con tu base actualizada antes de enviar tu PR para evitar conflictos en el servidor.
 3.  **Comunicación Técnica:** Los comentarios en el PR deben ser objetivos. Enfócate en el código, no en el programador.
 
+## 💻 Laboratorio Práctico: Paso a Paso
+
+1. **Añade un remoto (simulado):**
+   ```bash
+   git remote add origin https://github.com/tu-usuario/tu-repo.git
+   ```
+2. **Sube tus cambios:**
+   ```bash
+   git push -u origin main
+   ```
+3. **Trae los últimos cambios de tu equipo sin fusionar:**
+   ```bash
+   git fetch origin
+   git status
+   ```
+
+---
+
 [Examen: Módulo 05 - Colaboración Remota](https://forms.gle/xxKEAv6z33Qh6sZ98)

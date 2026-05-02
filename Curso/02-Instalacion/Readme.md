@@ -63,4 +63,27 @@ dist/
 2.  **Seguridad Proactiva:** El `.gitignore` es tu primera línea de defensa contra la fuga de credenciales.
 3.  **Consistencia de Estado:** Git siempre sabe en qué estado está cada byte de tu proyecto. Aprender a leer el `git status` analíticamente es vital.
 
+## 💻 Laboratorio Práctico: Paso a Paso
+
+1. **Crea un archivo secreto y un archivo normal:**
+   ```bash
+   echo "PASSWORD=12345" > .env
+   echo "console.log('hola');" > app.js
+   ```
+2. **Ignora el archivo secreto:**
+   ```bash
+   echo ".env" > .gitignore
+   ```
+3. **Verifica el estado (solo app.js y .gitignore deberían aparecer):**
+   ```bash
+   git status
+   ```
+4. **Prepara y confirma (Staging a Repo Local):**
+   ```bash
+   git add .
+   git commit -m "chore: setup de proyecto e ignore"
+   ```
+
+---
+
 [Examen: Módulo 02 - Flujo de Trabajo](https://forms.gle/KH5trB9CRZ68MgRRA)

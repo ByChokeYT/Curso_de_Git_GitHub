@@ -46,4 +46,25 @@ git sparse-checkout set folder/subfolder
 2.  **Depuración Algorítmica:** No busques errores manualmente; deja que `bisect` haga el trabajo matemático.
 3.  **Eficiencia de Recursos:** En la nube y en monorepos, el `sparse-checkout` es vital para la rapidez de los runners de CI y el espacio en disco local.
 
+## 💻 Laboratorio Práctico: Paso a Paso
+
+1. **Crea un nuevo Worktree (carpeta independiente para otra rama):**
+   ```bash
+   # Agrega un worktree para la rama 'hotfix' en una carpeta paralela
+   git worktree add ../mi-proyecto-hotfix hotfix
+   ```
+2. **Navega y trabaja simultáneamente:**
+   ```bash
+   cd ../mi-proyecto-hotfix
+   echo "Solución" > fix.txt
+   # Aquí puedes hacer commits en 'hotfix' sin ensuciar tu carpeta original
+   ```
+3. **Limpia los worktrees:**
+   ```bash
+   cd ../mi-proyecto
+   git worktree remove ../mi-proyecto-hotfix
+   ```
+
+---
+
 [Laboratorio de Productividad](https://git-scm.com/docs/git-worktree)

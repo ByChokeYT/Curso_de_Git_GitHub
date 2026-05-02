@@ -50,4 +50,25 @@ git config --global commit.gpgsign true
 2.  **Integridad Criptográfica:** El uso de SHA garantiza que el código que ves es exactamente el código que se escribió.
 3.  **Descentralización Real:** Cada clon es una base de datos de objetos completa, lo que permite trabajar sin servidor central con la misma potencia de cómputo.
 
+## 💻 Laboratorio Práctico: Paso a Paso
+
+1. **Inicializa un repositorio:**
+   ```bash
+   mkdir lab-01
+   cd lab-01
+   git init
+   ```
+2. **Explora el directorio oculto:**
+   ```bash
+   ls -la .git
+   ```
+3. **Crea un archivo y mira cómo Git crea un Blob:**
+   ```bash
+   echo "hola" > saludo.txt
+   git hash-object -w saludo.txt
+   ```
+   *(Git te devolverá un hash. Acabas de crear un objeto Blob manualmente en la base de datos de Git).*
+
+---
+
 [Examen: Módulo 01 - Arquitectura de Git](https://forms.gle/toiLYERfdE2BQT1V8)

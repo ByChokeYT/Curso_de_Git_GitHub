@@ -1,37 +1,62 @@
-# Módulo 04 (Part 2): Ecosistema GitHub (Gestión de Proyectos)
+# Módulo 06: Ecosistema Profesional de GitHub
 
-GitHub no es solo para el código; es la plataforma donde ocurre la **gestión de la ingeniería**. Como ingeniero, debes saber usar las herramientas de seguimiento para asegurar que el desarrollo sea predecible.
-
----
-
-## 🔬 Issues, Milestones & Projects
-
-### Issues (El "Ticket" del Desarrollador)
-No solo sirven para reportar bugs. Son la unidad de trabajo.
--   **Labels:** Categorización lógica (Priority, UI, Backend).
--   **Assignees:** Responsabilidad directa.
-
-### Projects (El Tablero Kanban)
-Permite visualizar el flujo de trabajo del equipo.
--   **Vistas:** Tablas, Tableros (Kanban), Gráficas de Gantt lógicas.
--   **Automatización:** Mover tickets automáticamente cuando se abre un PR o se cierra un Issue.
+GitHub no es solo un hosting de código; es la red social y la plataforma de colaboración más grande del mundo para desarrolladores. Dominar su ecosistema es clave para tu carrera.
 
 ---
 
-## ⚙️ Documentación de Ingeniería: Wikis & Discussions
+## 👤 Perfil y Marca Personal
+Tu perfil de GitHub es tu **Currículum Vitae** real. 
+-   **Profile README:** Crea un repositorio con tu nombre de usuario para personalizar tu página de inicio.
+-   **Contributions Graph:** La constancia es valorada por los reclutadores.
+-   **Pinned Repositories:** Muestra tus mejores proyectos (máximo 6).
 
-### GitHub Wiki
-Es el lugar donde vive el conocimiento a largo plazo (Arquitectura, manuales de instalación pro, estándares de seguridad).
+---
 
-### Discussions
-A diferencia de los Issues (que son para tareas), Discussions es para **debates arquitectónicos** o preguntas de la comunidad.
+## 🤝 Colaboración en Proyectos (Open Source)
+El flujo de contribución estándar es el **Fork & Pull Request**:
+
+1.  **Fork:** Creas una copia exacta del repositorio en tu cuenta.
+2.  **Clone:** Descargas tu fork localmente.
+3.  **Branch:** Creas una rama para tu mejora.
+4.  **Push:** Subes tus cambios a tu fork.
+5.  **Pull Request (PR):** Propones tus cambios al repositorio original.
+
+---
+
+## 🏢 Organizaciones y Equipos
+Para proyectos profesionales, se utilizan **Organizaciones**:
+-   **Teams:** Permiten gestionar permisos de lectura/escritura por grupos.
+-   **Settings de Seguridad:** Protección de ramas (Branch Protection Rules) para evitar que se suba código a `main` sin revisión.
+
+---
+
+## 📜 Gists: Snippets de Código
+Los [Gists](https://gist.github.com) son repositorios pequeños de un solo archivo. Ideales para:
+-   Compartir fragmentos de código rápidos.
+-   Guardar configuraciones de terminal (`.zshrc`, `.vimrc`).
+-   Documentación técnica efímera.
 
 ---
 
 ## ## Resumen (Ingeniería de Sistemas)
+1.  **Visibilidad:** No basta con programar bien; hay que saber mostrarlo.
+2.  **Estandarización:** Sigue las reglas del repositorio donde contribuyes (`CONTRIBUTING.md`).
+3.  **Seguridad:** Nunca subas secretos (API Keys, Passwords) a GitHub, incluso en repositorios privados.
 
-1.  **Trazabilidad:** Cada línea de código debe estar vinculada a un Issue. Esto permite saber meses después POR QUÉ se hizo un cambio.
-2.  **Transparencia:** El uso de Proyectos permite que los stakeholders (clientes o jefes) vean el avance sin necesidad de interrumpir a los desarrolladores.
-3.  **Memoria Colectiva:** Un proyecto sin documentación es una deuda técnica. Las Wikis son el manual de vuelo de tu sistema.
+## 💻 Laboratorio Práctico: Paso a Paso
 
-[Examen: Módulo 06 - Trabajo con GitHub](https://forms.gle/xxKEAv6z33Qh6sZ98)
+1. **Clona un proyecto de código abierto (Fork local):**
+   ```bash
+   git clone https://github.com/torvalds/linux.git mi-linux
+   cd mi-linux
+   ```
+2. **Crea un Gist rápido desde la terminal (requiere GitHub CLI):**
+   ```bash
+   # Si tienes gh instalado:
+   echo "Mi snippet útil" > util.js
+   gh gist create util.js --public
+   ```
+
+---
+
+[Laboratorio: Crea tu Profile README](https://docs.github.com/es/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)
