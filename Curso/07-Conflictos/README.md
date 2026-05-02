@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/07-conflictos.png)
+
 # Módulo 07: Control de Versiones y Gestión de Conflictos
 
 El conflicto no es un error, es una **divergencia de opiniones** que Git no puede resolver solo. Aprender a gestionarlos sin miedo diferencia a un junior de un senior.

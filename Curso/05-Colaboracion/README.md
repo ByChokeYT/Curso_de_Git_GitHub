@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/05-colaboracion.png)
+
 # Módulo 04: Colaboración Distribuida (Networking Git)
 
 En la ingeniería moderna, nadie trabaja solo. Entender cómo sincronizar estados de código entre diferentes máquinas es vital para la entrega continua.

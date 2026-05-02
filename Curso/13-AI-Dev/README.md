@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/13-ai-dev.png)
+
 # Módulo 13: Inteligencia Artificial en el Flujo de Git
 
 En 2026/2027, la IA no escribe el código por ti, pero actúa como un copiloto que asegura que tu historial de versiones sea impecable y seguro.

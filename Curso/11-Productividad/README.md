@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/11-productividad.png)
+
 # Módulo 06: Productividad de Élite (Comandos de Alta Escala)
 
 En proyectos de gran escala (Monorepos o sistemas con millones de archivos), los comandos básicos son ineficientes. Aquí es donde entra la ingeniería de rendimiento aplicada a Git.

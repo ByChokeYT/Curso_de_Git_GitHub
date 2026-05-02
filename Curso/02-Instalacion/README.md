@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/02-instalacion.png)
+
 # Módulo 02: El Ciclo de Vida del Código (Staging & Internals)
 
 En la ingeniería de software, el control total del estado de tus archivos es la diferencia entre un commit caótico y una base de código limpia.

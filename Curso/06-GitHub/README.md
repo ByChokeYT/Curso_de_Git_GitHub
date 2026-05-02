@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/06-github.png)
+
 # Módulo 06: Ecosistema Profesional de GitHub
 
 GitHub no es solo un hosting de código; es la red social y la plataforma de colaboración más grande del mundo para desarrolladores. Dominar su ecosistema es clave para tu carrera.

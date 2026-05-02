@@ -20,37 +20,35 @@ Este repositorio no es solo código; es una **WebApp de aprendizaje interactiva*
 
 ## 🛠️ Temario del Curso (Nivel Senior)
 
-1. [Introducción a Git y GitHub](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/Curso/01-Intro)
-    - [ ] Arquitectura Profunda (Blobs, Trees, Commits)
-    - [ ] Integridad Criptográfica con SHA-256
+1. **Arquitectura Profunda**
+    - [Introducción a Git](Curso/01-Intro/README.md): Blobs, Trees y SHA-256.
 
-2. [Instalación y configuración de Git](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/Curso/02-Instalacion)
-    - [ ] Seguridad: Firma GPG y SSH
-    - [ ] Configuración global y alias avanzados
+2. **Flujo Profesional**
+    - [Instalación y Ciclo de Vida](Curso/02-Instalacion/README.md): Staging y estados.
+    - [Comandos Esenciales](Curso/03-Comandos-Basicos/README.md): Commits Atómicos y Semánticos.
 
-3. [Comandos básicos de Git](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/Curso/03-Comandos-Basicos)
-    - [ ] Flujo de trabajo local y Staging Area
-    - [ ] Commits Semánticos y Atómicos
+3. **Gestión de Ramas**
+    - [Merge vs Rebase](Curso/04-Ramas/README.md): Estrategias de integración.
+    - [Resolución de Conflictos](Curso/07-Conflictos/README.md): Gestión de crisis en el código.
 
-4. [Gestión de Ramas y Conflictos](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/Curso/04-Ramas)
-    - [ ] Merge vs Rebase: Cuándo usar cada uno
-    - [ ] Resolución de conflictos profesional
+4. **Colaboración & DevOps**
+    - [Flujo de Trabajo en Equipo](Curso/05-Colaboracion/README.md): PRs y Code Review.
+    - [Ecosistema GitHub](Curso/06-GitHub/README.md): Organizaciones y Seguridad.
+    - [GitHub Pages & Extras](Curso/08-Extras/README.md): Despliegue y herramientas.
 
-5. [Colaboración & Ecosistema GitHub](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/Curso/05-Colaboracion)
-    - [ ] Pull Requests & Code Review Senior
-    - [ ] Perfil de GitHub, Gists y Organizaciones
+5. **Automatización & AI**
+    - [GitHub Actions](Curso/10-Actions/README.md): Pipelines CI/CD reales.
+    - [IA Dev](Curso/13-AI-Dev/README.md): Integración de LLMs en el flujo Git.
 
-6. [Automatización & AI](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/Curso/10-Actions)
-    - [ ] GitHub Actions (CI/CD Pipelines)
-    - [ ] IA Dev: Integración de LLMs en el flujo Git
+6. **Productividad & Rescate**
+    - [Worktrees & Bisect](Curso/11-Productividad/README.md): Multitasking y depuración.
+    - [Git Reflog](Curso/12-Desastres/README.md): Recuperación de commits perdidos.
 
-7. [Productividad & Rescate](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/Curso/11-Productividad)
-    - [ ] Git Worktrees (Gestión de ramas en paralelo)
-    - [ ] Git Reflog & Git Bisect (Recuperación de desastres)
+7. **Maestría & Buenas Prácticas**
+    - [GitFlow vs Trunk Based](Curso/09-Buenas-Practicas/README.md): Arquitectura de ramas.
 
-8. [Maestría y Buenas Prácticas](https://github.com/ByChokeYT/Curso_de_Git_GitHub/tree/main/Curso/09-Buenas-Practicas)
-    - [ ] Estrategias de ramas (GitFlow vs Trunk Based)
-    - [ ] Proyecto Integrador Final
+8. **Certificación**
+    - [Examen Final](Examen-Final.md): Desafío de nivel Senior.
 
 ---
 

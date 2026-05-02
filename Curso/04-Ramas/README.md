@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/04-ramas.png)
+
 # Módulo 03: Gestión Maestra de Ramas (Merging Strategies)
 
 Las ramas son el pilar fundamental del desarrollo paralelo. En ingeniería, no solo se trata de "crear ramas", sino de entender cómo reintegrarlas al flujo principal con integridad.

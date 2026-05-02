@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/03-comandos.png)
+
 # Módulo 02 (Part 2): Commits Semánticos y Calidad de Historial
 
 Un commit no es un "guardado", es una **unidad de cambio lógica**. En equipos de élite, los mensajes de commit son la documentación más importante del sistema.

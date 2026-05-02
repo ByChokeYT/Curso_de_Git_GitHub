@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/09-buenas-practicas.png)
+
 # Módulo 09: Buenas Prácticas (Nivel Senior)
 
 Escribir código es fácil; mantener un historial de cambios limpio y profesional en un equipo de 50 personas es el verdadero reto de ingeniería.

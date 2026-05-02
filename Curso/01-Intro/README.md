@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/01-intro.png)
+
 # Módulo 01: Arquitectura Profunda de Git
 
 Git no es solo una herramienta de "guardado", es una **Base de Datos de Objetos direccionable por contenido**. Para un ingeniero de sistemas, entender Git significa entender cómo manipula los datos en el nivel más bajo.

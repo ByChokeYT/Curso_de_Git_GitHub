@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/12-desastres.png)
+
 # Módulo 12: Laboratorio de Desastres (The "Oh Sh*t" Module)
 
 Todo desarrollador comete errores. La diferencia es que un experto sabe cómo usar Git para viajar en el tiempo y deshacer el caos.

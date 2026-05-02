@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/08-extras.png)
+
 # Módulo 08: Otras Funcionalidades de GitHub
 
 GitHub es un centro de operaciones (DevOps). Aquí exploramos las herramientas que orquestan el ciclo de vida del software más allá del código.

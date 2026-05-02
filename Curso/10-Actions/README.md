@@ -1,3 +1,5 @@
+![Banner](../../Recursos/Banners/10-actions.png)
+
 # Módulo 05: GitHub Actions 2027 (Ingeniería de Automatización)
 
 La automatización moderna no es solo correr tests; es orquestar la calidad del software con Inteligencia Artificial y seguridad de red zero-trust.
