@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const moduleSearch = document.getElementById('moduleSearch');
     const progressBar = document.getElementById('progressBar');
     const progressPercent = document.getElementById('progressPercent');
+    const scrollProgress = document.getElementById('scrollProgress');
 
     // Inicializar Mermaid
     mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
@@ -107,6 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- SCROLL PROGRESS ---
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        scrollProgress.style.width = scrolled + "%";
+    });
+
     function triggerConfetti() {
         if (typeof confetti !== 'undefined') {
             var duration = 3000;
@@ -190,20 +199,23 @@ document.addEventListener('DOMContentLoaded', () => {
             lastHeader.remove();
         }
 
-        // 3. Extraer Claves (Cues) basados en negritas, código inline y términos clave
+        // 3. Extraer Claves (Cues) Inteligentes
         const keys = new Set();
-        // Buscar negritas y código inline
+        // Buscar términos en negrita, código o que empiecen por "Punto clave:", "Nota:", etc.
         tempDiv.querySelectorAll('strong, b, code').forEach(el => {
-            // Solo extraemos si el elemento está dentro de un párrafo (inline) y no es un bloque de código grande
             if(el.parentElement.tagName === 'P' || el.parentElement.tagName === 'LI') {
                 const val = el.innerText.trim();
-                if(val.length > 1 && val.length < 35) {
-                    keys.add(val);
-                }
+                if(val.length > 1 && val.length < 40) keys.add(val);
             }
         });
+
+        // Buscar oraciones que parezcan preguntas o definiciones
+        tempDiv.querySelectorAll('p').forEach(p => {
+            const text = p.innerText.trim();
+            if (text.includes('?') && text.length < 60) keys.add(text);
+        });
         
-        const cuesItems = Array.from(keys).map(key => `<div class="cue-item">${key}</div>`).join('');
+        const cuesItems = Array.from(keys).slice(0, 8).map(key => `<div class="cue-item">${key}</div>`).join('');
 
         // 4. Construir el Grid final
         return `
@@ -315,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     }
 
-    // --- TERMINAL INTERACTIVA ---
+    // --- TERMINAL INTERACTIVA AVANZADA ---
     const termToggle = document.getElementById('terminalToggleBtn');
     const termContainer = document.getElementById('terminalContainer');
     const termClose = document.getElementById('termCloseBtn');
@@ -323,6 +335,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const termBody = document.getElementById('terminalBody');
 
     let isTerminalOpen = false;
+    let commandHistory = [];
+    let historyIndex = -1;
 
     function toggleTerminal() {
         isTerminalOpen = !isTerminalOpen;
@@ -354,9 +368,30 @@ document.addEventListener('DOMContentLoaded', () => {
             const cmd = this.value.trim();
             if (cmd) {
                 printToTerminal(`usuario@git-master:~$ ${cmd}`, 'command');
+                commandHistory.push(cmd);
+                historyIndex = commandHistory.length;
                 processCommand(cmd);
             }
             this.value = '';
+        } else if (e.key === 'ArrowUp') {
+            if (historyIndex > 0) {
+                historyIndex--;
+                this.value = commandHistory[historyIndex];
+            }
+        } else if (e.key === 'ArrowDown') {
+            if (historyIndex < commandHistory.length - 1) {
+                historyIndex++;
+                this.value = commandHistory[historyIndex];
+            } else {
+                historyIndex = commandHistory.length;
+                this.value = '';
+            }
+        } else if (e.key === 'Tab') {
+            e.preventDefault();
+            const val = this.value.toLowerCase();
+            const hints = ['git init', 'git status', 'git add', 'git commit', 'git push', 'git branch', 'git checkout', 'git merge', 'git log', 'git help', 'clear', 'whoami'];
+            const match = hints.find(h => h.startsWith(val));
+            if (match) this.value = match;
         }
     });
 
@@ -373,21 +408,31 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (main !== 'git') {
-            printToTerminal(`bash: ${main}: command not found. (Esta es una terminal simulada, intenta comandos 'git')`, 'error');
+        if (main === 'whoami') {
+            printToTerminal('ByChoke Masterclass Student (Level: Professional)', 'success');
             return;
         }
 
-        if (parts.length === 1) {
-            printToTerminal(`usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           <command> [<args>]`, 'system');
+        if (main !== 'git') {
+            printToTerminal(`bash: ${main}: command not found. Escribe 'git help' para ver comandos disponibles.`, 'error');
             return;
         }
 
         const subCmd = parts[1];
+        if (!subCmd || subCmd === 'help') {
+            printToTerminal(`Comandos Git disponibles en este simulador:
+- init: Inicializar repositorio
+- status: Ver estado de archivos
+- add: Añadir al staging
+- commit: Guardar cambios
+- branch: Ver o crear ramas
+- checkout: Cambiar de rama
+- merge: Unir ramas
+- log: Ver historial
+- push: Subir a la nube`, 'system');
+            return;
+        }
+
         switch(subCmd) {
             case 'init':
                 printToTerminal('Initialized empty Git repository in /home/usuario/proyecto/.git/', 'success');
@@ -404,11 +449,29 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'push':
                 printToTerminal(`Enumerating objects: 3, done.\nCounting objects: 100% (3/3), done.\nWriting objects: 100% (3/3), 215 bytes | 215.00 KiB/s, done.\nTotal 3 (delta 0), reused 0 (delta 0), pack-reused 0\nTo https://github.com/usuario/repo.git\n * [new branch]      main -> main`, 'system');
                 break;
+            case 'branch':
+                if (parts.length > 2) {
+                    printToTerminal(`Created branch '${parts[2]}'`, 'success');
+                } else {
+                    printToTerminal(`* main\n  develop\n  feature/auth`, 'system');
+                }
+                break;
+            case 'checkout':
+                if (parts.length > 2) {
+                    const branch = parts[parts.length - 1];
+                    printToTerminal(`Switched to branch '${branch}'`, 'success');
+                } else {
+                    printToTerminal('error: pathspec branch name required', 'error');
+                }
+                break;
+            case 'merge':
+                printToTerminal('Updating 4c5b3d2..a1fcd4b\nFast-forward\n index.html | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)', 'success');
+                break;
             case 'log':
                 printToTerminal(`commit 4c5b3d2ef9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4 (HEAD -> main)\nAuthor: ByChokeYT <bychoke@example.com>\nDate:   Thu May 1 20:34:00 2026 -0400\n\n    feat: initial commit`, 'system');
                 break;
             default:
-                printToTerminal(`git: '${subCmd}' is not a git command. See 'git --help'.`, 'error');
+                printToTerminal(`git: '${subCmd}' is not a git command. See 'git help'.`, 'error');
         }
     }
 

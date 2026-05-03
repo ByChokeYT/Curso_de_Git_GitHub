@@ -1,0 +1,21 @@
+{
+  "name": "Git & GitHub Masterclass — ByChokeYT",
+  "short_name": "GitMaster",
+  "description": "Curso interactivo de Git y GitHub de Cero a Senior.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0f19",
+  "theme_color": "#F05032",
+  "icons": [
+    {
+      "src": "https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
