@@ -482,6 +482,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let commandHistory = [];
     let historyIndex = -1;
 
+    // --- VIRTUAL FILE SYSTEM (VFS) ---
+    let vfs = {
+        'index.html': { state: 'committed' },
+        'styles.css': { state: 'committed' }
+    };
+
+    function getVFSStatus() {
+        const untracked = Object.keys(vfs).filter(f => vfs[f].state === 'untracked');
+        const staged = Object.keys(vfs).filter(f => vfs[f].state === 'staged');
+        const committed = Object.keys(vfs).filter(f => vfs[f].state === 'committed');
+        return { untracked, staged, committed };
+    }
+
     function toggleTerminal() {
         isTerminalOpen = !isTerminalOpen;
         if(isTerminalOpen) {
@@ -533,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (e.key === 'Tab') {
             e.preventDefault();
             const val = this.value.toLowerCase();
-            const hints = ['git init', 'git status', 'git add', 'git commit', 'git push', 'git branch', 'git checkout', 'git merge', 'git log', 'git help', 'clear', 'whoami'];
+            const hints = ['git init', 'git status', 'git add', 'git commit', 'git push', 'git branch', 'git checkout', 'git merge', 'git log', 'git help', 'clear', 'whoami', 'ls', 'touch', 'rm'];
             const match = hints.find(h => h.startsWith(val));
             if (match) this.value = match;
         }
@@ -544,7 +557,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function processCommand(cmd) {
-        const parts = cmd.toLowerCase().split(' ');
+        const parts = cmd.toLowerCase().split(' ').filter(p => p.trim() !== '');
+        if (parts.length === 0) return;
+
         const main = parts[0];
         
         if (main === 'clear') {
@@ -557,6 +572,42 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        if (main === 'ls') {
+            const files = Object.keys(vfs).join('  ');
+            printToTerminal(files || '(directorio vacío)', 'system');
+            return;
+        }
+
+        if (main === 'touch') {
+            if (parts.length > 1) {
+                const filename = parts[1];
+                if (vfs[filename]) {
+                    printToTerminal(`touch: el archivo '${filename}' ya existe.`, 'system');
+                } else {
+                    vfs[filename] = { state: 'untracked' };
+                    printToTerminal(`Archivo '${filename}' creado.`, 'success');
+                }
+            } else {
+                printToTerminal('touch: falta un operando de archivo', 'error');
+            }
+            return;
+        }
+
+        if (main === 'rm') {
+            if (parts.length > 1) {
+                const filename = parts[1];
+                if (vfs[filename]) {
+                    delete vfs[filename];
+                    printToTerminal(`Archivo '${filename}' eliminado.`, 'success');
+                } else {
+                    printToTerminal(`rm: no se puede borrar '${filename}': No existe el archivo`, 'error');
+                }
+            } else {
+                printToTerminal('rm: falta un operando', 'error');
+            }
+            return;
+        }
+
         if (main !== 'git') {
             printToTerminal(`bash: ${main}: command not found. Escribe 'git help' para ver comandos disponibles.`, 'error');
             return;
@@ -564,11 +615,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const subCmd = parts[1];
         if (!subCmd || subCmd === 'help') {
-            printToTerminal(`Comandos Git disponibles en este simulador:
+            printToTerminal(`Comandos Git disponibles:
 - init: Inicializar repositorio
-- status: Ver estado de archivos
-- add: Añadir al staging
-- commit: Guardar cambios
+- status: Ver estado de archivos (VFS activo)
+- add <file>: Añadir al staging
+- commit -m "msg": Guardar cambios
 - branch: Ver o crear ramas
 - checkout: Cambiar de rama
 - merge: Unir ramas
@@ -577,21 +628,54 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const { untracked, staged, committed } = getVFSStatus();
+
         switch(subCmd) {
             case 'init':
                 printToTerminal('Initialized empty Git repository in /home/usuario/proyecto/.git/', 'success');
                 break;
             case 'status':
-                printToTerminal(`On branch main\n\nNo commits yet\n\nUntracked files:\n  (use "git add <file>..." to include in what will be committed)\n\tindex.html\n\nnothing added to commit but untracked files present`, 'system');
+                let statusOutput = `On branch main\n\n`;
+                if (staged.length > 0) {
+                    statusOutput += `Changes to be committed:\n  (use "git restore --staged <file>..." to unstage)\n`;
+                    staged.forEach(f => statusOutput += `\tmodified:   ${f}\n`);
+                    statusOutput += `\n`;
+                }
+                if (untracked.length > 0) {
+                    statusOutput += `Untracked files:\n  (use "git add <file>..." to include in what will be committed)\n`;
+                    untracked.forEach(f => statusOutput += `\t${f}\n`);
+                    statusOutput += `\nnothing added to commit but untracked files present`;
+                } else if (staged.length === 0) {
+                    statusOutput += `nothing to commit, working tree clean`;
+                }
+                printToTerminal(statusOutput, 'system');
                 break;
             case 'add':
-                printToTerminal('Cambios añadidos al staging area.', 'success');
+                if (parts.length > 2) {
+                    const target = parts[2];
+                    if (target === '.') {
+                        untracked.forEach(f => vfs[f].state = 'staged');
+                        printToTerminal('Todos los archivos añadidos al staging area.', 'success');
+                    } else if (vfs[target]) {
+                        vfs[target].state = 'staged';
+                        printToTerminal(`Archivo '${target}' añadido al staging area.`, 'success');
+                    } else {
+                        printToTerminal(`fatal: pathspec '${target}' did not match any files`, 'error');
+                    }
+                } else {
+                    printToTerminal('nothing specified, nothing added.', 'system');
+                }
                 break;
             case 'commit':
-                printToTerminal(`[main (root-commit) 4c5b3d2] feat: initial commit\n 1 file changed, 10 insertions(+)`, 'success');
+                if (staged.length > 0) {
+                    staged.forEach(f => vfs[f].state = 'committed');
+                    printToTerminal(`[main ${Math.random().toString(16).substring(2, 8)}] commit exitoso\n ${staged.length} files changed`, 'success');
+                } else {
+                    printToTerminal('nothing to commit, working tree clean', 'system');
+                }
                 break;
             case 'push':
-                printToTerminal(`Enumerating objects: 3, done.\nCounting objects: 100% (3/3), done.\nWriting objects: 100% (3/3), 215 bytes | 215.00 KiB/s, done.\nTotal 3 (delta 0), reused 0 (delta 0), pack-reused 0\nTo https://github.com/usuario/repo.git\n * [new branch]      main -> main`, 'system');
+                printToTerminal(`Enumerating objects: 3, done.\nCounting objects: 100% (3/3), done.\nWriting objects: 100% (3/3), listo.\nTo https://github.com/usuario/repo.git\n * [new branch]      main -> main`, 'system');
                 break;
             case 'branch':
                 if (parts.length > 2) {
