@@ -4,7 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'Curso/**/Readme.md'   # Solo corre si cambia contenido del curso
+      - 'Curso/**/README.md'
+      - 'Examen-Final.md'
   workflow_dispatch:           # Permite correrlo manualmente desde GitHub
 
 permissions:

@@ -17,8 +17,8 @@ def generate_course_data():
     
     files_processed = 0
     try:
+        # 1. Procesar módulos en el directorio 'Curso'
         for root, dirs, files in os.walk(base_dir):
-            # Buscamos README.md (mayúsculas por estándar)
             if 'README.md' in files:
                 path = os.path.join(root, 'README.md')
                 try:
@@ -26,10 +26,8 @@ def generate_course_data():
                         content = f.read()
                         
                     if not content.strip():
-                        logging.warning(f"El archivo {path} está vacío. Saltando.")
                         continue
                         
-                    # Normalizamos path para JS (siempre usar /)
                     key = path.replace('\\', '/')
                     data[key] = content
                     files_processed += 1
@@ -37,7 +35,19 @@ def generate_course_data():
                 except Exception as e:
                     logging.error(f"Error procesando {path}: {e}")
 
-        # Generar el archivo de salida
+        # 2. Procesar archivos especiales fuera del directorio 'Curso'
+        special_files = ['Examen-Final.md']
+        for s_file in special_files:
+            if os.path.exists(s_file):
+                try:
+                    with open(s_file, 'r', encoding='utf-8') as f:
+                        data[s_file] = f.read()
+                    files_processed += 1
+                    logging.info(f"✓ Procesado archivo especial: {s_file}")
+                except Exception as e:
+                    logging.error(f"Error procesando {s_file}: {e}")
+
+        # 3. Generar el archivo de salida
         output_dir = 'assets/js'
         os.makedirs(output_dir, exist_ok=True)
         
@@ -45,7 +55,7 @@ def generate_course_data():
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write('window.CourseData = ' + json.dumps(data, ensure_ascii=False) + ';')
             
-        logging.info(f"Éxito: Se procesaron {files_processed} módulos.")
+        logging.info(f"Éxito: Se procesaron {files_processed} elementos en total.")
         logging.info(f"Archivo generado en: {output_file}")
 
     except Exception as e:
