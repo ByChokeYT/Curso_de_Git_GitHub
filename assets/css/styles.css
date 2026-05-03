@@ -1114,3 +1114,117 @@ mark.search-highlight {
     color: var(--text-secondary);
     margin-bottom: 30px;
 }
+
+/* ===== QUIZ SYSTEM ===== */
+.quiz-container {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border-bright);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.quiz-timer {
+    background: var(--accent-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-family: var(--font-code);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 15px rgba(240, 80, 50, 0.3);
+}
+
+.quiz-question-text {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: white;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.quiz-option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 15px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.quiz-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+    border-color: var(--accent-color);
+}
+
+.quiz-option.correct {
+    background: rgba(0, 210, 138, 0.2);
+    border-color: var(--success-color);
+    color: var(--success-color);
+}
+
+.quiz-option.wrong {
+    background: rgba(255, 95, 86, 0.2);
+    border-color: #ff5f56;
+    color: #ff5f56;
+}
+
+.quiz-results {
+    text-align: center;
+    padding: 40px;
+}
+
+.quiz-score {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--accent-color);
+    margin: 20px 0;
+}
+
+.quiz-start-screen {
+    text-align: center;
+    padding: 40px;
+}
+
+.btn-start-quiz {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-start-quiz:hover {
+    background: var(--accent-hover);
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(240, 80, 50, 0.4);
+}

@@ -249,6 +249,137 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
+    // --- SISTEMA DE QUIZ INTERACTIVO ---
+    const quizQuestions = [
+        {
+            question: "¿Git usa el algoritmo SHA-1 para generar los hashes de los commits?",
+            options: ["Verdadero", "Falso"],
+            correct: 0,
+            explanation: "Git utiliza SHA-1 para identificar de forma única cada objeto (blobs, trees, commits)."
+        },
+        {
+            question: "¿Qué comando se usa para guardar cambios temporalmente sin hacer commit?",
+            options: ["git save", "git cache", "git stash", "git preserve"],
+            correct: 2,
+            explanation: "git stash guarda tu estado de trabajo actual para poder cambiar de contexto rápidamente."
+        },
+        {
+            question: "¿El comando 'git rebase' crea un nuevo commit de merge para unir ramas?",
+            options: ["Verdadero", "Falso"],
+            correct: 1,
+            explanation: "Rebase reescribe el historial aplicando tus commits encima de la otra rama; no crea un commit de merge."
+        },
+        {
+            question: "¿En qué carpeta se deben guardar los archivos de workflow de GitHub Actions?",
+            options: [".github/actions", ".github/workflows", "actions/config", ".config/github"],
+            correct: 1,
+            explanation: "Los archivos YAML de configuración deben ir estrictamente en .github/workflows/."
+        },
+        {
+            question: "¿Qué comando permite ver el historial de movimientos del HEAD para recuperar commits perdidos?",
+            options: ["git log --all", "git reflog", "git recover", "git history --deep"],
+            correct: 1,
+            explanation: "git reflog es la red de seguridad de Git que registra cada vez que el HEAD cambia de posición."
+        },
+        {
+            question: "¿Un commit atómico debe contener múltiples cambios de diferentes funcionalidades?",
+            options: ["Verdadero", "Falso"],
+            correct: 1,
+            explanation: "Los commits atómicos deben ser pequeños y enfocados en una única tarea o funcionalidad."
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let quizTimer;
+    let timeLeft = 25;
+
+    function startQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        const question = quizQuestions[currentQuestionIndex];
+        const quizArea = document.getElementById('quizArea');
+        timeLeft = 25;
+        
+        clearInterval(quizTimer);
+        quizTimer = setInterval(() => {
+            timeLeft--;
+            const timerEl = document.getElementById('quizTimerValue');
+            if (timerEl) timerEl.innerText = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(quizTimer);
+                handleAnswer(-1); // Tiempo agotado
+            }
+        }, 1000);
+
+        quizArea.innerHTML = `
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <span class="quiz-step">Pregunta ${currentQuestionIndex + 1} de ${quizQuestions.length}</span>
+                    <div class="quiz-timer"><i class="ri-time-line"></i> <span id="quizTimerValue">${timeLeft}</span>s</div>
+                </div>
+                <div class="quiz-question-text">${question.question}</div>
+                <div class="quiz-options">
+                    ${question.options.map((opt, i) => `
+                        <button class="quiz-option" onclick="window.handleAnswer(${i})">
+                            <span class="option-letter">${String.fromCharCode(65 + i)}</span>
+                            ${opt}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    window.handleAnswer = (selectedIndex) => {
+        clearInterval(quizTimer);
+        const question = quizQuestions[currentQuestionIndex];
+        const options = document.querySelectorAll('.quiz-option');
+        
+        if (selectedIndex === question.correct) {
+            score++;
+            if(selectedIndex !== -1) options[selectedIndex].classList.add('correct');
+        } else {
+            if(selectedIndex !== -1) options[selectedIndex].classList.add('wrong');
+            options[question.correct].classList.add('correct');
+        }
+
+        // Deshabilitar botones
+        options.forEach(opt => opt.disabled = true);
+
+        setTimeout(() => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizQuestions.length) {
+                renderQuestion();
+            } else {
+                showQuizResults();
+            }
+        }, 2000);
+    };
+
+    function showQuizResults() {
+        const quizArea = document.getElementById('quizArea');
+        const percent = Math.round((score / quizQuestions.length) * 100);
+        
+        quizArea.innerHTML = `
+            <div class="quiz-results glass-panel">
+                <i class="ri-trophy-line" style="font-size: 4rem; color: var(--accent-color);"></i>
+                <h2>¡Test Finalizado!</h2>
+                <div class="quiz-score">${percent}%</div>
+                <p>Has acertado ${score} de ${quizQuestions.length} preguntas.</p>
+                ${percent >= 80 ? '<p style="color: var(--success-color); font-weight: bold;">¡Excelente! Tienes nivel Senior.</p>' : '<p>Sigue practicando para dominar Git por completo.</p>'}
+                <button class="action-btn" onclick="window.startQuiz()">Reintentar Test</button>
+            </div>
+        `;
+        if (percent >= 80) triggerConfetti();
+    }
+
+    window.startQuiz = startQuiz;
+
     // --- CARGA DE MÓDULOS ---
     moduleList.addEventListener('click', (e) => {
         const li = e.target.closest('li');
@@ -286,6 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     const cornellHtml = renderCornell(markdownText);
                     const isDone = completedModules.includes(targetPath);
+                    const isExam = targetPath === 'Examen-Final.md';
                     
                     contentArea.innerHTML = `
                         <div class="module-card">
@@ -295,6 +427,18 @@ document.addEventListener('DOMContentLoaded', () => {
                                     ${isDone ? 'Clase Completada' : 'Marcar como Terminada'}
                                 </button>
                             </div>
+                            
+                            ${isExam ? `
+                                <div id="quizArea" class="quiz-start-screen">
+                                    <h1 style="border: none; justify-content: center; margin-bottom: 10px;">🛡️ Test de Maestría</h1>
+                                    <p style="margin-bottom: 30px;">Demuestra tus conocimientos teóricos antes de pasar a la práctica. Tienes 25s por pregunta.</p>
+                                    <button class="btn-start-quiz" onclick="window.startQuiz()">
+                                        <i class="ri-play-fill"></i> Iniciar Examen Teórico
+                                    </button>
+                                    <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--glass-border);">
+                                </div>
+                            ` : ''}
+
                             ${cornellHtml}
                         </div>
                     `;
