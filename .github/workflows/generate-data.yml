@@ -1,0 +1,36 @@
+name: 🤖 Regenerar data.js
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Curso/**/Readme.md'   # Solo corre si cambia contenido del curso
+  workflow_dispatch:           # Permite correrlo manualmente desde GitHub
+
+permissions:
+  contents: write              # Necesario para hacer commit automático
+
+jobs:
+  generate:
+    name: Generar data.js
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: 🐍 Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: ⚙️ Ejecutar generate_data.py
+        run: python generate_data.py
+
+      - name: 📝 Commit y push de data.js (si hubo cambios)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/js/data.js
+          git diff --cached --quiet || git commit -m "chore(ci): regenerar data.js [skip ci]"
+          git push

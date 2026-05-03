@@ -1,35 +1,110 @@
-# Guía de Contribución 🤝
+# 🤝 Guía de Contribución
 
-¡Gracias por tu interés en mejorar este curso de Git & GitHub! Este es un proyecto educativo diseñado para la comunidad, y todas las aportaciones son bienvenidas.
-
-## ¿Cómo puedo contribuir?
-
-### 1. Reportar Errores (Bugs)
-Si encuentras un error técnico en la WebApp o una errata en el contenido de las lecciones:
-- Abre un **Issue** describiendo el problema.
-- Indica en qué módulo o archivo ocurre.
-- Si es un error visual, adjunta una captura de pantalla.
-
-### 2. Sugerir Mejoras
-¿Crees que falta algún tema avanzado? ¿Tienes una idea para mejorar la terminal simulada?
-- Crea un **Issue** con la etiqueta `enhancement`.
-- Explica por qué crees que la mejora sería valiosa para los estudiantes.
-
-### 3. Enviar Pull Requests (PRs)
-Si quieres corregir algo tú mismo:
-1. Haz un **Fork** del repositorio.
-2. Crea una rama para tu mejora: `git checkout -b feature/mejora-increible`.
-3. Realiza tus cambios.
-4. Si editaste archivos Markdown en `Curso/`, recuerda ejecutar `python3 generate_data.py` para actualizar la base de datos.
-5. Envía tu PR hacia la rama `main`.
-
-## Estándares de Código
-- **Commits:** Usa [Conventional Commits](https://www.conventionalcommits.org/) (ej: `feat: add new module about hooks`, `fix: typo in module 01`).
-- **Markdown:** Mantén la estructura de la Metodología Cornell en las lecciones.
-- **JavaScript:** Escribe código limpio y comenta las funciones complejas.
-
-## Código de Conducta
-Sé amable y respetuoso con los demás colaboradores. Estamos aquí para aprender juntos.
+¡Gracias por querer mejorar este curso! Toda ayuda es bienvenida, desde corregir un typo hasta agregar módulos enteros.
 
 ---
-*Este proyecto es mantenido por [ByChoke](https://github.com/ByChokeYT). ¡Gracias por ser parte de la comunidad!*
+
+## 📋 Antes de empezar
+
+1. **Haz un Fork** del repositorio.
+2. **Crea una rama** con un nombre descriptivo:
+   ```bash
+   git checkout -b fix/typo-modulo-3
+   # o
+   git checkout -b feat/modulo-nuevo-hooks
+   ```
+3. Trabaja en tu cambio y haz commits usando **Conventional Commits**:
+   ```
+   fix: corregir typo en Módulo 3
+   feat: agregar módulo sobre Git Hooks
+   docs: mejorar descripción del Examen Final
+   style: mejorar estilos del sidebar
+   ```
+4. **Abre un Pull Request** hacia `main` con una descripción clara de qué cambiaste y por qué.
+
+---
+
+## 📁 Estructura del proyecto
+
+```
+Curso_de_Git_GitHub/
+├── .github/workflows/   → CI/CD con GitHub Actions
+├── Curso/               → Contenido de cada módulo (Readme.md por carpeta)
+│   ├── 01-Intro/
+│   ├── 02-Instalacion/
+│   └── ...
+├── Recursos/            → Imágenes, GIFs, portadas
+├── assets/
+│   ├── css/styles.css   → Estilos de la WebApp
+│   └── js/
+│       ├── script.js    → Lógica principal
+│       └── data.js      → GENERADO AUTOMÁTICAMENTE (no editar)
+├── index.html           → WebApp principal
+├── generate_data.py     → Script que genera data.js
+├── Examen-Final.md      → Desafío de certificación
+└── README.md
+```
+
+---
+
+## ✏️ ¿Cómo agregar o mejorar un módulo?
+
+Cada módulo es una carpeta dentro de `/Curso/` con un archivo `Readme.md`. Sigue esta estructura:
+
+```markdown
+# 🏷️ Título del Módulo
+
+Breve descripción del tema.
+
+---
+
+## Conceptos Clave
+
+...
+
+## Comandos
+
+```bash
+git ejemplo --flag
+```
+
+## Ejercicio Práctico
+
+...
+```
+
+Después de modificar cualquier `Readme.md`, el CI/CD regenerará `data.js` automáticamente. Si quieres probarlo localmente:
+
+```bash
+python generate_data.py
+```
+
+---
+
+## 🐛 Reportar un bug
+
+Abre un [Issue](https://github.com/ByChokeYT/Curso_de_Git_GitHub/issues) con:
+
+- **Título claro**: `Bug: el buscador no resalta términos con tildes`
+- **Pasos para reproducir**
+- **Comportamiento esperado vs actual**
+- **Screenshots** si aplica
+
+---
+
+## 💡 Proponer una mejora
+
+También puedes abrir un Issue con el tag `enhancement` para sugerir nuevas funcionalidades, módulos o recursos.
+
+---
+
+## ✅ Checklist antes de hacer un PR
+
+- [ ] Mis commits siguen el formato Conventional Commits
+- [ ] Probé los cambios localmente
+- [ ] Si agregué un módulo, está bien enlazado en el sidebar de `index.html`
+- [ ] No modifiqué `assets/js/data.js` manualmente (se genera solo)
+
+---
+
+Gracias por contribuir 🙌 — **ByChokeYT**
