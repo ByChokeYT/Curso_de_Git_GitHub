@@ -42,6 +42,12 @@ git sparse-checkout set folder/subfolder
 
 ---
 
+## 🧠 Pon a prueba tus conocimientos
+
+<div class="module-quiz-card" data-module="Curso/11-Productividad/README.md"></div>
+
+---
+
 ## ## Resumen (Ingeniería de Sistemas)
 
 1.  **Paralelismo Local:** Usa `worktrees` para flujos de trabajo de revisión de código complejos.

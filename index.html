@@ -18,7 +18,7 @@
     <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <!-- PWA Support -->
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="assets/manifest.json">
     <meta name="theme-color" content="#F05032">
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/styles.css">
@@ -150,7 +150,7 @@
 
 
                     <p class="nav-title"><i class="ri-checkbox-circle-line"></i> Final <span class="level-badge advanced">Nivel Experto</span></p>
-                    <li data-target="Examen-Final.md">
+                    <li data-target="Curso/14-Examen/README.md">
                         <div class="li-content">
                             <i class="ri-file-list-3-line"></i> Examen Final de Certificación
                         </div>
@@ -184,7 +184,7 @@
                     <p>Aprende de 0 a Experto las mejores prácticas de Git y GitHub para trabajar en equipo y destacar como desarrollador.</p>
                 </div>
                 <div class="hero-media">
-                    <img src="https://github.com/ByChokeYT/Curso_de_Git_GitHub/blob/main/Recursos/Portada_Git_vs_Github.gif?raw=true" alt="Hero GIF">
+                    <img src="./Recursos/Portada_Git_vs_Github.gif" alt="Hero GIF">
                 </div>
             </div>
 
@@ -217,6 +217,69 @@
         </div>
     </div>
 
+    <!-- Certificate Modal -->
+    <div class="cert-modal" id="certificateModal">
+        <div class="cert-modal-content glass-panel">
+            <span class="cert-modal-close" id="certModalClose">&times;</span>
+            
+            <!-- Certificate Card -->
+            <div class="certificate-card" id="certificateCard">
+                <div class="cert-border-outer">
+                    <div class="cert-border-inner">
+                        <div class="cert-header">
+                            <i class="ri-git-branch-line cert-logo-icon"></i>
+                            <span class="cert-academy">BYCHOKE MASTERCLASS ACADEMY</span>
+                        </div>
+                        
+                        <h1 class="cert-title">CERTIFICADO DE MAESTRÍA</h1>
+                        <p class="cert-subtitle">Este documento de excelencia certifica que el estudiante</p>
+                        
+                        <div class="cert-recipient-name" id="certStudentNameDisplay">NOMBRE DEL ESTUDIANTE</div>
+                        
+                        <div class="cert-divider"></div>
+                        
+                        <p class="cert-course-text">
+                            Ha completado satisfactoriamente y demostrado un dominio técnico excepcional en el curso práctico:
+                        </p>
+                        <h2 class="cert-course-name">ARQUITECTURA PROFUNDA DE GIT & GITHUB INTERNALS</h2>
+                        <p class="cert-scope-text">
+                            Abarcando estructura de datos VFS, Blobs, Trees, Commits, control de colisiones de fusión (Merge Conflict Resolution), Git Reflog y Automatización DevOps.
+                        </p>
+                        
+                        <div class="cert-footer">
+                            <div class="cert-sign-container">
+                                <span class="cert-signature">ByChoke YT</span>
+                                <div class="cert-sign-line"></div>
+                                <span class="cert-footer-label">Instructor Principal</span>
+                            </div>
+                            
+                            <div class="cert-seal-badge">
+                                <i class="ri-medal-fill cert-seal-icon"></i>
+                                <span class="cert-seal-text">VERIFICADO</span>
+                            </div>
+                            
+                            <div class="cert-date-container">
+                                <span class="cert-date" id="certDateDisplay">04 de Junio, 2026</span>
+                                <div class="cert-date-line"></div>
+                                <span class="cert-footer-label">Fecha de Graduación</span>
+                            </div>
+                        </div>
+                        
+                        <div class="cert-validation">
+                            ID de Autenticación: <span class="cert-uuid" id="certUuidDisplay">git-sha-7f584f1d9918b3e92b8144e5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cert-actions">
+                <button class="action-btn cert-download-btn" id="printCertBtn">
+                    <i class="ri-printer-line"></i> Guardar como PDF / Imprimir
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -225,7 +288,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
+                navigator.serviceWorker.register('./assets/js/sw.js', { scope: '/' })
                     .then(reg => console.log('SW Registered'))
                     .catch(err => console.log('SW Registration failed', err));
             });

@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'Curso/**/README.md'
-      - 'Examen-Final.md'
+      - 'scripts/generate_data.py'
   workflow_dispatch:           # Permite correrlo manualmente desde GitHub
 
 permissions:
@@ -26,7 +26,7 @@ jobs:
           python-version: '3.12'
 
       - name: ⚙️ Ejecutar generate_data.py
-        run: python generate_data.py
+        run: python scripts/generate_data.py
 
       - name: 📝 Commit y push de data.js (si hubo cambios)
         run: |

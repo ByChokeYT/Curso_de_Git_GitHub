@@ -60,6 +60,12 @@ Al revisar el código de un compañero:
 
 ---
 
+## 🧠 Pon a prueba tus conocimientos
+
+<div class="module-quiz-card" data-module="Curso/09-Buenas-Practicas/README.md"></div>
+
+---
+
 ## ## Resumen (Ingeniería de Sistemas)
 1.  **Historia Lineal:** Intenta usar `rebase` para evitar "Merge Commits" innecesarios que ensucian el grafo.
 2.  **Atomicidad:** Cada commit debe ser una unidad mínima funcional.

@@ -37,6 +37,12 @@ Cuando un rebase o merge tiene cientos de conflictos, las herramientas de IA (co
 
 ---
 
+## 🧠 Pon a prueba tus conocimientos
+
+<div class="module-quiz-card" data-module="Curso/13-AI-Dev/README.md"></div>
+
+---
+
 ## ## Resumen (Ingeniería de Sistemas)
 1.  **Aumento, no Reemplazo:** La IA te hace 10 veces más rápido documentando y asegurando tu código.
 2.  **Verificación Humana:** Nunca confíes ciegamente en una resolución de conflicto hecha por IA. Siempre corre tus tests.

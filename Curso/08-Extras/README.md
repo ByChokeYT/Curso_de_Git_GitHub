@@ -34,6 +34,12 @@ GitHub se puede conectar con:
 
 ---
 
+## 🧠 Pon a prueba tus conocimientos
+
+<div class="module-quiz-card" data-module="Curso/08-Extras/README.md"></div>
+
+---
+
 ## ## Resumen (Ingeniería de Sistemas)
 1.  **Documentación viva:** Usa la Wiki o GitHub Pages para que tu proyecto sea entendible.
 2.  **Trazabilidad:** Cada línea de código debe poder rastrearse hasta un Issue o una necesidad de negocio.

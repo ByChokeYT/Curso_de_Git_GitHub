@@ -57,7 +57,7 @@
       runs-on: ubuntu-latest
       steps:
         - run: echo "🚀 Pipeline exitoso"
-  ```
+      ```
 - [ ] Usa una herramienta de IA (ChatGPT, GitHub Copilot, etc.) para generar un mensaje de commit semántico para un cambio que elimine 10 archivos innecesarios. Documenta el resultado en un archivo `ai-commit.md`.
 
 ---

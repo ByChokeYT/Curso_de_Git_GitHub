@@ -35,19 +35,7 @@ def generate_course_data():
                 except Exception as e:
                     logging.error(f"Error procesando {path}: {e}")
 
-        # 2. Procesar archivos especiales fuera del directorio 'Curso'
-        special_files = ['Examen-Final.md']
-        for s_file in special_files:
-            if os.path.exists(s_file):
-                try:
-                    with open(s_file, 'r', encoding='utf-8') as f:
-                        data[s_file] = f.read()
-                    files_processed += 1
-                    logging.info(f"✓ Procesado archivo especial: {s_file}")
-                except Exception as e:
-                    logging.error(f"Error procesando {s_file}: {e}")
-
-        # 3. Generar el archivo de salida
+        # 2. Generar el archivo de salida
         output_dir = 'assets/js'
         os.makedirs(output_dir, exist_ok=True)
         

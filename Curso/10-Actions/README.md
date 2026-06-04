@@ -28,6 +28,12 @@ Workflows que deciden si desplegar o no basándose en el análisis de riesgo de 
 
 ---
 
+## 🧠 Pon a prueba tus conocimientos
+
+<div class="module-quiz-card" data-module="Curso/10-Actions/README.md"></div>
+
+---
+
 ## ## Resumen (Ingeniería de Sistemas)
 
 1.  **Infraestructura como Código (IaC):** Tus pipelines son parte de tu producto. Trátalos con la misma rigurosidad que el código fuente.

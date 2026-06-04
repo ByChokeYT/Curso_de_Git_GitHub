@@ -168,10 +168,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- LÓGICA MÉTODO CORNELL ---
-    function renderCornell(markdownText) {
+    function renderCornell(markdownText, targetPath) {
         const html = marked.parse(markdownText);
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = html;
+
+        // Interceptar y reemplazar enlaces de Google Forms por el contenedor del examen
+        const links = tempDiv.querySelectorAll('a');
+        links.forEach(link => {
+            const href = link.getAttribute('href') || '';
+            if (href.includes('forms.gle') || href.includes('docs.google.com/forms')) {
+                const quizCard = document.createElement('div');
+                quizCard.className = 'module-quiz-card';
+                quizCard.setAttribute('data-module', targetPath);
+                
+                const parent = link.parentElement;
+                if (parent && parent.tagName === 'P' && parent.children.length === 1) {
+                    parent.replaceWith(quizCard);
+                } else {
+                    link.replaceWith(quizCard);
+                }
+            }
+        });
+
+        // Corregir rutas de imágenes relativas (../../Recursos/... -> ./Recursos/...)
+        const images = tempDiv.querySelectorAll('img');
+        images.forEach(img => {
+            let src = img.getAttribute('src') || '';
+            if (src.includes('Recursos/')) {
+                src = src.replace(/^(\.\.\/)+/, './');
+                img.setAttribute('src', src);
+            }
+        });
 
         // 1. Extraer Título (Header)
         const h1 = tempDiv.querySelector('h1');
@@ -205,7 +233,11 @@ document.addEventListener('DOMContentLoaded', () => {
         tempDiv.querySelectorAll('strong, b, code').forEach(el => {
             if(el.parentElement.tagName === 'P' || el.parentElement.tagName === 'LI') {
                 const val = el.innerText.trim();
-                if(val.length > 1 && val.length < 40) keys.add(val);
+                // Filtrar: Debe empezar con mayúscula, contener guiones/puntos, ser todo mayúsculas y no ser "Banner" o "Imagen"
+                const isImportant = /^[A-Z]/.test(val) || val.startsWith('.') || val.includes('-') || (val.length > 2 && val === val.toUpperCase());
+                if(val.length > 1 && val.length < 45 && isImportant && !/banner|imagen/i.test(val)) {
+                    keys.add(val);
+                }
             }
         });
 
@@ -289,6 +321,152 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+    const moduleQuizzes = {
+        'Curso/01-Intro/README.md': {
+            question: "¿Qué tipo de base de datos utiliza Git internamente?",
+            options: ["Base de datos relacional (SQL)", "Base de datos de objetos direccionable por contenido", "Base de datos documental (NoSQL)"],
+            correct: 1,
+            explanation: "Git es una base de datos de objetos direccionable por contenido. Cada objeto (blobs, trees, commits) se identifica por el hash de su contenido."
+        },
+        'Curso/02-Instalacion/README.md': {
+            question: "¿Cuál es la sección de Git que sirve como 'limbo' para preparar los archivos antes de guardarlos en un commit?",
+            options: ["Working Directory", "Staging Area (Index)", "Local Repository"],
+            correct: 1,
+            explanation: "El Staging Area (o Index) es el área temporal donde preparas los archivos con 'git add' antes de confirmarlos."
+        },
+        'Curso/03-Comandos-Basicos/README.md': {
+            question: "¿Qué comando te permite modificar únicamente el mensaje del último commit realizado?",
+            options: ["git commit --amend", "git commit --change", "git reset --hard"],
+            correct: 0,
+            explanation: "'git commit --amend' permite añadir cambios de última hora y modificar el mensaje del último commit."
+        },
+        'Curso/04-Ramas/README.md': {
+            question: "¿Cuál es la principal regla de oro del comando 'git rebase'?",
+            options: ["Utilizarlo siempre en ramas públicas", "Nunca hacer rebase en ramas públicas compartidas", "Hacer rebase solo si hay conflictos"],
+            correct: 1,
+            explanation: "Nunca debes hacer rebase en ramas públicas porque reescribe la historia de commits, rompiendo el trabajo de los demás colaboradores."
+        },
+        'Curso/05-Colaboracion/README.md': {
+            question: "¿Cuál es la principal diferencia entre 'git fetch' y 'git pull'?",
+            options: ["'git fetch' mezcla los cambios directamente, 'git pull' no", "'git fetch' solo descarga el historial sin mezclar, 'git pull' descarga y mezcla automáticamente", "'git pull' es más seguro porque no toca la rama de trabajo"],
+            correct: 1,
+            explanation: "'git fetch' es seguro porque solo descarga el historial remoto sin alterar tu código local. 'git pull' combina 'fetch' y 'merge' en un solo paso, lo que puede provocar conflictos directos."
+        },
+        'Curso/06-GitHub/README.md': {
+            question: "¿Qué es un Fork en el ecosistema de GitHub?",
+            options: ["Una rama del repositorio principal", "Una copia exacta del repositorio bajo tu propia cuenta de GitHub para realizar contribuciones", "Un comando para borrar archivos de la base de datos remota"],
+            correct: 1,
+            explanation: "Un Fork es una copia de un repositorio que vive en tu cuenta personal de GitHub, permitiéndote experimentar y hacer Pull Requests sin modificar el proyecto original."
+        },
+        'Curso/07-Conflictos/README.md': {
+            question: "¿Cuándo se genera un conflicto de fusión (merge) en Git?",
+            options: ["Cuando creas dos ramas con el mismo nombre", "Cuando dos ramas modifican la misma línea del mismo archivo de forma diferente", "Al hacer un 'git push' sin haber hecho 'git pull'"],
+            correct: 1,
+            explanation: "Los conflictos ocurren cuando Git no puede decidir automáticamente qué cambio conservar porque se ha modificado la misma línea del mismo archivo."
+        },
+        'Curso/08-Extras/README.md': {
+            question: "¿Para qué sirve un Tag anotado (`git tag -a`)?",
+            options: ["Para marcar una versión inalterable agregando metadatos como autor, fecha y mensaje", "Para eliminar ramas obsoletas automáticamente", "Para ignorar archivos del sistema operativo"],
+            correct: 0,
+            explanation: "Los tags anotados guardan metadatos completos (autor, fecha, mensaje y firma) y se almacenan como objetos en la base de datos de Git, siendo la mejor práctica para marcar releases."
+        },
+        'Curso/09-Buenas-Practicas/README.md': {
+            question: "¿Qué tipo de prefijo de commit semántico debe usarse cuando solo se cambia el formato de código sin alterar la lógica de negocio?",
+            options: ["refactor", "style", "fix"],
+            correct: 1,
+            explanation: "El tipo 'style' se reserva para cambios que no afectan el significado del código (espacios en blanco, formateo, punto y coma omitido, etc.)."
+        },
+        'Curso/10-Actions/README.md': {
+            question: "¿Por qué se prefiere OIDC (OpenID Connect) sobre Secrets tradicionales en pipelines CI/CD modernos?",
+            options: ["Porque OIDC hace que el código se ejecute más rápido", "Porque elimina la necesidad de almacenar llaves de acceso persistentes mediante el uso de tokens temporales de confianza", "Porque OIDC es el formato estándar del archivo yml"],
+            correct: 1,
+            explanation: "OIDC establece una relación de confianza federada entre GitHub y tu proveedor de nube, emitiendo tokens temporales de un solo uso en lugar de contraseñas guardadas fijas."
+        },
+        'Curso/11-Productividad/README.md': {
+            question: "¿Qué problema resuelve 'git worktree'?",
+            options: ["Permite trabajar en múltiples ramas del mismo repositorio al mismo tiempo en carpetas físicas separadas", "Permite comprimir commits", "Permite recuperar commits eliminados"],
+            correct: 0,
+            explanation: "'git worktree' permite extraer una rama alternativa en una carpeta paralela, permitiéndote compilar, depurar o testear otra rama sin alterar tu directorio de trabajo actual ni hacer stash."
+        },
+        'Curso/12-Desastres/README.md': {
+            question: "¿Qué es el 'git reflog'?",
+            options: ["Un comando para borrar todo el historial", "Un registro de auditoría local que guarda todos los movimientos del HEAD, permitiendo rescatar commits o ramas borradas", "El log de commits del repositorio remoto"],
+            correct: 1,
+            explanation: "El reflog es la red de seguridad definitiva de Git local. Registra cada cambio del puntero HEAD, permitiendo recuperar commits huérfanos o ramas eliminadas."
+        },
+        'Curso/13-AI-Dev/README.md': {
+            question: "¿Cuál es la regla de oro al utilizar IA para la resolución de conflictos masivos?",
+            options: ["Confiar ciegamente en la IA y subir el código directamente a producción", "Verificar y auditar manualmente el resultado ejecutando pruebas locales antes de confirmar el merge", "No usar IA en absoluto por motivos de rendimiento"],
+            correct: 1,
+            explanation: "Aunque los LLMs entienden el contexto semántico, pueden introducir errores sutiles o bugs. La validación humana y la ejecución de pruebas son obligatorias."
+        }
+    };
+
+    function initializeModuleQuizzes() {
+        const containers = document.querySelectorAll('.module-quiz-card');
+        containers.forEach(container => {
+            const modulePath = container.getAttribute('data-module');
+            const quiz = moduleQuizzes[modulePath];
+            if (!quiz) {
+                // Si no hay quiz específico, ocultamos el contenedor
+                container.style.display = 'none';
+                return;
+            }
+            renderModuleQuiz(container, modulePath, quiz);
+        });
+    }
+
+    function renderModuleQuiz(container, modulePath, quiz) {
+        container.innerHTML = `
+            <div class="module-quiz-title">
+                <i class="ri-checkbox-circle-line"></i> Test de Aprendizaje
+            </div>
+            <div class="module-quiz-question">${quiz.question}</div>
+            <div class="module-quiz-options">
+                ${quiz.options.map((opt, idx) => `
+                    <button class="module-quiz-option" data-idx="${idx}">${opt}</button>
+                `).join('')}
+            </div>
+            <div class="module-quiz-explanation" style="display: none;"></div>
+        `;
+
+        const options = container.querySelectorAll('.module-quiz-option');
+        const explanationDiv = container.querySelector('.module-quiz-explanation');
+
+        options.forEach(button => {
+            button.addEventListener('click', () => {
+                const selectedIdx = parseInt(button.getAttribute('data-idx'));
+                
+                // Deshabilitar todas las opciones
+                options.forEach(btn => btn.disabled = true);
+
+                if (selectedIdx === quiz.correct) {
+                    button.classList.add('correct');
+                    explanationDiv.innerHTML = `<strong style="color: var(--success-color)">¡Correcto!</strong> ${quiz.explanation}`;
+                    triggerConfetti();
+                } else {
+                    button.classList.add('wrong');
+                    options[quiz.correct].classList.add('correct');
+                    explanationDiv.innerHTML = `<strong style="color: var(--accent-color)">Incorrecto.</strong> ${quiz.explanation}`;
+                }
+
+                explanationDiv.style.display = 'block';
+            });
+        });
+    }
+
+    function getNextModulePath(currentPath) {
+        const lis = Array.from(document.querySelectorAll('#moduleList li'));
+        const idx = lis.findIndex(li => li.getAttribute('data-target') === currentPath);
+        if (idx !== -1 && idx < lis.length - 1) {
+            return {
+                path: lis[idx + 1].getAttribute('data-target'),
+                name: lis[idx + 1].querySelector('.li-content').innerText.trim()
+            };
+        }
+        return null;
+    }
+
     let currentQuestionIndex = 0;
     let score = 0;
     let quizTimer;
@@ -365,17 +543,54 @@ document.addEventListener('DOMContentLoaded', () => {
         const quizArea = document.getElementById('quizArea');
         const percent = Math.round((score / quizQuestions.length) * 100);
         
+        let certificateHtml = '';
+        if (percent >= 80) {
+            certificateHtml = `
+                <div class="certificate-unlocked glass-panel" style="margin-top: 25px; padding: 25px; text-align: center; border-color: var(--success-color);">
+                    <i class="ri-medal-line" style="font-size: 3.5rem; color: var(--accent-color);"></i>
+                    <h3 style="margin: 10px 0; color: #fff;">🏆 ¡Certificación Desbloqueada!</h3>
+                    <p style="font-size: 0.95rem; margin-bottom: 20px;">Has aprobado el examen oficial. Genera tu certificado personalizado ingresando tu nombre:</p>
+                    <div style="margin-bottom: 15px;">
+                        <input type="text" id="studentCertName" placeholder="Tu Nombre Completo" class="cert-input-field" />
+                    </div>
+                    <button class="action-btn" id="openCertBtn" style="background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);">
+                        <i class="ri-file-shield-line"></i> Obtener Certificado
+                    </button>
+                </div>
+            `;
+        }
+
         quizArea.innerHTML = `
             <div class="quiz-results glass-panel">
                 <i class="ri-trophy-line" style="font-size: 4rem; color: var(--accent-color);"></i>
                 <h2>¡Test Finalizado!</h2>
                 <div class="quiz-score">${percent}%</div>
                 <p>Has acertado ${score} de ${quizQuestions.length} preguntas.</p>
-                ${percent >= 80 ? '<p style="color: var(--success-color); font-weight: bold;">¡Excelente! Tienes nivel Senior.</p>' : '<p>Sigue practicando para dominar Git por completo.</p>'}
+                ${percent >= 80 ? '<p style="color: var(--success-color); font-weight: bold;">¡Excelente! Tienes nivel Senior y has aprobado el curso.</p>' : '<p>Sigue practicando para dominar Git por completo y obtener tu certificado.</p>'}
                 <button class="action-btn" onclick="window.startQuiz()">Reintentar Test</button>
             </div>
+            ${certificateHtml}
         `;
-        if (percent >= 80) triggerConfetti();
+
+        if (percent >= 80) {
+            triggerConfetti();
+            
+            // Add listener to open certificate
+            setTimeout(() => {
+                const openCertBtn = document.getElementById('openCertBtn');
+                if (openCertBtn) {
+                    openCertBtn.addEventListener('click', () => {
+                        const nameInput = document.getElementById('studentCertName');
+                        const name = nameInput ? nameInput.value.trim() : '';
+                        if (!name) {
+                            alert('Por favor, escribe tu nombre completo para generar el certificado.');
+                            return;
+                        }
+                        showCertificate(name);
+                    });
+                }
+            }, 100);
+        }
     }
 
     window.startQuiz = startQuiz;
@@ -394,7 +609,62 @@ document.addEventListener('DOMContentLoaded', () => {
         loadModule(targetId);
     });
 
+    function seedVFSForModule(targetPath) {
+        let seeded = false;
+        if (targetPath === 'Curso/01-Intro/README.md') {
+            vfs = {};
+            gitHistory = [];
+            currentBranch = 'main';
+            branches = ['main'];
+            seeded = true;
+        } else if (targetPath === 'Curso/02-Instalacion/README.md') {
+            vfs = {};
+            gitHistory = [];
+            currentBranch = 'main';
+            branches = ['main'];
+            seeded = true;
+        } else if (targetPath === 'Curso/03-Comandos-Basicos/README.md') {
+            vfs = {
+                'index.txt': { state: 'committed', content: 'Archivo index base.' }
+            };
+            gitHistory = [
+                { hash: '4c5b3d2', message: 'feat: inicializar index', date: 'Thu May 1 20:34:00 2026' }
+            ];
+            currentBranch = 'main';
+            branches = ['main'];
+            seeded = true;
+        } else if (targetPath === 'Curso/04-Ramas/README.md') {
+            vfs = {
+                'index.html': { state: 'committed', content: 'Base de datos' }
+            };
+            gitHistory = [
+                { hash: 'a1b2c3d', message: 'initial commit', date: 'Thu May 1 20:34:00 2026' }
+            ];
+            currentBranch = 'main';
+            branches = ['main'];
+            seeded = true;
+        } else if (targetPath === 'Curso/07-Conflictos/README.md') {
+            vfs = {};
+            gitHistory = [];
+            currentBranch = 'main';
+            branches = ['main'];
+            seeded = true;
+        }
+
+        if (seeded) {
+            saveTerminalState();
+            updatePrompt();
+            if (termBody) {
+                termBody.innerHTML = '';
+            }
+            printToTerminal('<span class="term-cyan">[Sistema] Consola virtual inicializada y preparada para el laboratorio de esta clase.</span>', 'system');
+        }
+    }
+
     async function loadModule(targetPath) {
+        // Seed files for specific module labs
+        seedVFSForModule(targetPath);
+
         if(dynamicHero.style.display !== 'none' && targetPath !== 'home') {
             dynamicHero.style.opacity = '0';
             setTimeout(() => { dynamicHero.style.display = 'none'; }, 300);
@@ -417,7 +687,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     const cornellHtml = renderCornell(markdownText);
                     const isDone = completedModules.includes(targetPath);
-                    const isExam = targetPath === 'Examen-Final.md';
+                    const isExam = targetPath === 'Curso/14-Examen/README.md';
+                    const nextModule = getNextModulePath(targetPath);
                     
                     contentArea.innerHTML = `
                         <div class="module-card">
@@ -440,6 +711,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             ` : ''}
 
                             ${cornellHtml}
+
+                            ${nextModule ? `
+                                <div class="module-navigation-footer">
+                                    <button class="nav-next-btn" data-next="${nextModule.path}">
+                                        Siguiente: ${nextModule.name} <i class="ri-arrow-right-line"></i>
+                                    </button>
+                                </div>
+                            ` : ''}
                         </div>
                     `;
 
@@ -447,6 +726,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         toggleComplete(targetPath);
                         loadModule(targetPath);
                     });
+
+                    const nextBtn = contentArea.querySelector('.nav-next-btn');
+                    if (nextBtn) {
+                        nextBtn.addEventListener('click', () => {
+                            const nextPath = nextBtn.getAttribute('data-next');
+                            const nextLi = document.querySelector(`#moduleList li[data-target="${nextPath}"]`);
+                            if (nextLi) {
+                                document.querySelectorAll('#moduleList li').forEach(item => item.classList.remove('active'));
+                                nextLi.classList.add('active');
+                            }
+                            loadModule(nextPath);
+                        });
+                    }
 
                 } catch (error) {
                     contentArea.innerHTML = `<div class="module-card glass-panel"><h2>Error al cargar apuntes</h2></div>`;
@@ -462,6 +754,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     img.style.maxWidth = "100%";
                     img.style.borderRadius = "12px";
                     img.style.margin = "20px 0";
+                });
+
+                // Initialize module inline quizzes
+                initializeModuleQuizzes();
+
+                // Convertir bloques de código a contenedores Mermaid antes de renderizar
+                document.querySelectorAll('.markdown-body pre code.language-mermaid').forEach(codeBlock => {
+                    const pre = codeBlock.parentElement;
+                    const mermaidDiv = document.createElement('div');
+                    mermaidDiv.className = 'mermaid';
+                    mermaidDiv.textContent = codeBlock.textContent;
+                    pre.replaceWith(mermaidDiv);
                 });
 
                 try {
@@ -703,17 +1007,24 @@ drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-
         }
 
         if (main === 'echo') {
-            const gtIndex = args.findIndex(a => a === '>');
+            const gtIndex = args.findIndex(a => a === '>' || a === '>>');
             if (gtIndex !== -1 && args.length > gtIndex + 1) {
+                const operator = args[gtIndex];
                 const filename = args[args.length - 1];
                 const fullPath = currentDir === '~' ? filename : `${currentDir.replace('~/', '')}/${filename}`;
                 const contentParts = args.slice(1, gtIndex).join(' ');
                 const content = contentParts.replace(/^["'](.*)["']$/, '$1');
                 
+                let newContent = content;
+                if (operator === '>>' && vfs[fullPath]) {
+                    const existing = vfs[fullPath].content || '';
+                    newContent = existing + (existing ? '\n' : '') + content;
+                }
+                
                 if (!vfs[fullPath]) {
-                    vfs[fullPath] = { state: 'untracked', content: content };
+                    vfs[fullPath] = { state: 'untracked', content: newContent };
                 } else {
-                    vfs[fullPath].content = content;
+                    vfs[fullPath].content = newContent;
                     if (vfs[fullPath].state === 'committed') {
                         vfs[fullPath].state = 'untracked';
                     }
@@ -791,9 +1102,12 @@ drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-
 - <span class="term-cyan">echo "texto" &gt; &lt;file&gt;</span>: Escribir en archivo
 - <span class="term-yellow">git status</span>: Ver estado
 - <span class="term-yellow">git add &lt;file&gt; | .</span>: Añadir al staging
-- <span class="term-yellow">git commit -m "msg"</span>: Guardar cambios
+- <span class="term-yellow">git commit [-a] -m "msg"</span>: Guardar cambios
 - <span class="term-yellow">git log</span>: Ver historial
 - <span class="term-yellow">git hash-object -w &lt;file&gt;</span>: Hashear archivo
+- <span class="term-yellow">git branch [name] [-d name]</span>: Listar/borrar ramas
+- <span class="term-yellow">git checkout &lt;branch&gt; | -b &lt;branch&gt;</span>: Cambiar/crear rama
+- <span class="term-yellow">git merge &lt;branch&gt;</span>: Fusionar ramas
 - <span class="term-yellow">git push</span>: Subir al repo`, 'system');
             return;
         }
@@ -806,10 +1120,18 @@ drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-
                 printToTerminal(`Initialized empty Git repository in ${repoPath}/.git/`, 'success');
                 break;
             case 'status':
-                let statusOutput = `On branch <span class="term-cyan">${currentBranch}</span>\nYour branch is up to date with 'origin/${currentBranch}'.\n\n`;
+                let statusOutput = `On branch <span class="term-cyan">${currentBranch}</span>\n`;
+                if (gitHistory.length === 0) {
+                    statusOutput += `No commits yet\n\n`;
+                } else {
+                    statusOutput += `Your branch is up to date with 'origin/${currentBranch}'.\n\n`;
+                }
                 if (staged.length > 0) {
                     statusOutput += `Changes to be committed:\n  <span class="term-dim">(use "git restore --staged <file>..." to unstage)</span>\n`;
-                    staged.forEach(f => statusOutput += `\t<span class="term-green">modified:   ${f}</span>\n`);
+                    staged.forEach(f => {
+                        const prefix = gitHistory.length === 0 ? 'new file:' : 'modified:';
+                        statusOutput += `\t<span class="term-green">${prefix}   ${f}</span>\n`;
+                    });
                     statusOutput += `\n`;
                 }
                 if (untracked.length > 0) {
@@ -859,33 +1181,61 @@ drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-
                 }
                 break;
             case 'commit':
-                if (staged.length > 0) {
+                // Check if -a or -am is used
+                const hasAFlag = args.includes('-a') || args.some(arg => arg.startsWith('-') && arg.includes('a'));
+                if (hasAFlag) {
+                    const toAdd = Object.keys(vfs).filter(f => vfs[f].state === 'untracked' && !isIgnored(f) && vfs[f].state !== 'dir');
+                    toAdd.forEach(f => vfs[f].state = 'staged');
+                }
+
+                // Check for conflict markers in any staged files
+                let hasConflicts = false;
+                let conflictFile = '';
+                const activeStaged = Object.keys(vfs).filter(f => vfs[f].state === 'staged');
+                for (const f of activeStaged) {
+                    const content = vfs[f].content || '';
+                    if (content.includes('<<<<<<<') && content.includes('=======') && content.includes('>>>>>>>')) {
+                        hasConflicts = true;
+                        conflictFile = f;
+                        break;
+                    }
+                }
+                if (hasConflicts) {
+                    printToTerminal(`U ${conflictFile}\nfatal: committing is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.`, 'error');
+                    break;
+                }
+
+                if (activeStaged.length > 0) {
                     // Extraer mensaje del commit de args
                     let msg = 'commit automático';
-                    const mIndex = args.findIndex(a => a === '-m');
+                    const mIndex = args.findIndex(a => a === '-m' || a === '-am' || (a.startsWith('-') && a.includes('m')));
                     if (mIndex !== -1 && args.length > mIndex + 1) {
                         msg = args.slice(mIndex + 1).join(' ').replace(/^["'](.*)["']$/, '$1');
                     }
                     
                     const hash = Math.random().toString(16).substring(2, 9);
-                    staged.forEach(f => vfs[f].state = 'committed');
+                    activeStaged.forEach(f => vfs[f].state = 'committed');
                     gitHistory.unshift({
                         hash: hash,
                         message: msg,
                         date: new Date().toUTCString()
                     });
                     saveTerminalState();
-                    printToTerminal(`[${currentBranch} ${hash}] ${msg}\n ${staged.length} files changed, 1 insertion(+)`, 'success');
+                    printToTerminal(`[${currentBranch} ${hash}] ${msg}\n ${activeStaged.length} files changed, 1 insertion(+)`, 'success');
                 } else {
                     printToTerminal('nothing to commit, working tree clean', 'system');
                 }
                 break;
             case 'log':
-                let logOutput = '';
-                gitHistory.forEach(c => {
-                    logOutput += `<span class="term-yellow">commit ${c.hash}</span>\nAuthor: ByChoke Student <bychoke@example.com>\nDate:   ${c.date}\n\n    ${c.message}\n\n`;
-                });
-                printToTerminal(logOutput, 'system');
+                if (gitHistory.length === 0) {
+                    printToTerminal(`fatal: your current branch '${currentBranch}' does not have any commits yet`, 'error');
+                } else {
+                    let logOutput = '';
+                    gitHistory.forEach(c => {
+                        logOutput += `<span class="term-yellow">commit ${c.hash}</span>\nAuthor: ByChoke Student <bychoke@example.com>\nDate:   ${c.date}\n\n    ${c.message}\n\n`;
+                    });
+                    printToTerminal(logOutput, 'system');
+                }
                 break;
             case 'push':
                 printToTerminal(`Enumerating objects: ${gitHistory.length * 3}, done.\nCounting objects: 100% done.\nWriting objects: 100% done.\nTo https://github.com/bychoke/masterclass.git\n <span class="term-green">9b48256..${gitHistory[0].hash}  ${currentBranch} -> ${currentBranch}</span>`, 'system');
@@ -956,9 +1306,103 @@ drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-
                     printToTerminal('error: pathspec branch name required', 'error');
                 }
                 break;
+            case 'merge':
+                if (args.length > 2) {
+                    const targetBranch = args[2];
+                    if (targetBranch === currentBranch) {
+                        printToTerminal('Already up to date.', 'system');
+                        break;
+                    }
+                    if (!branches.includes(targetBranch)) {
+                        printToTerminal(`merge: ${targetBranch} - not something we can merge`, 'error');
+                        break;
+                    }
+                    
+                    // Simulate Module 3 Fast-Forward merge
+                    if (targetBranch === 'feature/login') {
+                        vfs['login.js'] = { state: 'committed', content: 'Lógica de Login' };
+                        const hash = Math.random().toString(16).substring(2, 9);
+                        gitHistory.unshift({
+                            hash: hash,
+                            message: `Merge branch 'feature/login'`,
+                            date: new Date().toUTCString()
+                        });
+                        saveTerminalState();
+                        printToTerminal(`Updating 4c5b3d2..${hash}\nFast-forward\n login.js | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 login.js`, 'success');
+                    } 
+                    // Simulate Module 7 Conflict merge
+                    else if (targetBranch === 'conflicto') {
+                        vfs['archivo.txt'] = { 
+                            state: 'untracked',
+                            content: `<<<<<<< HEAD\nTexto A\n=======\nTexto B\n>>>>>>> conflicto` 
+                        };
+                        saveTerminalState();
+                        printToTerminal(`Auto-merging archivo.txt\n<span class="term-red">CONFLICT (content): Merge conflict in archivo.txt</span>\nAutomatic merge failed; fix conflicts and then commit the result.`, 'error');
+                    }
+                    // Generic merge
+                    else {
+                        const hash = Math.random().toString(16).substring(2, 9);
+                        gitHistory.unshift({
+                            hash: hash,
+                            message: `Merge branch '${targetBranch}' into ${currentBranch}`,
+                            date: new Date().toUTCString()
+                        });
+                        saveTerminalState();
+                        printToTerminal(`Merge made by the 'ort' strategy.\n (simulated merge of ${targetBranch})`, 'success');
+                    }
+                } else {
+                    printToTerminal('fatal: a branch name is required to merge.', 'error');
+                }
+                break;
             default:
                 printToTerminal(`git: '${subCmd}' is not a git command. See 'git help'.`, 'error');
         }
+    }
+
+    // --- CERTIFICADO DIGITAL ---
+    function showCertificate(name) {
+        const modal = document.getElementById('certificateModal');
+        const nameDisplay = document.getElementById('certStudentNameDisplay');
+        const dateDisplay = document.getElementById('certDateDisplay');
+        const uuidDisplay = document.getElementById('certUuidDisplay');
+        
+        if (nameDisplay) nameDisplay.textContent = name.toUpperCase();
+        
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const today = new Date().toLocaleDateString('es-ES', options);
+        if (dateDisplay) dateDisplay.textContent = today;
+        
+        const randomHash = 'git-sha-' + Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10);
+        if (uuidDisplay) uuidDisplay.textContent = randomHash;
+        
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
+    window.showCertificate = showCertificate;
+
+    const certModal = document.getElementById('certificateModal');
+    const certCloseBtn = document.getElementById('certModalClose');
+    const certPrintBtn = document.getElementById('printCertBtn');
+    
+    if (certCloseBtn) {
+        certCloseBtn.addEventListener('click', () => {
+            certModal.style.display = 'none';
+        });
+    }
+    
+    if (certModal) {
+        window.addEventListener('click', (e) => {
+            if (e.target === certModal) {
+                certModal.style.display = 'none';
+            }
+        });
+    }
+    
+    if (certPrintBtn) {
+        certPrintBtn.addEventListener('click', () => {
+            window.print();
+        });
     }
 
     // Inicializar

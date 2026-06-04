@@ -1,10 +1,13 @@
 const CACHE_NAME = 'git-course-v2';
 const ASSETS = [
-  './',
-  './index.html',
-  './assets/css/styles.css',
-  './assets/js/script.js',
-  './assets/js/data.js',
+  '/',
+  '/index.html',
+  '/assets/css/styles.css',
+  '/assets/js/script.js',
+  '/assets/js/data.js',
+  '/assets/manifest.json',
+  '/Recursos/Portada_Git_vs_Github.gif',
+  '/Recursos/git_cheat_sheet.png',
   'https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css',
   'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500;700&display=swap'
 ];

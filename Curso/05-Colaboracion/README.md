@@ -38,6 +38,12 @@ Es el momento donde otros ingenieros critican constructivamente el código. En 2
 
 ---
 
+## 🧠 Pon a prueba tus conocimientos
+
+<div class="module-quiz-card" data-module="Curso/05-Colaboracion/README.md"></div>
+
+---
+
 ## ## Resumen (Ingeniería de Sistemas)
 
 1.  **Draft PRs:** Úsalos para pedir feedback temprano sin intención de mezclar todavía el código.

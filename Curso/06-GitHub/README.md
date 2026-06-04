@@ -40,6 +40,12 @@ Los [Gists](https://gist.github.com) son repositorios pequeños de un solo archi
 
 ---
 
+## 🧠 Pon a prueba tus conocimientos
+
+<div class="module-quiz-card" data-module="Curso/06-GitHub/README.md"></div>
+
+---
+
 ## ## Resumen (Ingeniería de Sistemas)
 1.  **Visibilidad:** No basta con programar bien; hay que saber mostrarlo.
 2.  **Estandarización:** Sigue las reglas del repositorio donde contribuyes (`CONTRIBUTING.md`).

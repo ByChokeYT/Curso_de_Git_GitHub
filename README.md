@@ -100,6 +100,7 @@ Este repositorio no es solo documentación — es una **WebApp de aprendizaje in
 - 📖 [Documentación oficial de Git](https://git-scm.com/doc)
 - 📗 [Pro Git — el libro gratuito definitivo](https://git-scm.com/book/es/v2)
 - 📋 [Cheat Sheet de comandos](https://training.github.com/downloads/es_ES/github-git-cheat-sheet/)
+- 🗺️ [Guía Visual: Git Workflow & Cheat Sheet (Local)](Recursos/git_cheat_sheet.png)
 - ✅ [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/)
 - 🧠 [Learn Git Branching (interactivo)](https://learngitbranching.js.org/?locale=es_ES)
 

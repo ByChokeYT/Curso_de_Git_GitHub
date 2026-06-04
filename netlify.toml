@@ -1,0 +1,4 @@
+[[headers]]
+  for = "/assets/js/sw.js"
+  [headers.values]
+    Service-Worker-Allowed = "/"

@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'Curso/**/*.md'
-      - 'generate_data.py'
+      - 'scripts/generate_data.py'
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
           python-version: '3.10'
 
       - name: Generate Data.js
-        run: python3 generate_data.py
+        run: python3 scripts/generate_data.py
 
       - name: Commit and Push changes
         run: |

@@ -54,6 +54,12 @@ Necesitas un commit específico de la rama `feature-x` en tu rama `main`, pero n
 
 ---
 
+## 🧠 Pon a prueba tus conocimientos
+
+<div class="module-quiz-card" data-module="Curso/12-Desastres/README.md"></div>
+
+---
+
 ## ## Resumen (Ingeniería de Sistemas)
 1.  **Nada se pierde:** En Git, casi todo es recuperable si se ha hecho un commit al menos una vez.
 2.  **Reset vs Revert:** Usa `reset` para limpiar tu local; usa `revert` para deshacer cambios que ya están en el servidor (para no romper la historia de otros).
