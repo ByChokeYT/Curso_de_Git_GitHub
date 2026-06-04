@@ -1,4 +1,4 @@
-const CACHE_NAME = 'git-course-v1';
+const CACHE_NAME = 'git-course-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -18,9 +18,24 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.match(event.request).then(cachedResponse => {
+        const fetchPromise = fetch(event.request).then(networkResponse => {
+          if (networkResponse.status === 200) {
+            cache.put(event.request, networkResponse.clone());
+          }
+          return networkResponse;
+        }).catch(err => {
+          console.warn('Network fetch failed; serving cached version if present.', err);
+        });
+        return cachedResponse || fetchPromise;
+      });
     })
   );
 });

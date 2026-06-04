@@ -481,15 +481,59 @@ document.addEventListener('DOMContentLoaded', () => {
     let isTerminalOpen = false;
     let commandHistory = [];
     let historyIndex = -1;
+    let currentDir = '~';
 
-    // --- VIRTUAL FILE SYSTEM (VFS) ---
-    let vfs = {
-        'index.html': { state: 'committed' },
-        'styles.css': { state: 'committed' }
+    let currentBranch = localStorage.getItem('gitBranch') || 'main';
+    let branches = JSON.parse(localStorage.getItem('gitBranches')) || ['main'];
+
+    function updatePrompt() {
+        const promptEl = document.querySelector('.prompt');
+        if (promptEl) {
+            promptEl.innerHTML = `usuario@git-master:${currentDir} <span class="term-cyan">(${currentBranch})</span>$`;
+        }
+    }
+    updatePrompt();
+
+    // --- VIRTUAL FILE SYSTEM (VFS) V2 ---
+    let vfs = JSON.parse(localStorage.getItem('gitVFS')) || {
+        'index.html': { state: 'committed', content: '<!DOCTYPE html>\n<html>\n<head>\n<title>Mi Proyecto</title>\n</head>\n<body>\n<h1>Hola Mundo</h1>\n</body>\n</html>' },
+        'styles.css': { state: 'committed', content: 'body { background: #000; color: #fff; }' }
     };
 
+    let gitHistory = JSON.parse(localStorage.getItem('gitLog')) || [
+        { hash: '4c5b3d2', message: 'feat: initial commit', date: 'Thu May 1 20:34:00 2026' }
+    ];
+
+    function saveTerminalState() {
+        localStorage.setItem('gitVFS', JSON.stringify(vfs));
+        localStorage.setItem('gitLog', JSON.stringify(gitHistory));
+        localStorage.setItem('gitBranch', currentBranch);
+        localStorage.setItem('gitBranches', JSON.stringify(branches));
+    }
+
+    function isIgnored(path) {
+        // Encontrar .gitignore en la raíz o directorio actual
+        // Simplificación: Buscamos un archivo llamado '.gitignore' en cualquier parte del VFS
+        const gitignoreFile = Object.keys(vfs).find(f => f.endsWith('.gitignore'));
+        if (!gitignoreFile) return false;
+
+        const content = vfs[gitignoreFile].content || '';
+        const patterns = content.split('\n').map(p => p.trim()).filter(p => p && !p.startsWith('#'));
+        
+        // El path que recibimos puede ser relativo al root o completo
+        // Simplificación: buscamos si el nombre del archivo está en los patrones
+        const filename = path.includes('/') ? path.split('/').pop() : path;
+        
+        return patterns.some(pattern => {
+            // Soporte básico: coincidencia exacta o comodín simple
+            if (pattern === filename) return true;
+            if (pattern.endsWith('/') && filename.startsWith(pattern.slice(0, -1))) return true;
+            return false;
+        });
+    }
+
     function getVFSStatus() {
-        const untracked = Object.keys(vfs).filter(f => vfs[f].state === 'untracked');
+        const untracked = Object.keys(vfs).filter(f => vfs[f].state === 'untracked' && !isIgnored(f) && vfs[f].state !== 'dir');
         const staged = Object.keys(vfs).filter(f => vfs[f].state === 'staged');
         const committed = Object.keys(vfs).filter(f => vfs[f].state === 'committed');
         return { untracked, staged, committed };
@@ -504,6 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
             termToggle.style.background = '#ff5f56';
         } else {
             termContainer.classList.remove('show');
+            termContainer.classList.remove('maximized');
             termToggle.innerHTML = '<i class="ri-terminal-box-line"></i> Abrir Terminal';
             termToggle.style.background = 'var(--accent-color)';
         }
@@ -512,10 +557,23 @@ document.addEventListener('DOMContentLoaded', () => {
     termToggle.addEventListener('click', toggleTerminal);
     termClose.addEventListener('click', toggleTerminal);
 
+    const termMinimize = document.querySelector('.term-btn.minimize');
+    const termMaximize = document.querySelector('.term-btn.maximize');
+
+    if (termMinimize) {
+        termMinimize.addEventListener('click', toggleTerminal);
+    }
+    if (termMaximize) {
+        termMaximize.addEventListener('click', () => {
+            termContainer.classList.toggle('maximized');
+            termInput.focus();
+        });
+    }
+
     function printToTerminal(text, type = 'system') {
         const div = document.createElement('div');
         div.className = `terminal-line ${type}`;
-        div.innerText = text;
+        div.innerHTML = text; // Cambiado a innerHTML para soportar clases de colores
         termBody.appendChild(div);
         termBody.scrollTop = termBody.scrollHeight;
     }
@@ -524,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') {
             const cmd = this.value.trim();
             if (cmd) {
-                printToTerminal(`usuario@git-master:~$ ${cmd}`, 'command');
+                printToTerminal(`usuario@git-master:${currentDir}$ ${cmd}`, 'command');
                 commandHistory.push(cmd);
                 historyIndex = commandHistory.length;
                 processCommand(cmd);
@@ -557,10 +615,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function processCommand(cmd) {
-        const parts = cmd.toLowerCase().split(' ').filter(p => p.trim() !== '');
-        if (parts.length === 0) return;
+        if (!cmd.trim()) return;
+        
+        // Mejorar parsing para mantener mayúsculas en strings
+        const args = cmd.split(' ').filter(p => p.trim() !== '');
+        if (args.length === 0) return;
 
-        const main = parts[0];
+        const main = args[0].toLowerCase();
         
         if (main === 'clear') {
             termBody.innerHTML = '';
@@ -572,20 +633,125 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        if (main === 'pwd') {
+            const pwdPath = currentDir.replace('~', '/home/usuario');
+            printToTerminal(pwdPath, 'system');
+            return;
+        }
+
+        if (main === 'mkdir') {
+            if (args.length > 1) {
+                const dirName = args[1];
+                const fullPath = currentDir === '~' ? dirName : `${currentDir}/${dirName}`.replace('~/', '');
+                vfs[fullPath] = { state: 'dir', content: '' };
+                saveTerminalState();
+            } else {
+                printToTerminal('mkdir: falta un operando', 'error');
+            }
+            return;
+        }
+
+        if (main === 'cd') {
+            if (args.length > 1) {
+                const dirName = args[1];
+                if (dirName === '..') {
+                    if (currentDir !== '~') {
+                        const parts = currentDir.split('/');
+                        parts.pop();
+                        currentDir = parts.length > 0 ? parts.join('/') : '~';
+                    }
+                } else {
+                    const checkPath = currentDir === '~' ? dirName : `${currentDir}/${dirName}`.replace('~/', '');
+                    // Permite entrar si existe el dir o si es una simulación flexible
+                    currentDir = currentDir === '~' ? `~/${dirName}` : `${currentDir}/${dirName}`;
+                }
+                updatePrompt();
+            } else {
+                currentDir = '~';
+                updatePrompt();
+            }
+            return;
+        }
+
         if (main === 'ls') {
-            const files = Object.keys(vfs).join('  ');
+            if (args.includes('.git')) {
+                printToTerminal(`total 40
+drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-weight:bold">.</span>
+drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-weight:bold">..</span>
+-rw-r--r-- 1 usuario 197121 23 May  1 20:34 HEAD
+drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-weight:bold">branches</span>
+-rw-r--r-- 1 usuario 197121 92 May  1 20:34 config
+-rw-r--r-- 1 usuario 197121 73 May  1 20:34 description
+drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-weight:bold">hooks</span>
+drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-weight:bold">info</span>
+drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-weight:bold">objects</span>
+drwxr-xr-x 1 usuario 197121  0 May  1 20:34 <span class="term-cyan" style="font-weight:bold">refs</span>`, 'system');
+                return;
+            }
+
+            // Filtrar archivos del directorio actual de forma simplificada
+            const prefix = currentDir === '~' ? '' : currentDir.replace('~/', '') + '/';
+            const files = Object.keys(vfs).filter(f => {
+                if (prefix === '') return !f.includes('/');
+                return f.startsWith(prefix) && f.substring(prefix.length).indexOf('/') === -1;
+            }).map(f => {
+                const name = f.replace(prefix, '');
+                return vfs[f].state === 'dir' ? `<span class="term-cyan" style="font-weight:bold">${name}/</span>` : `<span class="term-cyan">${name}</span>`;
+            }).join('  ');
             printToTerminal(files || '(directorio vacío)', 'system');
             return;
         }
 
+        if (main === 'echo') {
+            const gtIndex = args.findIndex(a => a === '>');
+            if (gtIndex !== -1 && args.length > gtIndex + 1) {
+                const filename = args[args.length - 1];
+                const fullPath = currentDir === '~' ? filename : `${currentDir.replace('~/', '')}/${filename}`;
+                const contentParts = args.slice(1, gtIndex).join(' ');
+                const content = contentParts.replace(/^["'](.*)["']$/, '$1');
+                
+                if (!vfs[fullPath]) {
+                    vfs[fullPath] = { state: 'untracked', content: content };
+                } else {
+                    vfs[fullPath].content = content;
+                    if (vfs[fullPath].state === 'committed') {
+                        vfs[fullPath].state = 'untracked';
+                    }
+                }
+                saveTerminalState();
+                printToTerminal('', 'system');
+            } else {
+                const contentParts = args.slice(1).join(' ').replace(/^["'](.*)["']$/, '$1');
+                printToTerminal(contentParts, 'system');
+            }
+            return;
+        }
+
+        if (main === 'cat') {
+            if (args.length > 1) {
+                const filename = args[1];
+                const fullPath = currentDir === '~' ? filename : `${currentDir.replace('~/', '')}/${filename}`;
+                if (vfs[fullPath]) {
+                    printToTerminal(`<span class="term-dim">${vfs[fullPath].content || '(archivo vacío)'}</span>`, 'system');
+                } else {
+                    printToTerminal(`cat: ${filename}: No existe el archivo`, 'error');
+                }
+            } else {
+                printToTerminal('cat: falta un operando de archivo', 'error');
+            }
+            return;
+        }
+
         if (main === 'touch') {
-            if (parts.length > 1) {
-                const filename = parts[1];
-                if (vfs[filename]) {
+            if (args.length > 1) {
+                const filename = args[1];
+                const fullPath = currentDir === '~' ? filename : `${currentDir.replace('~/', '')}/${filename}`;
+                if (vfs[fullPath]) {
                     printToTerminal(`touch: el archivo '${filename}' ya existe.`, 'system');
                 } else {
-                    vfs[filename] = { state: 'untracked' };
-                    printToTerminal(`Archivo '${filename}' creado.`, 'success');
+                    vfs[fullPath] = { state: 'untracked', content: '' };
+                    saveTerminalState();
+                    printToTerminal(`Archivo '<span class="term-cyan">${filename}</span>' creado.`, 'success');
                 }
             } else {
                 printToTerminal('touch: falta un operando de archivo', 'error');
@@ -594,10 +760,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (main === 'rm') {
-            if (parts.length > 1) {
-                const filename = parts[1];
-                if (vfs[filename]) {
-                    delete vfs[filename];
+            if (args.length > 1) {
+                const filename = args[1];
+                const fullPath = currentDir === '~' ? filename : `${currentDir.replace('~/', '')}/${filename}`;
+                if (vfs[fullPath]) {
+                    delete vfs[fullPath];
+                    saveTerminalState();
                     printToTerminal(`Archivo '${filename}' eliminado.`, 'success');
                 } else {
                     printToTerminal(`rm: no se puede borrar '${filename}': No existe el archivo`, 'error');
@@ -613,18 +781,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const subCmd = parts[1];
+        const subCmd = args[1] ? args[1].toLowerCase() : '';
         if (!subCmd || subCmd === 'help') {
-            printToTerminal(`Comandos Git disponibles:
-- init: Inicializar repositorio
-- status: Ver estado de archivos (VFS activo)
-- add <file>: Añadir al staging
-- commit -m "msg": Guardar cambios
-- branch: Ver o crear ramas
-- checkout: Cambiar de rama
-- merge: Unir ramas
-- log: Ver historial
-- push: Subir a la nube`, 'system');
+            printToTerminal(`Comandos Bash/Git disponibles:
+- <span class="term-cyan">ls, pwd, clear, whoami</span>
+- <span class="term-cyan">touch &lt;file&gt;</span>: Crear archivo
+- <span class="term-cyan">rm &lt;file&gt;</span>: Borrar archivo
+- <span class="term-cyan">cat &lt;file&gt;</span>: Ver archivo
+- <span class="term-cyan">echo "texto" &gt; &lt;file&gt;</span>: Escribir en archivo
+- <span class="term-yellow">git status</span>: Ver estado
+- <span class="term-yellow">git add &lt;file&gt; | .</span>: Añadir al staging
+- <span class="term-yellow">git commit -m "msg"</span>: Guardar cambios
+- <span class="term-yellow">git log</span>: Ver historial
+- <span class="term-yellow">git hash-object -w &lt;file&gt;</span>: Hashear archivo
+- <span class="term-yellow">git push</span>: Subir al repo`, 'system');
             return;
         }
 
@@ -632,71 +802,159 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch(subCmd) {
             case 'init':
-                printToTerminal('Initialized empty Git repository in /home/usuario/proyecto/.git/', 'success');
+                const repoPath = currentDir.replace('~', '/home/usuario');
+                printToTerminal(`Initialized empty Git repository in ${repoPath}/.git/`, 'success');
                 break;
             case 'status':
-                let statusOutput = `On branch main\n\n`;
+                let statusOutput = `On branch <span class="term-cyan">${currentBranch}</span>\nYour branch is up to date with 'origin/${currentBranch}'.\n\n`;
                 if (staged.length > 0) {
-                    statusOutput += `Changes to be committed:\n  (use "git restore --staged <file>..." to unstage)\n`;
-                    staged.forEach(f => statusOutput += `\tmodified:   ${f}\n`);
+                    statusOutput += `Changes to be committed:\n  <span class="term-dim">(use "git restore --staged <file>..." to unstage)</span>\n`;
+                    staged.forEach(f => statusOutput += `\t<span class="term-green">modified:   ${f}</span>\n`);
                     statusOutput += `\n`;
                 }
                 if (untracked.length > 0) {
-                    statusOutput += `Untracked files:\n  (use "git add <file>..." to include in what will be committed)\n`;
-                    untracked.forEach(f => statusOutput += `\t${f}\n`);
-                    statusOutput += `\nnothing added to commit but untracked files present`;
+                    statusOutput += `Untracked files:\n  <span class="term-dim">(use "git add <file>..." to include in what will be committed)</span>\n`;
+                    untracked.forEach(f => statusOutput += `\t<span class="term-red">${f}</span>\n`);
+                    statusOutput += `\n<span class="term-red">nothing added to commit but untracked files present</span>`;
                 } else if (staged.length === 0) {
                     statusOutput += `nothing to commit, working tree clean`;
                 }
                 printToTerminal(statusOutput, 'system');
                 break;
             case 'add':
-                if (parts.length > 2) {
-                    const target = parts[2];
+                if (args.length > 2) {
+                    const target = args[2];
                     if (target === '.') {
-                        untracked.forEach(f => vfs[f].state = 'staged');
-                        printToTerminal('Todos los archivos añadidos al staging area.', 'success');
+                        const toAdd = Object.keys(vfs).filter(f => vfs[f].state === 'untracked' && !isIgnored(f));
+                        toAdd.forEach(f => vfs[f].state = 'staged');
+                        printToTerminal(`Añadidos ${toAdd.length} archivos al staging area.`, 'success');
                     } else if (vfs[target]) {
                         vfs[target].state = 'staged';
                         printToTerminal(`Archivo '${target}' añadido al staging area.`, 'success');
                     } else {
                         printToTerminal(`fatal: pathspec '${target}' did not match any files`, 'error');
                     }
+                    saveTerminalState();
                 } else {
                     printToTerminal('nothing specified, nothing added.', 'system');
                 }
                 break;
+            case 'hash-object':
+                if (args.length > 2) {
+                    const filename = args[args.length - 1]; // last argument is filename
+                    const fullPath = currentDir === '~' ? filename : `${currentDir.replace('~/', '')}/${filename}`;
+                    if (vfs[fullPath]) {
+                        // Un hash SHA-1 real de ejemplo
+                        const content = vfs[fullPath].content || '';
+                        // Mock de hash realista (si es "hola" o similar genera uno estático, sino aleatorio)
+                        const hash = content.trim().toLowerCase() === 'hola' 
+                                     ? 'e965066eaa51c36dfc246f9037953284ff3666b6' 
+                                     : Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10);
+                        printToTerminal(hash, 'system');
+                    } else {
+                        printToTerminal(`fatal: Cannot open '${filename}': No such file or directory`, 'error');
+                    }
+                } else {
+                    printToTerminal('usage: git hash-object [-w] <file>', 'error');
+                }
+                break;
             case 'commit':
                 if (staged.length > 0) {
+                    // Extraer mensaje del commit de args
+                    let msg = 'commit automático';
+                    const mIndex = args.findIndex(a => a === '-m');
+                    if (mIndex !== -1 && args.length > mIndex + 1) {
+                        msg = args.slice(mIndex + 1).join(' ').replace(/^["'](.*)["']$/, '$1');
+                    }
+                    
+                    const hash = Math.random().toString(16).substring(2, 9);
                     staged.forEach(f => vfs[f].state = 'committed');
-                    printToTerminal(`[main ${Math.random().toString(16).substring(2, 8)}] commit exitoso\n ${staged.length} files changed`, 'success');
+                    gitHistory.unshift({
+                        hash: hash,
+                        message: msg,
+                        date: new Date().toUTCString()
+                    });
+                    saveTerminalState();
+                    printToTerminal(`[${currentBranch} ${hash}] ${msg}\n ${staged.length} files changed, 1 insertion(+)`, 'success');
                 } else {
                     printToTerminal('nothing to commit, working tree clean', 'system');
                 }
                 break;
+            case 'log':
+                let logOutput = '';
+                gitHistory.forEach(c => {
+                    logOutput += `<span class="term-yellow">commit ${c.hash}</span>\nAuthor: ByChoke Student <bychoke@example.com>\nDate:   ${c.date}\n\n    ${c.message}\n\n`;
+                });
+                printToTerminal(logOutput, 'system');
+                break;
             case 'push':
-                printToTerminal(`Enumerating objects: 3, done.\nCounting objects: 100% (3/3), done.\nWriting objects: 100% (3/3), listo.\nTo https://github.com/usuario/repo.git\n * [new branch]      main -> main`, 'system');
+                printToTerminal(`Enumerating objects: ${gitHistory.length * 3}, done.\nCounting objects: 100% done.\nWriting objects: 100% done.\nTo https://github.com/bychoke/masterclass.git\n <span class="term-green">9b48256..${gitHistory[0].hash}  ${currentBranch} -> ${currentBranch}</span>`, 'system');
                 break;
             case 'branch':
-                if (parts.length > 2) {
-                    printToTerminal(`Created branch '${parts[2]}'`, 'success');
+                if (args.length > 2) {
+                    const deleteIndex = args.indexOf('-d') !== -1 ? args.indexOf('-d') : args.indexOf('-D');
+                    if (deleteIndex !== -1 && args.length > deleteIndex + 1) {
+                        const targetBranch = args[deleteIndex + 1];
+                        if (targetBranch === currentBranch) {
+                            printToTerminal(`error: Cannot delete branch '${targetBranch}' checked out at '${currentDir}'`, 'error');
+                        } else if (branches.includes(targetBranch)) {
+                            branches = branches.filter(b => b !== targetBranch);
+                            saveTerminalState();
+                            printToTerminal(`Deleted branch ${targetBranch} (was ${Math.random().toString(16).substring(2, 9)}).`, 'success');
+                        } else {
+                            printToTerminal(`error: branch '${targetBranch}' not found.`, 'error');
+                        }
+                    } else {
+                        // Create branch
+                        const newBranch = args[2];
+                        if (branches.includes(newBranch)) {
+                            printToTerminal(`fatal: A branch named '${newBranch}' already exists.`, 'error');
+                        } else {
+                            branches.push(newBranch);
+                            saveTerminalState();
+                            printToTerminal(`Created branch '<span class="term-cyan">${newBranch}</span>'`, 'success');
+                        }
+                    }
                 } else {
-                    printToTerminal(`* main\n  develop\n  feature/auth`, 'system');
+                    // List branches
+                    const list = branches.map(b => {
+                        if (b === currentBranch) {
+                            return `* <span class="term-green">${b}</span>`;
+                        } else {
+                            return `  ${b}`;
+                        }
+                    }).join('\n');
+                    printToTerminal(list, 'system');
                 }
                 break;
             case 'checkout':
-                if (parts.length > 2) {
-                    const branch = parts[parts.length - 1];
-                    printToTerminal(`Switched to branch '${branch}'`, 'success');
+                if (args.length > 2) {
+                    const bIndex = args.indexOf('-b');
+                    if (bIndex !== -1 && args.length > bIndex + 1) {
+                        const newBranch = args[bIndex + 1];
+                        if (branches.includes(newBranch)) {
+                            printToTerminal(`fatal: A branch named '${newBranch}' already exists.`, 'error');
+                        } else {
+                            branches.push(newBranch);
+                            currentBranch = newBranch;
+                            saveTerminalState();
+                            updatePrompt();
+                            printToTerminal(`Switched to a new branch '<span class="term-cyan">${newBranch}</span>'`, 'success');
+                        }
+                    } else {
+                        const targetBranch = args[args.length - 1];
+                        if (branches.includes(targetBranch)) {
+                            currentBranch = targetBranch;
+                            saveTerminalState();
+                            updatePrompt();
+                            printToTerminal(`Switched to branch '<span class="term-cyan">${targetBranch}</span>'`, 'success');
+                        } else {
+                            printToTerminal(`error: pathspec '${targetBranch}' did not match any file(s) known to git.`, 'error');
+                        }
+                    }
                 } else {
                     printToTerminal('error: pathspec branch name required', 'error');
                 }
-                break;
-            case 'merge':
-                printToTerminal('Updating 4c5b3d2..a1fcd4b\nFast-forward\n index.html | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)', 'success');
-                break;
-            case 'log':
-                printToTerminal(`commit 4c5b3d2ef9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4 (HEAD -> main)\nAuthor: ByChokeYT <bychoke@example.com>\nDate:   Thu May 1 20:34:00 2026 -0400\n\n    feat: initial commit`, 'system');
                 break;
             default:
                 printToTerminal(`git: '${subCmd}' is not a git command. See 'git help'.`, 'error');
@@ -707,7 +965,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
     setTimeout(() => {
         dynamicHero.style.display = 'flex';
-        loadModule('Curso/01-Intro/Readme.md');
+        loadModule('Curso/01-Intro/README.md');
     }, 100);
 
 });

@@ -265,7 +265,7 @@ body {
 .sidebar-nav li.active::before {
     content: '';
     position: absolute;
-    left: -12px;
+    left: 0;
     top: 20%;
     height: 60%;
     width: 4px;
@@ -299,21 +299,6 @@ body {
     color: white;
 }
 
-.sidebar-nav li:hover {
-    background: rgba(255, 255, 255, 0.03);
-    color: var(--text-color);
-    transform: translateX(4px);
-}
-
-.sidebar-nav li.active {
-    background: var(--accent-color);
-    color: white;
-    box-shadow: 0 4px 15px rgba(240, 80, 50, 0.3);
-}
-
-.sidebar-nav li.active i {
-    color: white;
-}
 
 .sidebar-nav li i {
     font-size: 1.2rem;
@@ -959,7 +944,12 @@ body {
     transform: translateY(120%);
     opacity: 0;
     pointer-events: none;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.4s ease, 
+                width 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                height 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     font-family: var(--font-code);
 }
@@ -968,6 +958,14 @@ body {
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
+}
+
+.terminal-container.maximized {
+    width: calc(100vw - 48px);
+    max-width: none;
+    height: calc(100vh - 128px);
+    bottom: 24px;
+    right: 24px;
 }
 
 .terminal-header {
@@ -1227,4 +1225,33 @@ mark.search-highlight {
     background: var(--accent-hover);
     transform: scale(1.05);
     box-shadow: 0 10px 25px rgba(240, 80, 50, 0.4);
+}
+
+/* ===== TERMINAL V2 COLORS ===== */
+.term-red { color: #ff5f56; }
+.term-green { color: #27c93f; }
+.term-yellow { color: #febc2e; }
+.term-cyan { color: #00d2ff; }
+.term-dim { color: rgba(255, 255, 255, 0.4); }
+
+.terminal-line {
+    white-space: pre-wrap;
+    margin-bottom: 5px;
+}
+
+.terminal-line.command {
+    color: #fff;
+    font-weight: 600;
+}
+
+.terminal-line.success {
+    color: var(--success-color);
+}
+
+.terminal-line.error {
+    color: #ff5f56;
+}
+
+.terminal-line.system {
+    color: #94a3b8;
 }
